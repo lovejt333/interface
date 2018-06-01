@@ -1,0 +1,512 @@
+swagger: '2.0'
+info:
+  title: 优惠券API
+  version: 1.0.0
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+security:
+  - petstore_auth:
+      - coupon_info
+      - 'coupon_info:write'
+      - 'coupon_info:delete'
+      - 'coupon_info:read'
+      - 'coupon_info:create'
+paths:
+  /v1/validCode:
+    post:
+      summary: 获得验证码
+      operationId: getCode
+      security:
+        - petstore_auth:
+            - coupon_info
+      parameters:
+        - name: owner_mobile
+          in: query
+          required: true
+          type: string
+          description: 手机号码
+      responses:
+        '200':
+          description: 执行成功
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  /v1/couponInfo:
+    get:
+      summary: 获得优惠券列表数据
+      operationId: getcoupons
+      security:
+        - petstore_auth:
+            - coupon_info
+      parameters:
+        - name: coupon_name
+          in: query
+          required: false
+          type: string
+          description: 优惠券名称
+        - name: status
+          in: query
+          required: false
+          type: string
+          description: '优惠券状态(0:所有，1:未开始，2：进行中，3：已结束)'
+        - name: comp_id
+          in: query
+          required: true
+          type: string
+          description: comp_id
+        - name: pageindex
+          in: query
+          required: false
+          type: integer
+          description: 当前页码
+        - name: pagesize
+          in: query
+          required: false
+          type: integer
+          description: 每页数量
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/couponlist'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+    post:
+      summary: 新增优惠券
+      operationId: addcoupon
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/addcoupon'
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/addresult'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+      
+  /v1/couponInfo/{coupon_uuid}/amount:
+    put:
+      summary: 修改母券总数
+      operationId: update_coupon_amount
+      parameters:
+        - name: coupon_uuid
+          in: path
+          required: true
+          type: string
+          description: 优惠券coupon_uuid
+        - name: coupon_amount
+          in: query
+          required: true
+          type: integer
+          description: 优惠券发放总数
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/result'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  '/v1/couponInfo/{coupon_uuid}':
+    get:
+      summary: 获得单个优惠券详情
+      operationId: getcoupon
+      security:
+        - petstore_auth:
+            - coupon_info
+      parameters:
+        - name: coupon_uuid
+          in: path
+          required: true
+          type: string
+          description: 优惠券coupon_uuid
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/coupon_info'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      summary: 修改母券状态
+      operationId: update_valid_flag
+      parameters:
+        - name: coupon_uuid
+          in: path
+          required: true
+          type: string
+          description: 母券uuid
+        - name: valid_flag
+          in: query
+          required: true
+          type: string
+          description: 母券状态（0 无效    1 有效）
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/result'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  '/v1/couponInfo/{coupon_uuid}/couponSpec':
+    get:
+      tags:
+        - coupon_spec
+      summary: 获取优惠券子券列表数据
+      operationId: CouponSpecGet
+      consumes: []
+      produces:
+        - text/plain
+        - application/json
+        - text/json
+      parameters:
+        - name: pageindex
+          in: query
+          required: true
+          type: integer
+          format: int32
+          description: 当前页
+        - name: pagesize
+          in: query
+          required: true
+          type: integer
+          format: int32
+          description: 每页数量
+        - name: coupon_uuid
+          in: path
+          required: true
+          type: string
+          description: 母券uuid
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/PageResult[coupon_spec]'
+      deprecated: false
+    post:
+      tags:
+        - coupon_spec
+      summary: 新建子券
+      operationId: CouponSpecPost
+      consumes:
+        - application/json
+        - text/json
+        - application/json-patch+json
+      produces: []
+      parameters:
+        - name: coupon_uuid
+          in: path
+          required: true
+          type: string
+          description: 母券uuid
+        - name: body
+          in: body
+          required: true
+          description: 母券uuid
+          schema:
+            $ref: '#/definitions/post_coupon_spec'
+      responses:
+        '200':
+          description: 执行成功
+      deprecated: false
+definitions:
+  coupon_info:
+    description: 优惠券模型
+    type: object
+    properties:
+      coupon_uuid:
+        type: string
+        description: 优惠券主键
+      coupon_code:
+        type: string
+        description: 优惠券编号
+      coupon_name:
+        type: string
+        description: 优惠券名称
+      coupon_amount:
+        type: integer
+        description: 发放总数
+      coupon_value:
+        type: integer
+        description: 优惠券金额
+      use_type:
+        type: string
+        description: 使用门槛(0  无金额限制， 1  满减）
+      full_value:
+        type: integer
+        description: 满减金额
+      condition_type:
+        type: string
+        description: 领券限制(0  无数量限制    1  有数量限制)
+      condition_count:
+        type: integer
+        description: 领取限制：每个号码限领数量
+      publish_date_start:
+        type: integer
+        description: 发放（领券）时间（开始）
+      publish_date_end:
+        type: integer
+        description: 发放（领券）时间（结束）
+      valid_time_start:
+        type: integer
+        description: 优惠券生效时间（开始）
+      valid_time_end:
+        type: integer
+        description: 优惠券生效时间（结束）
+      valid_flag:
+        type: string
+        description: 有效标志(0  无效  1  有效)
+      use_range:
+        type: string
+        description: 使用范围(0  全部  1  部分)
+      coupon_image:
+        type: string
+        description: 券展示图片
+      description:
+        type: string
+        description: 使用说明
+      own_sp_id:
+        type: string
+        description: own_sp_id
+      create_time:
+        type: integer
+        description: 创建时间
+      create_user:
+        type: string
+        description: 创建者ID
+      receive_amount:
+        type: integer
+        description: 领取数量
+      used_amount:
+        type: integer
+        description: 使用数量
+  couponlist:
+    description: 优惠券分页模型
+    type: object
+    properties:
+      count:
+        type: integer
+        description: 总记录数
+      list:
+        description: 优惠券数据列表
+        type: array
+        items:
+          $ref: '#/definitions/coupon_info'
+  'PageResult[coupon_spec]':
+    type: object
+    properties:
+      total:
+        format: int32
+        type: integer
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/coupon_spec'
+  post_coupon_spec:
+    type: object
+    properties:
+      owner_mobile: 
+        type: string
+        description: 领券人手机号
+      description: 
+        type: string
+        description: 备注用来保存领券人的信息      
+      valid_code: 
+        type: string
+        description: 验证码  
+  coupon_spec:
+    type: object
+    properties:
+      spec_uuid:
+        type: string
+        description: 实例uuid
+      spec_code:
+        type: string
+        description: 实例编号
+      coupon_uuid:
+        type: string
+        description: 子券uuid
+      owner_mobile:
+        type: string
+        description: 领券人手机号
+      spec_state:
+        type: string
+        description: 券状态 0 已领 1 已锁定 2 已使用(已核销) 3 已过期
+      spec_pub_time:
+        type: integer
+        description: 券领取时间
+      spec_used_time:
+        type: integer
+        description: 券核销（使用）时间
+      spec_locked_time:
+        type: integer
+        description: 券锁定时间
+      order_no:
+        type: string
+        description: 用券订单号
+      description:
+        type: string
+        description: 备注用来保存领券人的信息
+  addcoupon:
+    description: 优惠券模型
+    type: object
+    required:
+      - coupon_name
+      - coupon_amount
+      - coupon_value
+      - use_type
+      - condition_type
+      - publish_date_start
+      - publish_date_end
+      - valid_time_start
+      - valid_time_end
+      - pt_percent
+      - sp_percent
+      - use_range
+      - own_type
+      - create_user
+    properties:
+      coupon_name:
+        type: string
+        description: 优惠券名称
+      coupon_amount:
+        type: integer
+        description: 发放总数
+      coupon_value:
+        type: integer
+        description: 优惠金额
+      use_type:
+        type: string
+        description: 使用门槛
+      full_value:
+        type: integer
+        description: 满减金额
+      condition_type:
+        type: string
+        description: 领取限制
+      condition_count:
+        type: integer
+        description: 每个号码限领数量
+      publish_date_start:
+        type: integer
+        description: 发放（领券）时间（开始）
+      publish_date_end:
+        type: integer
+        description: 发放（领券）时间（结束）
+      valid_time_start:
+        type: integer
+        description: 优惠券生效时间（开始）
+      valid_time_end:
+        type: integer
+        description: 优惠券生效时间（结束）
+      description:
+        type: string
+        description: 使用说明
+      pt_percent:
+        type: integer
+        description: 平台承担比例
+      sp_percent:
+        type: integer
+        description: 店铺承担比例
+      use_range:
+        type: string
+        description: 使用范围（0 全部  1  部分）
+      own_type:
+        type: string
+        description: 归属类型（0   平台券  1 店铺券）
+      create_user:
+        type: string
+        description: 创建人
+  addresult:
+    description: 新增成功后的返回结果
+    type: object
+    required:
+      - error
+      - id
+      - message
+    properties:
+      error:
+        type: boolean
+      id:
+        type: string
+      message:
+        type: string
+  result:
+    description: 执行能成功后的返回结果
+    type: object
+    required:
+      - error
+      - message
+    properties:
+      error:
+        type: boolean
+      message:
+        type: string
+  error:
+    description: 错误模型
+    type: object
+    required:
+      - error
+      - message
+    properties:
+      error:
+        type: boolean
+      message:
+        type: string
+parameters:
+  order:
+    name: orderflag
+    in: query
+    description: 排序标识
+    required: false
+    type: integer
+  condition:
+    name: conditions
+    in: query
+    description: 条件标识
+    required: false
+    type: integer
+  pageindex:
+    name: pageindex
+    in: query
+    description: 当前页码（分页）
+    required: true
+    type: integer
+  pagesize:
+    name: pagesize
+    in: query
+    description: 每页条数（分页）
+    required: true
+    type: integer
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+  petstore_auth:
+    type: oauth2
+    authorizationUrl: 'http://swagger.io/api/oauth/dialog'
+    flow: implicit
+    scopes:
+      coupon_info: 可以增加修改删除查询优惠券信息
+      'coupon_info:write': 可以修改优惠券
+      'coupon_info:delete': 可以删除优惠券
+      'coupon_info:read': 可以读取优惠券
+      'coupon_info:create': 可以创建优惠券

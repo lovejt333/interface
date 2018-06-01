@@ -1,0 +1,1066 @@
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+info:
+  version: "1.3.1"
+  title: Message API
+  description: 基础服务--消息服务接口说明
+
+host: www1.ejw.cn
+#host: localhost:8080
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+
+#数据返回的约定
+#1.响应码只有200、400、403、404、405、500。
+#2.获取列表接口无数据时响应码200，返回空列表和page信息。
+#3.获取单个资源接口无数据时响应码404，返回404错误信息。
+#4.路径中的参数错误导致资源不存在，响应码404，返回404错误信息。
+#5.没有权限读取、修改、删除资源响应码403，返回403错误信息。
+#6.输入参数校验失败响应码400，返回400错误信息。
+#7.资源没有对应的方法响应码405，返回405错误信息。
+#8.删除资源时同时删除其相关关联关系，不要产生500错误。
+
+#必填字段约定
+#1.必填是指添加或修改信息时，该字段必须传值。
+#2.修改信息时必填字段可以不传，即为不修改。
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+paths:
+
+  /messages:
+    get:
+      summary: 获取消息记录列表
+      description: 获取消息记录列表，注意只返回当前HeaderUserId记录
+      tags:
+        - 收件
+      parameters:
+        - $ref: '#/parameters/HeaderUserId'
+        - name: msgType
+          in: query
+          description: 消息类型，1：公告；2：系统通知；3：个人消息
+          required: false
+          type: integer
+        - name: status
+          in: query
+          description: 阅读状态（站内信），0：未读；1：已读
+          required: false
+          type: integer
+        - name: msgTitle
+          in: query
+          description: 消息标题，模糊匹配
+          required: false
+          type: string
+        - name: keywords
+          in: query
+          description: 关键词，根据消息标题和消息内容模糊匹配
+          required: false
+          type: string
+        - name: startDate
+          in: query
+          description: 起始时间
+          required: false
+          type: string
+          format: date-time
+        - name: endDate
+          in: query
+          description: 结束时间
+          required: false
+          type: string
+          format: date-time
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 消息记录列表
+          schema:
+            $ref: '#/definitions/Messages'
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 批量设置消息记录已读
+      description: 批量设置消息记录已读，注意校验待修改记录和HeaderUserId是否匹配
+      tags:
+        - 收件
+      parameters:
+        - $ref: '#/parameters/HeaderUserId'
+        - name: recordIds
+          in: body
+          description: 消息记录id
+          schema:
+            type: array
+            items:
+              type: integer
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    delete:
+      summary: 批量删除消息记录
+      description: 批量删除消息记录，注意校验待删除记录和HeaderUserId是否匹配
+      tags:
+        - 收件
+      parameters:
+        - $ref: '#/parameters/HeaderUserId'
+        - name: recordIds
+          in: body
+          description: 消息记录id
+          schema:
+            type: array
+            items:
+              type: integer
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/DeleteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /messages/count:
+    get:
+      summary: 获取用户消息记录数量
+      description: 获取用户消息记录数量，注意只返回当前HeaderUserId记录
+      tags:
+        - 收件
+      parameters:
+        - $ref: '#/parameters/HeaderUserId'
+        - name: status
+          in: query
+          description: 消息状态，1：已读；0：未读
+          type: integer
+        - name: msgLevel
+          in: query
+          description: 消息级别，0：普通；1：重要
+          type: integer
+
+      responses:
+        200:
+          description: 消息数量
+          schema:
+            properties:
+              count:
+                type: integer
+                description: 消息总数量
+              platformCount:
+                type: integer
+                description: 平台公告消息数量
+              sysCount:
+                type: integer
+                description: 系统消息数量
+              userCount:
+                type: integer
+                description: 用户消息数量
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /message/{recordId}:
+    get:
+      summary: 获取消息详情
+      description: 获取消息详情，注意校验记录和HeaderUserId是否匹配
+      tags:
+        - 收件
+      parameters:
+        - $ref: '#/parameters/HeaderUserId'
+        - name: recordId
+          in: path
+          description: 消息记录id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 消息详情
+          schema:
+            $ref: '#/definitions/Message'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /sendmessages:
+    get:
+      summary: 获取发件消息列表
+      description: 获取发件消息列表
+      tags:
+        - 发件
+      parameters:
+        - name: msgTitle
+          in: query
+          description: 消息标题，模糊匹配
+          required: false
+          type: string
+        - name: keywords
+          in: query
+          description: 关键词，根据消息标题和消息内容模糊匹配
+          required: false
+          type: string
+        - name: startDate
+          in: query
+          description: 起始时间
+          required: false
+          type: string
+          format: date-time
+        - name: endDate
+          in: query
+          description: 结束时间
+          required: false
+          type: string
+          format: date-time
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 发件消息列表
+          schema:
+            $ref: '#/definitions/MsgOperationsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    delete:
+      summary: 批量删除发件消息
+      description: 批量删除发件消息
+      tags:
+        - 发件
+      parameters:
+        - name: ids
+          in: body
+          description: 消息id
+          schema:
+            type: array
+            items:
+              type: integer
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/DeleteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /sendmessage/{msgId}:
+    get:
+      summary: 获取发件消息详情
+      description: 获取发件消息详情
+      tags:
+        - 发件
+      parameters:
+        - name: msgId
+          in: path
+          description: 消息id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 发件消息详情
+          schema:
+            $ref: '#/definitions/MsgOperationResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /platform/sendmessage:
+    post:
+      summary: 运营平台发送消息
+      description: 运营平台发送消息
+      tags:
+        - 发件
+      parameters:
+        - $ref: '#/parameters/HeaderUserId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/MsgOperationReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/MsgOperationResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /user/sendmessage:
+    post:
+      summary: 用户发送消息（未实现）
+      description: 用户发送消息
+      tags:
+        - 发件
+      parameters:
+        - $ref: '#/parameters/HeaderUserId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/MsgOperationReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/MsgOperationResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /system/sendmessage:
+    post:
+      summary: 系统发送消息
+      description: 系统发送消息，注意：业务消息接收者一般为员工，发送者身份一般为员工所在企业。
+      tags:
+        - 发件
+      parameters:
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SystemSendMsgReq'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /msgtemplates:
+    get:
+      summary: 获取消息模板列表
+      description: 获取消息模板列表
+      tags:
+        - 模版
+      parameters:
+        - name: tempType
+          in: query
+          description: 模板类型，0：手动；1：系统
+          type: integer
+        - name: status
+          in: query
+          description: 状态，1：启用；0：停用
+          type: integer
+        - name: tempName
+          in: query
+          description: 模板描述，模糊匹配
+          type: string
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 消息模板列表
+          schema:
+            $ref: '#/definitions/MsgTemplatesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /msgtemplate:
+    post:
+      summary: 添加消息模板
+      description: 添加消息模板
+      tags:
+        - 模版
+      parameters:
+        -
+          name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/MsgTemplateReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/MsgTemplateResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /msgtemplate/{tempId}:
+    get:
+      summary: 获取消息模板信息
+      description: 获取消息模板信息
+      tags:
+        - 模版
+      parameters:
+        - name: tempId
+          in: path
+          description: 消息模板id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 消息模板信息
+          schema:
+            $ref: '#/definitions/MsgTemplateResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改消息模板
+      description: 修改消息模板
+      tags:
+        - 模版
+      parameters:
+        - name: tempId
+          in: path
+          description: 消息模板id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/MsgTemplateReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    delete:
+      summary: 删除消息模板
+      description: 删除消息模板，系统模板不允许删除
+      tags:
+        - 模版
+      parameters:
+        - name: tempId
+          in: path
+          description: 消息模板id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          $ref: '#/responses/DeleteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /msgtemplate/{tempId}/status:
+    put:
+      summary: 消息模板启用停用
+      description: 消息模板启用停用
+      tags:
+        - 模版
+      parameters:
+        - name: tempId
+          in: path
+          description: 消息模板id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            description: 状态
+            required:
+              - status
+            properties:
+              status:
+                type: integer
+                enum:
+                  - 0
+                  - 1
+                description: 状态，0，停用；1：启用
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /msgtemplate-default/{defaultId}:
+    get:
+      summary: 获取消息模板默认信息
+      description: 获取消息模板默认信息
+      tags:
+        - 模版
+      parameters:
+        - name: defaultId
+          in: path
+          description: 消息模板默认id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 消息模板默认信息
+          schema:
+            $ref: '#/definitions/MsgTemplateDefault'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+################################################################################
+#                                 Parameters                                  #
+################################################################################
+parameters:
+  PageNo:
+    name: pageNo
+    in: query
+    description: 当前页码，默认第1页
+    required: false
+    type: integer
+    format: int32
+    minimum: 1
+    default: 1
+
+  PageSize:
+    name: pageSize
+    in: query
+    description: 每页记录数，默认10条
+    required: false
+    type: integer
+    format: int32
+    minimum: 1
+    maximum: 99999
+    default: 10
+
+  Sort:
+    name: sort
+    in: query
+    description: 排序方式，json格式：{"id":"asc","name":"desc"} ，必须Url编码
+    required: false
+    type: string
+    format: json
+
+  HeaderUserId:
+    name: user-id
+    in: header
+    description: 当前操作用户id
+    required: true
+    type: integer
+
+################################################################################
+#                                 Responses                                  #
+################################################################################
+responses:
+  PutResp:
+    description: 修改成功
+
+  DeleteResp:
+    description: 删除成功
+
+  ParametersErr:
+    description: 参数异常
+    schema:
+      $ref: '#/definitions/Error'
+
+  NotFoundErr:
+    description: 资源不存在
+    schema:
+      $ref: '#/definitions/Error'
+
+  InnerErr:
+    description: 内部错误
+    schema:
+      $ref: '#/definitions/Error'
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  Gmt:
+    type: object
+    description: 时间信息
+    properties:
+      gmtCreate:
+        type: string
+        format: date-time
+        description: 创建时间
+      gmtModified:
+        type: string
+        format: date-time
+        description: 修改时间
+
+  MessageBase:
+    type: object
+    description: 收件消息信息
+    properties:
+      recordId:
+        type: integer
+        description: 记录ID
+      receiverType:
+        type: integer
+        description: 接收者类型，1：用户；2：员工
+      receiverId:
+        type: integer
+        description: 接收者ID，用户ID/员工ID
+      receiverName:
+        type: string
+        description: 接收者名称
+      status:
+        type: integer
+        description: 阅读状态（站内信），0：未读；1：已读
+      msgId:
+        type: integer
+        description: 消息ID
+      msgNo:
+        type: string
+        description: 消息批次号
+      gmtSend:
+        type: string
+        format: date-time
+        description: 发送时间
+      senderType:
+        type: integer
+        description: 发送者类型，1：用户；2：员工；3：企业
+      senderId:
+        type: integer
+        description: 发送者ID，用户ID/员工ID/企业ID，平台企业ID为0
+      senderName:
+        type: string
+        description: 发送者名称，用户/员工姓名/企业名称，平台为“智平台”
+      msgType:
+        type: integer
+        description: 消息类型，1：公告；2：系统通知；3：个人消息
+      msgTitle:
+        type: string
+        description: 消息标题
+      msgLevel:
+        type: integer
+        description: 消息级别，0：普通；1：重要
+      sendType:
+        type: integer
+        description: 发送类型，1：站内信；2：短信；3：邮件
+
+  Message:
+    type: object
+    description: 收件消息详情
+    allOf:
+    - $ref: '#/definitions/MessageBase'
+    properties:
+      msgContent:
+        type: string
+        description: 消息内容
+
+  Messages:
+    type: object
+    description: 消息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/MessageBase'
+
+  SystemSendMsgReq:
+    type: object
+    description: 系统发送消息信息
+    properties:
+      senderType:
+        type: integer
+        description: 发送者类型，1：用户；2：员工；3：企业
+      senderId:
+        type: integer
+        description: 发送者ID，用户ID/员工ID/企业ID，平台企业ID为0
+      senderName:
+        type: string
+        description: 发送者名称，用户/员工姓名/企业名称，平台为“智平台”
+      tempId:
+        type: string
+        description: 模板编号
+      receiverType:
+        type: integer
+        description: 接收者类型，1：用户；2：员工
+      receiverId:
+        type: integer
+        description: 接收者ID，用户ID/员工ID
+      receiverPartnerId:
+        type: integer
+        description: 接收者企业ID，接收者为员工时必填
+      variable:
+        type: array
+        description: 模版变量
+        items:
+          type: object
+          properties:
+            variableName:
+              type: string
+              description: 变量名
+            variableValue:
+              type: string
+              description: 变量值
+
+  MsgOperationsPage:
+    type: object
+    description: 发送消息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/MsgOperationBaseResp'
+
+  MsgOperationResp:
+    type: object
+    description: 发送消息响应实体
+    allOf:
+    - $ref: '#/definitions/MsgOperation'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      msgId:
+        type: integer
+        description: 消息ID
+      msgNo:
+        type: string
+        description: 消息批次号
+
+  MsgOperationBaseResp:
+    type: object
+    description: 发送消息响应实体
+    allOf:
+    - $ref: '#/definitions/MsgOperationBase'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      msgId:
+        type: integer
+        description: 消息ID
+      msgNo:
+        type: string
+        description: 消息批次号
+
+  MsgOperationReqPost:
+    type: object
+    description: 发送消息添加实体
+    required:
+    - receiverType
+    - msgTitle
+    - msgLevel
+    allOf:
+    - $ref: '#/definitions/MsgOperation'
+
+  MsgOperation:
+    type: object
+    description: 发送消息实体
+    allOf:
+    - $ref: '#/definitions/MsgOperationBase'
+    properties:
+      contentSms:
+        type: string
+        description: 短信模板内容
+      contentMail:
+        type: string
+        description: 邮件模板内容
+      contentMsg:
+        type: string
+        description: 站内信模板内容
+
+  MsgOperationBase:
+    type: object
+    description: 发送消息实体
+    properties:
+      receiverType:
+        type: integer
+        description: 接收者类型，1：注册用户；2：服务商；3：供应商
+      msgTitle:
+        type: string
+        description: 消息标题
+      msgLevel:
+        type: integer
+        description: 消息级别，0：普通；1：重要
+      sendSms:
+        type: integer
+        description: 允许短信发送，0：不允许；1：允许
+      sendMail:
+        type: integer
+        description: 允许邮件发送，0：不允许；1：允许
+      sendMsg:
+        type: integer
+        description: 允许站内信发送，0：不允许；1：允许
+
+  MsgTemplateReqPost:
+    type: object
+    description: 消息模版添加实体
+    required:
+    - tempName
+    - msgTitle
+    - tempType
+    allOf:
+    - $ref: '#/definitions/MsgTemplate'
+
+  MsgTemplateReqPut:
+    type: object
+    description: 消息模版修改实体
+    allOf:
+    - $ref: '#/definitions/MsgTemplate'
+
+  MsgTemplateResp:
+    type: object
+    description: 消息模版响应实体
+    allOf:
+    - $ref: '#/definitions/MsgTemplate'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      tempId:
+        type: string
+        description: 模板编号
+      status:
+        type: integer
+        description: 状态，1：启用；0：停用
+      defaultId:
+        type: string
+        description: 预置模板id
+
+  MsgTemplateBaseResp:
+    type: object
+    description: 消息模版响应实体
+    allOf:
+    - $ref: '#/definitions/MsgTemplateBase'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      tempId:
+        type: string
+        description: 模板编号
+      status:
+        type: integer
+        description: 状态，1：启用；0：停用
+      defaultId:
+        type: string
+        description: 预置模板id
+
+  MsgTemplate:
+    type: object
+    description: 消息模版
+    allOf:
+    - $ref: '#/definitions/MsgTemplateBase'
+    properties:
+      contentSms:
+        type: string
+        description: 短信模板内容
+      contentMail:
+        type: string
+        description: 邮件模板内容
+      contentMsg:
+        type: string
+        description: 站内信模板内容
+
+  MsgTemplateBase:
+    type: object
+    description: 消息模版
+    properties:
+      tempName:
+        type: string
+        description: 模板描述
+      msgTitle:
+        type: string
+        description: 消息标题
+      msgLevel:
+        type: integer
+        enum:
+        - 0
+        - 1
+        description: 消息级别，0：普通；1：重要
+      sendSms:
+        type: integer
+        enum:
+        - 0
+        - 1
+        description: 允许短信发送，0：不允许；1：允许
+      sendMail:
+        type: integer
+        enum:
+        - 0
+        - 1
+        description: 允许邮件发送，0：不允许；1：允许
+      sendMsg:
+        type: integer
+        enum:
+        - 0
+        - 1
+        description: 允许站内信发送，0：不允许；1：允许
+      tempType:
+        type: integer
+        enum:
+        - 0
+        - 1
+        description: 模板类型，0：手动；1：系统
+      busType:
+        type: string
+        description: 业务类型
+
+  MsgTemplatesPage:
+    type: object
+    description: 消息模版列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/MsgTemplateBaseResp'
+
+  MsgTemplateDefault:
+    type: object
+    description: 默认模板实体
+    properties:
+      defaultId:
+        type: string
+        description: 模板编号
+      tempName:
+        type: string
+        description: 模板描述
+      tempTitle:
+        type: string
+        description: 消息标题
+      contentSms:
+        type: string
+        description: 短信模板内容
+      contentMail:
+        type: string
+        description: 邮件模板内容
+      contentMsg:
+        type: string
+        description: 站内信模板内容
+
+  Page:
+    type: object
+    description: 分页信息
+    properties:
+      page:
+        type: integer
+        description: 当前页码
+      nextPage:
+        type: integer
+        description: 下一页页码
+      prePage:
+        type: integer
+        description: 上一页页码
+      totalPages:
+        type: integer
+        description: 总页数
+      totalCount:
+        type: integer
+        description: 总记录数
+      firstPage:
+        type: boolean
+        description: 是否为首页
+      lastPage:
+        type: boolean
+        description: 是否为尾页
+      hasPrePage:
+        type: boolean
+        description: 是否有上一页
+      hasNextPage:
+        type: boolean
+        description: 是否有下一页
+      startRow:
+        type: integer
+        description: 当前页起始行
+      endRow:
+        type: integer
+        description: 当前页结束行
+
+  Error:
+    type: object
+    description: 错误Bean
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: string
+        description: 错误码
+      message:
+        type: string
+        description: 错误描述
+      errors:
+        type: array
+        description: 具体错误
+        items:
+          $ref: '#/definitions/ErrorMsg'
+
+  ErrorMsg:
+    type: object
+    description: 错误消息详细信息
+    properties:
+      field:
+        type: string
+        description: 错误字段
+      message:
+        type: string
+        description: 错误原因

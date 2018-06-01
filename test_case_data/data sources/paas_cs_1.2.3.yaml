@@ -1,0 +1,621 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "1.2.0"
+  title: 基础服务-内容服务
+host: localhost:80
+basePath: /v2
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+#图片类型限制为jpg、jpeg、gif、png、bmp、tif； 音频、视频类型限制为mp3、wav、flac、wma、ogg、ape、aac、mp4、avi、wmv、mkv、mov、swf、rmvb、rm、3gp、mpg、mpeg、flv；  文档类型限制为txt、doc、docx、xls、xlsx、ppt、pptx、pdf、rtf、json、csv；  不属于富文本、图片、音频、视频、文档格式的其他文件，则归属于其他附件
+# document文档类型  image 图片  audio音频视频 richtext富文本  stream流文件
+# 企业库文件默认本组都有读权限 在数据库不做记录，有权限值为0的认为没有读权限
+# 文件权限 0无权限 1只读 2读 下载  3 读写下载
+paths:
+  /file:
+    post:
+      summary: 文件上传
+      description:  文件上传  
+      consumes:
+         - multipart/form-data
+      parameters:
+        - name: fileId
+          in: formData
+          type: integer
+          description: 文件上传新版本、覆盖当前版本时为必填项。上传文件时为空
+        - name: upfile
+          in: formData
+          type: file
+          required: true
+        - name: owner
+          in: formData
+          type: string
+          required: true
+          maxLength: 40
+          description: 文件所有者ID 
+        - name: enterpriseId
+          in: formData
+          type: string
+          description: 企业ID
+          maxLength: 40
+        - name: title
+          in: formData
+          type: string
+          description: 文件标题 为空时取文件名
+          maxLength: 100
+        - name: summary
+          in: formData
+          type: string
+          description: 文件描述
+          maxLength: 100
+        - name: createUsername
+          in: formData
+          type: string
+          description: 文件创建者
+          maxLength: 40
+        - name: operation
+          in: formData
+          type: string
+          required: true
+          enum:
+            - cover
+            - newVer
+          description: 标识新增版本 或者覆盖原有文件;  cover覆盖  newVer新增版本    1、新增版本产生新文件，生成新的UUID 
+            2、覆盖原有文件需要生成新文件，UUID保持不变 修改文件相关属性。
+          maxLength: 40
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/file' 
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel' 
+            
+  /image:
+    post:
+      summary: 图片上传 3M  
+      tags:
+        - 文件上传 
+      description:  jpg,jpeg,gif,png,bmp   默认生成新版本
+      consumes:
+         - multipart/form-data
+      parameters:
+        - name: upfile
+          in: formData
+          required: true
+          type: file
+        - name: owner
+          in: formData
+          type: integer
+          required: true
+          description: 上传文件者用户ID
+        - name: enterpriseId
+          in: formData
+          type: string
+          description: 用户所属企业ID
+        - name: title
+          in: formData
+          type: string
+          description: 文件标题 为空时取文件名
+          maxLength: 100
+        - name: summary
+          in: formData
+          type: string
+          description: 文件描述
+          maxLength: 100
+        - name: createUsername
+          in: formData
+          type: string
+          description: 文件创建者
+          maxLength: 40
+      responses:
+          200:
+            description: success
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: 返回BOS存储图片地址
+                uuId:
+                  type: string
+          default:
+            description: error
+            schema:
+              $ref: '#/definitions/errorModel'
+    
+    delete:
+      summary: 删除文件 
+      description: 删除文件资源及版本
+      parameters:
+        - name: files
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              operation:
+                type: string
+                enum:
+                  - "1"
+                  - "0"
+                description: 1为逻辑删除  0为物理删除，
+                minLength: 1
+                maxLength: 1
+              fileIds:  
+                type: array
+                items:
+                  properties:
+                    fileId:
+                      type: integer
+                      description: 被删除文件ID 
+                      minimum: 1
+                      maximum: 999999999
+      responses:
+        200:
+          description: success
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel' 
+  
+  /cpfile:
+    post:
+      summary: 复制文件
+      description: 复制文件  1、复制文件最新版本 
+      parameters:
+        - name: cpfile
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/cpfile'
+      responses:
+        200:
+          description: success
+          schema: 
+            type: array
+            items:
+               $ref: '#/definitions/file'
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel'
+  
+  /file/{fileId}:          
+    get:
+      summary: 查询文件详情
+      description: 查询文件详情  当前版本
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          type: integer
+        - name: version
+          in: header
+          required: false
+          type: string
+          format: date-time
+          description: 为空时，查询最新版本
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/file'
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel' 
+            
+    put:
+      summary: 修改文件属性
+      description: 修改文件属性  更新文件修改人
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          type: integer
+        - name: file
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/filePut'
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/file'  
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel'  
+      
+  
+  /richtextTemp:
+    post:
+      summary: 保存富文本草稿
+      description: 保存富文本草稿  向BOS写入文件，返回文件路径
+      parameters:
+        - name: richtext
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/richtextTemp'
+      responses:
+        200:
+          description: success
+          schema:
+            properties:
+              fileUrl:
+                type: string
+                description: 文件UUID
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel'
+            
+    delete:
+      summary: 删除富文本草稿文件
+      description: 删BOS富文本草稿文件 
+      parameters:
+        - name: richtext
+          in: body
+          required: true
+          schema:
+            properties:
+              fileUrl:
+                type: string 
+                description: 富文本草稿文件URL
+      responses:
+        200:
+          description: success
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel'
+            
+    put:
+      summary: 替换富文本草稿文件
+      description: 替换BOS富文本草稿文件 
+      parameters:
+        - name: richtext
+          in: body
+          required: true
+          schema:
+            properties:
+              context:
+                type: string
+                description: 富文本内容
+              fileUrl:
+                type: string 
+                description: 富文本草稿文件URL
+      responses:
+        200:
+          description: success
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel'
+  
+        
+  /richtext:
+    post:
+      summary: 新增富文件
+      description: 新增富文本    fileId为空时，走新增富文本流程
+      parameters:
+        - name: richtext
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/richtext'
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/file'
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel'
+            
+  /richtext/{fileId}:          
+    put:
+      summary: 修改富文本
+      description: 修改富文本  前端先调用CS接口，再调用ＥＣＭ修改文件属性接口
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          type: integer
+          minimum: 1
+          maximum: 999999999
+        - name: richtext
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/richtextPut'
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/file'
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel'
+              
+
+  
+  /version/{fileId}:
+    get:
+      summary: 查询文件版本 
+      description:  查询文件版本
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          type: integer
+          minimum: 1
+          maximum: 999999999
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/file' 
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/errorModel' 
+            
+               
+
+definitions: 
+  file:
+    type: object
+    properties:
+      fileId:
+        type: integer
+        description: 文件ID
+      uuId:
+        type: string
+        description: 文件uuId 新增文件 查询文件列表 修改时无此参数
+      owner:
+        type: string
+        description: 文件所有者id 
+      summary:
+        type: string
+        description: 文件描述
+      fileName:
+        type: string
+        description: 文件名
+      type: 
+        type: string
+        enum:
+          - document
+          - image
+          - audio
+          - richtext
+          - stream
+        description: 文件类型 document文档类型   image 图片  audio音频视频 richtext富文本  stream流文件  上传无此参数 修改文件属性时不可修改
+      size: 
+        type: number
+        format: float
+        description: 文件大小  修改文件属性时不可修改 查询文件无此参数输入
+      storeUrl:
+        type: string
+        description: 文件URL   修改文件属性时不可修改  查询文件无此参数输入
+      title:
+        type: string
+        description: 文件标题
+        maxLength: 100
+      format:
+        type: string
+        description: 文件格式 返回文件信息才有此参数
+      operator:
+        type: string
+        description:  修改者    修改文件属性取当前用户userId
+        maxLength: 40
+      modifyUsername:
+        type: string
+        description: 修改者姓名 
+        minLength: 1
+        maxLength: 40
+      createTime:
+        type: string
+        description: 创建时间  不可修改
+        format: date-time
+      createUser:
+        type: string
+        description: 文件创建者
+      createUsername:
+        type: string
+        description: 创建者姓名 
+        minLength: 1
+        maxLength: 40
+      modifyTime:
+        type: string
+        description: 修改时间
+        format: date-time
+      status:
+        type: integer
+        enum:
+          - 1
+          - 0
+        description: 文件状态 1可用 0不可用 默认为1
+      open:
+        type: integer
+        enum:
+          - 1
+          - 0
+        description: 文件是否公开 1公开 0不公开 默认为0
+  
+  filePut:
+    type: object
+    required:
+    - fileName
+    - modifyUsername
+    - modifyUserId
+    properties:
+      fileName:
+        type: string
+        description: 文件名
+        minLength: 1
+        maxLength: 40
+      title:
+        type: string
+        description: 文件标题
+        maxLength: 100
+      summary:
+        type: string
+        description: 文件描述
+        maxLength: 200
+      modifyUserId:
+        type: integer
+        description: 修改者用户ID 对应operator
+        format: int32
+      modifyUsername:
+        type: string
+        description: 修改者姓名 
+        minLength: 1
+        maxLength: 40
+        
+  cpfile:
+    type: object
+    properties:
+      createUser:
+        type: string
+        description: 当前用户ID
+      createUsername:
+        type: string
+        description: 当用户名姓名
+      fileIds:
+        type: array
+        items:
+          properties:
+            fileId:
+              type: integer
+              description: 文件ID
+              minimum: 1
+              maximum: 999999999
+          
+  richtext:
+    type: object
+    required:
+    - fileName
+    - context
+    - owner
+    properties:
+      owner:
+        type: string
+        description: 文件创建者
+        minLength: 1
+        maxLength: 40
+      summary:
+        type: string
+        description: 文件描述
+        maxLength: 200
+      fileName:
+        type: string
+        description: 文件名   filename为空时 取标题 标题也为空  UUID为文件名
+        minLength: 1
+        maxLength: 40
+      title:
+        type: string
+        description: 文件标题 
+        maxLength: 100
+      context:
+        type: string
+        description: 富文本内容
+        minLength: 1
+      enterpriseId:
+        type: string
+        description: 企业ID
+        minLength: 1
+        maxLength: 40
+      createUsername:
+        type: string
+        description: 创建者姓名
+        minLength: 1
+        maxLength: 40
+  richtextPut:
+    type: object
+    properties:
+      summary:
+        type: string
+        description: 文件描述
+        maxLength: 200
+      fileName:
+        type: string
+        description: 文件名   filename为空时 取标题 标题也为空  UUID为文件名
+        minLength: 1
+        maxLength: 40
+      context:
+        type: string
+        description: 富文本内容
+        minLength: 1
+      operation:
+        type: string
+        description: “cover”覆盖最新版本 “newVer”新增版本 
+        minLength: 5
+        maxLength: 6
+      operator:
+        type: string
+        description: 文件修改者用户ID
+        maxLength: 10
+      modifyUsername:
+        type: string
+        maxLength: 40
+        description: 文件修改者姓名
+  richtextTemp:
+    type: object
+    required:
+      - context
+    properties:
+      context:
+        type: string
+        description: 富文本内容
+        minLength: 1
+      fileUrl:
+        type: string
+        description: 不为空时，删除BOS对应文件
+        maxLength: 400
+ 
+  errorModel:
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: 404资源没找到  400参数异常  500服务器内部错误
+      message:
+        type: string  
+        description: 如： 资源不存在  参数异常
+      errors:
+        type: array
+        items:
+           $ref: '#/definitions/error'
+          
+  error:
+    type: object
+    description: 错误消息详细信息
+    properties:
+      field:
+        type: string
+        description: 错误字段
+      message:
+        type: string
+        description: 错误描述  如 文件名称不能重复

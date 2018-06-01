@@ -1,0 +1,3198 @@
+﻿swagger: '2.0'
+info:
+  version: '2.0'
+  title: "trace-system API"
+  description: "溯源系统V1二期"
+host: '192.135.168.219'
+basePath: '/trace/v2'
+tags:
+- name: "内容管理"
+- name: "渠道"
+- name: "授权管理"
+- name: "效果统计"
+- name: "留言收集"
+schemes:
+  - "http"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+paths:
+
+  /theme/list:
+    get:
+      summary: "主题列表"
+      description: "主题列表"
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "themename"
+          in: "query"
+          description: "主题名称"
+          required: false
+          type: "string"
+        - name: "compid"
+          in: "query"
+          description: "企业id"
+          required: true
+          type: "integer"
+        - $ref: "#/parameters/PageIndex"
+        - $ref: "#/parameters/PageSize"
+      responses:
+        200:
+          description: "主题列表"
+          schema:
+            $ref: '#/definitions/Themes'
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+          
+  /theme:
+    post:
+      summary: "添加主题"
+      description: |
+        添加主题
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "主题模型" 
+          required: true
+          schema:
+            $ref: "#/definitions/Theme_Post_Model"
+      responses:
+        200:
+          description: "添加成功"
+          schema:
+            $ref: "#/definitions/Theme_Urls"
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /theme/crm:
+    post:
+      summary: "添加主题(CRM)"
+      description: |
+        添加主题
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "主题模型" 
+          required: true
+          schema:
+            $ref: "#/definitions/Theme_Post_Model"
+      responses:
+        200:
+          description: "添加成功"
+          schema:
+            $ref: "#/definitions/Resp"
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+          
+  /theme/scriptcode:
+    get:
+      summary: "判断url中是否已经埋点"
+      description: "判断url中是否已经埋点"
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "url"
+          in: "query"
+          type: "string"
+          required: true
+          description: "链接地址"
+        - name: "compid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "企业id"
+      responses:
+        200:
+          description: "是否已经埋点"
+          schema:
+            type: "object"
+            properties:
+              count: 
+                type: "integer"
+                description: "埋点返回值,如果count>1,则已埋点"
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+          
+  /theme/move:
+    get:
+      summary: "移动链接时的主题下拉选择列表"
+      description: "移动链接时的主题列表"
+      tags: 
+        - "内容管理"
+      parameters: 
+        - name: "urlids"
+          in: "query"
+          required: true
+          description: "链接id数组"
+          type: "array"
+          items:
+            type: "integer"
+        - name: "compid"
+          in: "query"
+          required: true
+          type: "integer"
+          description: "企业id"
+        - $ref: "#/parameters/PageIndex"
+        - $ref: "#/parameters/PageSize"
+      responses:
+        200:
+          description: "主题列表"
+          schema:
+            $ref: '#/definitions/Theme_SelectList'
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+    post:
+      summary: "移动链接"
+      description: "移动链接"
+      tags:
+        - "内容管理"
+      parameters:
+        - in: "body"
+          name: "moveurls"
+          description: "链接移动时所需参数模型"
+          required: true
+          schema:
+            $ref: "#/definitions/Url_Move"
+      responses:
+        200:
+          $ref: "#/responses/PutResp"
+
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+          
+  /theme/findbyname:
+    get:
+      summary: "根据主题名来查找主题信息"
+      description: "根据主题名来查找主题信息"
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "schemename"
+          in: "query"
+          type: "string"
+          required: true
+          description: "主题名称"
+      responses:
+        200:
+          description: "主题信息"
+          schema:
+            $ref: '#/definitions/Theme'
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+  
+  /theme/geturlinfo:
+    get:
+      summary: "根据链接id获取链接信息"
+      description: "根据链接id获取链接信息"
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "urlid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "链接id"
+      responses:
+        200:
+          description: "链接详细信息"
+          schema:
+            $ref: '#/definitions/Theme_Url'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+          
+  /theme/urllist:
+    get:
+      summary: "根据主题名称获取链接列表"
+      description: "根据主题名称获取链接列表"
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "compid"
+          in: "query"
+          required: true
+          type: "integer"
+          description: "企业id"
+        - name: "name"
+          in: "query"
+          required: true
+          type: "string"
+          description: "主题名称"
+      responses:
+        200:
+          description: "链接列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Theme_Url"
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+  
+  /theme/{schemeId}:
+    get:
+      summary: "获取主题详细信息"
+      description: "获取主题详细信息"
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "schemeId"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "主题id"
+      responses:
+        200:
+          description: "主题详细信息"
+          schema:
+            $ref: '#/definitions/Theme_Urls'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+    put:
+      summary: "修改主题"
+      description: "修改主题"
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "schemeId"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "主题id"
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Theme_Put_Model"
+      responses:
+        200:
+          description: "修改成功"
+          schema:
+            $ref: '#/definitions/Resp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+    delete:
+      summary: "删除主题"
+      description: "删除主题"
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "schemeId"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "主题id"
+      responses:
+        200:
+          description: "删除成功"
+          schema:
+            $ref: "#/definitions/Resp"
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+  
+  /theme/{schemeId}/findurl:
+    get:
+      summary: "根据不同条件查询链接信息"
+      description: "根据不同条件查询链接信息"
+      tags:
+        - "内容管理"
+      parameters:
+        - name: "schemeId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "主题id"
+        - name: "key"
+          in: "query"
+          type: "string"
+          enum:
+            - "url"
+            - "urlname"
+          required: true
+          description: "查询条件(url:链接查询；urlname:链接名称查询)"
+        - name: "value"
+          in: "query"
+          type: "string"
+          required: true
+          description: "查询值"
+      responses:
+        200:
+          description: "链接信息"
+          schema:
+            $ref: '#/definitions/Theme_Url'
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+  
+  /channels/type:
+    get:
+      summary: "渠道分类信息"
+      description: "渠道分类信息"
+      tags:
+        - "渠道"
+      responses:
+        200:
+          description: "主题列表"
+          schema:
+            $ref: '#/definitions/Channel_Type_Tree'
+        500:
+          $ref: "#/responses/InnerErr"
+          
+  /channels/findbyname:
+    get:
+      summary: "同一分类同一主题下不能有重复的渠道名称"
+      description: "同一分类同一主题下不能有重复的渠道名称"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "name"
+          in: "query"
+          type: "string"
+          required: true
+          description: "渠道名称"
+        - name: "typeid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "分类id"
+        - name: "schemeid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "主题id"
+      responses:
+        200:
+          description: "渠道信息"
+          schema:
+            $ref: '#/definitions/Dict_Channels'
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: "#/responses/InnerErr"
+          
+  /channels:
+    post:
+      summary: "新增渠道"
+      description: "新增渠道"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "渠道模型" 
+          required: true
+          schema:
+            $ref: "#/definitions/Channel_Post"
+      responses:
+        200:
+          description: "添加成功"
+          schema:
+            $ref: "#/definitions/Resp"
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+     
+  /channels/{channelId}:
+    get:
+      summary: "获取渠道信息"
+      description: "获取渠道信息"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "channelId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "渠道id"
+      responses:
+        200:
+          description: "渠道信息"
+          schema:
+            $ref: "#/definitions/Dict_Channels"
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr' 
+    delete:
+      summary: "删除渠道信息"
+      description: "删除渠道信息"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "channelId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "渠道id"
+      responses:
+        200:
+          description: "删除"
+          schema:
+            $ref: "#/definitions/Resp"
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+  
+  /urlchannel/{urlId}:
+    get:
+      summary: "已选渠道列表"
+      description: "已选渠道列表"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "name"
+          in: "query"
+          type: "string"
+          required: false
+          description: "渠道名称/参数"
+      responses:
+        200:
+          description: "渠道列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Channels_Model"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"  
+    post:
+      summary: "选中渠道"
+      description: "选中渠道"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "body"
+          in: "body"
+          required: true
+          description: "已选择渠道模型"
+          schema:
+            $ref: "#/definitions/Url_Channels_Post_Info"
+      responses:
+        200:
+          description: "添加成功"
+          schema:
+            $ref: "#/definitions/Resp"
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+    delete:
+      summary: "删除已选渠道"
+      description: "删除已选渠道"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "channelid"
+          in: "query"
+          required: true
+          type: "integer"
+          description: "渠道id"
+      responses:
+        200:
+          description: "删除"
+          schema:
+            $ref: "#/definitions/Resp"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr" 
+  
+  /urlchannel/{urlId}/data:
+    get:
+      summary: "判断渠道是否已经存在数据"
+      description: "判断渠道是否已经存在数据"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "channelid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "渠道id"
+      responses:
+        200:
+          description: "删除"
+          schema:
+            $ref: "#/definitions/Channel_DataCount"
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+  
+  /urlchannel/{urlId}/select:
+    get:
+      summary: "选择渠道列表"
+      description: "选择渠道列表"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "userid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "用户id"
+        - name: "typeid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "分类id"
+        - name: "schemeid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "主题id"
+      responses:
+        200:
+          description: "渠道列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Dict_Channels"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+          
+  /urlchannel/{urlId}/downloadqrc:
+    get:
+      summary: "批量下载二维码"
+      description: "批量下载二维码"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+      responses:
+        200:
+          description: "下载成功"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+          
+  /urlchannel/{urlId}/downloadlink:
+    get:
+      summary: "下载链接"
+      description: "下载链接"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+      responses:
+        200:
+          description: "下载成功"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  
+  /channelparam/{relId}/importparams:
+    post:
+      summary: "批量上传参数"
+      description: "批量上传参数"
+      consumes:
+      - "multipart/form-data"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "relId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "关联id"
+        - name: "files"
+          in: "formData"
+          type: "file"
+          required: true
+          description: "excel表格"
+      responses:
+        200:
+          description: "参数信息"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Channel_Params"
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+          
+  /channelparam/{relId}/params:
+    post:
+      summary: "新增参数"
+      description: "新增参数"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "relId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "关联id"
+        - name: "params"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Channel_Params_Post"
+      responses:
+        200:
+          description: "参数列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Channel_Params"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+    
+  /channelparam/{relId}/findparambyname:
+    get:
+      summary: "同一渠道下参数名称是否重复"
+      description: "同一渠道下参数名称是否重复"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "relId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "name"
+          in: "query"
+          type: "string"
+          required: false
+          description: "参数"
+      responses:
+        200:
+          description: "参数信息"
+          schema:
+            $ref: "#/definitions/Channel_Params"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"  
+  
+  /channelparam/{relId}/params/{paramId}:
+    get:
+      summary: "判断参数是否存在数据"
+      description: "判断参数是否存在数据"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "relId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "关联id"
+        - name: "paramId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "参数id"
+      responses:
+        200:
+          description: "参数列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Param_DataCount"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+    put:
+      summary: "修改参数"
+      description: "修改参数"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "relId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "关联id"
+        - name: "paramId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "参数id"
+        - name: "params"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Channel_Params_Put"
+      responses:
+        200:
+          description: "参数列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Channel_Params"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+    delete:
+      summary: "删除参数"
+      description: "删除参数"
+      tags:
+        - "渠道"
+      parameters:
+        - name: "relId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "关联id"
+        - name: "paramId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "参数id"
+      responses:
+        200:
+          $ref: "#/responses/DeleteResp"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr" 
+  
+  /authorization/selectenterprise:
+    get:
+      summary: "服务商后台-企业账户管理-企业下拉列表"
+      description: "服务商后台-企业账户管理-企业下拉列表"
+      tags:
+        - "授权管理"
+      parameters:
+        - name: "spid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "服务商id"
+        - name: "name"
+          in: "query"
+          type: "string"
+          required: false
+          description: "企业名称"
+        - $ref: "#/parameters/PageIndex"
+        - $ref: "#/parameters/PageSize"
+      responses:
+        200:
+          description: "企业下拉列表模型"
+          schema:
+            $ref: "#/definitions/Enterprise_Dropdown_List"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  
+  /authorization/enterprise:
+    get:
+      summary: "企业列表"
+      description: "企业列表"
+      tags:
+        - "授权管理"
+      parameters:
+        - name: "name"
+          in: "query"
+          type: "string"
+          required: false
+          description: "企业名称"
+        - name: "compid"
+          in: "query"
+          type: "integer"
+          required: false
+          description: "企业id"
+        - name: "status"
+          in: "query"
+          type: "string"
+          required: false
+          description: "状态(0:已结束; 1:授权中;)"
+          enum:
+            - "0"
+            - "1"
+        - name: "spid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "服务商id"
+        - $ref: "#/parameters/PageIndex"
+        - $ref: "#/parameters/PageSize"
+      responses:
+        200:
+          description: "企业列表"
+          schema:
+            $ref: "#/definitions/Comp_Auth_List"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr" 
+  
+  /authorization/services:
+    get:
+      summary: "服务商列表"
+      description: "服务商列表"
+      tags:
+        - "授权管理"
+      parameters:
+        - name: "compid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "企业id"
+        - $ref: "#/parameters/PageIndex"
+        - $ref: "#/parameters/PageSize"
+      responses:
+        200:
+          description: "授权信息"
+          schema:
+            $ref: "#/definitions/Comp_Auth_List"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr" 
+  
+  /authorization:
+    post:
+      summary: "企业授权"
+      description: "企业授权"
+      tags:
+        - "授权管理"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          description: "企业授权提交模型"
+          schema:
+            $ref: "#/definitions/Comp_Auth_Post"
+      responses:
+        200:
+          description: "新增"
+          schema:
+            $ref: "#/definitions/Resp"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+       
+  /authorization/{authId}:
+    get:
+      summary: "根据id获取授权信息"
+      description: "根据id获取授权信息"
+      tags:
+        - "授权管理"
+      parameters:
+        - name: "authId"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "授权id"
+      responses:
+        200:
+          description: "授权信息"
+          schema:
+            $ref: "#/definitions/Comp_Auth"
+        400:
+          $ref: "#/responses/ParametersErr"
+        404:
+          $ref: "#/responses/NotFoundErr"
+        500:
+          $ref: "#/responses/InnerErr"
+    put:
+      summary: "修改授权信息"
+      description: "修改授权信息"
+      tags:
+        - "授权管理"
+      parameters:
+        - name: "authId"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "授权id"
+        - name: "body"
+          in: "body"
+          required: true
+          description: "授权修改模型"
+          schema:
+            $ref: "#/definitions/Comp_Auth_Put"
+      responses:
+        200:
+          description: "修改"
+          schema:
+            $ref: "#/definitions/Resp"
+        400:
+          $ref: "#/responses/ParametersErr"
+        404:
+          $ref: "#/responses/NotFoundErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  
+  /authorization/{authId}/stop:
+    put:
+      summary: "授权停用"
+      description: "授权停用"
+      tags:
+        - "授权管理"
+      parameters:
+        - name: "authId"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "授权id"
+      responses:
+        200:
+          $ref: "#/responses/PutResp"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+          
+  /statistics:
+    get:
+      summary: "主题列表"
+      description: "主题列表"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "compid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "企业id"
+        - name: "themename"
+          in: "query"
+          description: "主题名称"
+          required: false
+          type: "string"
+        - $ref: "#/parameters/PageIndex"
+        - $ref: "#/parameters/PageSize"
+      responses:
+        200:
+          description: "主题列表"
+          schema:
+            $ref: '#/definitions/Statistics_List_Model'
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  /statistics/export:
+    get:
+      summary: "效果统计-数据收集-导出明细"
+      description: "效果统计-数据收集-导出明细"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "themename"
+          in: "query"
+          type: "string"
+          required: false
+          description: "主题或链接名称"
+      responses:
+        200:
+          description: "下载成功"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"        
+  /statistics/counts:
+    get:
+      summary: "效果统计-总链接数、总访问量、总线索量"
+      description: "效果统计-总链接数、总访问量、总线索量"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "compid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "企业id"
+        - name: "themename"
+          in: "query"
+          type: "string"
+          required: false
+          description: "主题/链接名称"
+      responses:
+        200:
+          description: "主题列表"
+          schema:
+            $ref: '#/definitions/Statistics_Count_Model'
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  /statistics/{urlId}/funnel:
+    get:
+      summary: "转化详情-营销漏斗"
+      description: "转化详情-营销漏斗"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+      responses:
+        200:
+          description: "营销漏斗"
+          schema:
+            $ref: "#/definitions/Marketing_funnel"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  
+  /statistics/{urlId}/details:
+    get:
+      summary: "转化详情-渠道明细"
+      description: "转化详情-渠道明细"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "sortfield"
+          in: "query"
+          type: "string"
+          required: false
+          description: "排序字段(view:访问;hit:点击;data:线索;business:商机;order:订单;)"
+        - name: "sorttype"
+          in: "query"
+          type: "string"
+          required: false
+          description: "排序方式(asc:升序;desc:降序)"
+        - $ref: "#/parameters/PageIndex"
+        - $ref: "#/parameters/PageSize"
+      responses:
+        200:
+          description: "渠道明细"
+          schema:
+            $ref: "#/definitions/Channel_Details_List"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+          
+  /statistics/{urlId}/devices:
+    get:
+      summary: "访问概况-设备统计"
+      description: "访问概况-设备统计"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+      responses:
+        200:
+          description: "设备统计"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Device_Model"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+          
+  /statistics/{urlId}/mobile:
+    get:
+      summary: "访问概况-手机品牌统计"
+      description: "访问概况-手机品牌统计"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+      responses:
+        200:
+          description: "手机品牌统计"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Mobile_Model"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  
+  /statistics/{urlId}/country:
+    get:
+      summary: "访问概况-全国地域统计"
+      description: "访问概况-全国地域统计"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "day"
+          in: "query"
+          type: "integer"
+          required: false
+          description: "天数 (0:今天; 1:昨天; 7:近7天;30:近30天;-1:全部)"
+      responses:
+        200:
+          description: "地域统计"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Map_Model"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"   
+  
+  /statistics/{urlId}/country/province:
+    get:
+      summary: "访问概况-省份统计"
+      description: "访问概况-省份统计"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "province"
+          in: "query"
+          type: "string"
+          required: true
+          description: "省份名称"
+        - name: "day"
+          in: "query"
+          type: "integer"
+          required: false
+          description: "天数 (0:今天; 1:昨天; 7:近7天;30:近30天;-1:全部;)"
+      responses:
+        200:
+          description: "地域统计"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Map_Model"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"   
+  
+  /statistics/{urlId}/channels:
+    get:
+      summary: "访问概况-访问趋势-渠道导航"
+      description: "访问概况-访问趋势-渠道导航"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+      responses:
+        200:
+          description: "访问趋势-渠道导航"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Tendency_Channel_List"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  /statistics/{urlId}/tendency:
+    get:
+      summary: "访问概况-访问趋势"
+      description: "访问概况-访问趋势"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "channelid"
+          in: "query"
+          type: "integer"
+          required: false
+          description: "渠道id"
+        - name: "level"
+          in: "query"
+          type: "integer"
+          required: false
+          description: "渠道层级"
+        - name: "day"
+          in: "query"
+          type: "integer"
+          required: false
+          description: "天数(0:今天; 1:昨天; 7:近7天;30:近30天;-1:全部)"
+        - name: "unit"
+          in: "query"
+          type: "string"
+          required: false
+          description: "统计单位(天、小时)"
+          enum:
+            - 'hour'
+            - 'day'
+      responses:
+        200:
+          description: "访问趋势"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Curve_List_Model"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+          
+  /statistics/{urlId}/data:
+    get:
+      summary: "效果统计-数据收集"
+      description: "效果统计-数据收集"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "name"
+          in: "query"
+          type: "string"
+          required: false
+          description: "姓名"
+        - name: "phone"
+          in: "query"
+          type: "string"
+          required: false
+          description: "联系方式"
+        - name: "compname"
+          in: "query"
+          type: "string"
+          required: false
+          description: "公司名称"
+      responses:
+        200:
+          description: "数据收集"
+          schema:
+            $ref: "#/definitions/Data_List"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+    post:
+      summary: "收集溯源相关数据"
+      description: "收集溯源相关数据"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+        - name: "body"
+          in: "body"
+          required: true
+          description: "数据模型"
+          schema:
+            $ref: "#/definitions/Data_Post_Model"
+      responses:
+        200:
+          description: "数据收集"
+          schema:
+            $ref: "#/definitions/Visit_info"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  /statistics/{urlId}/data/export:
+    get:
+      summary: "效果统计-数据收集-导出明细"
+      description: "效果统计-数据收集-导出明细"
+      tags:
+        - "效果统计"
+      parameters:
+        - name: "urlId"
+          in: "path"
+          type: "integer"
+          required: true
+          description: "链接id"
+      responses:
+        200:
+          description: "下载成功"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  /message/list:
+    get:
+      summary: "留言收集列表"
+      description: "留言收集列表"
+      tags:
+        - "留言收集"
+      parameters:
+        - name: "compid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "企业id"
+        - name: "linkname"
+          in: "query"
+          type: "string"
+          required: false
+          description: "姓名"
+        - name: "linkphone"
+          in: "query"
+          type: "string"
+          required: false
+          description: "联系方式"
+        - name: "companyname"
+          in: "query"
+          type: "string"
+          required: false
+          description: "公司名称"
+      responses:
+        200:
+          description: "数据收集"
+          schema:
+            $ref: "#/definitions/Data_List"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  /message/export:
+    get:
+      summary: "留言收集--导出明细"
+      description: "留言收集-导出明细"
+      tags:
+        - "留言收集"
+      parameters:
+        - name: "compid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "企业id"
+        - name: "linkname"
+          in: "query"
+          type: "string"
+          required: false
+          description: "姓名"
+        - name: "linkphone"
+          in: "query"
+          type: "string"
+          required: false
+          description: "联系方式"
+        - name: "companyname"
+          in: "query"
+          type: "string"
+          required: false
+          description: "公司名称"
+      responses:
+        200:
+          description: "下载成功"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  /visit/postdata:
+    get:
+      summary: "线索收集--线索提交"
+      description: "收集从小蜜蜂、蜂巢、CRM等提交过来的数据"
+      tags:
+        - "线索收集"
+      parameters:
+        - name: "compid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "企业id"
+        - name: "accesstype"
+          type: "integer"
+          in: "query"
+          required: true
+          description: "访问类型 1:访问量 2:点击量 3:线索 4:商机 5:订单"
+        - name: "schemeid"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "主题id"
+        - name: "urlid"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "链接id"
+        - name: "relid"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "链接渠道关联id"
+        - name: "paramid"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "参数id"
+        - name: "channelid"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "渠道id"
+        - name: "compname"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "公司名称"
+        - name: "linkman"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "姓名"
+        - name: "linkphone"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "手机"
+        - name: "inputer"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "录入者"
+        - name: "extendattr"
+          type: "array"
+          in: "query"
+          required: false
+          items:
+            $ref: "#/definitions/Extend_Attr_Model"
+          description: "扩展数据数组，格式如：[{'attr_name':'地址','attr_value':'湖南长沙'},{'attr_name':'来源','attr_value':'互联网'}]"
+      responses:
+        200:
+          description: "添加成功"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+  /visit/list:
+    get:
+      summary: "线索列表"
+      description: "查询从小蜜蜂、蜂巢、CRM等提交过来的数据"
+      tags:
+        - "线索列表"
+      parameters:
+        - name: "compid"
+          in: "query"
+          type: "integer"
+          required: true
+          description: "企业id" 
+        - name: "channelid"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "渠道id"    
+        - name: "urlid"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "链接id"   
+        - name: "schemeid"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "主题id"          
+        - name: "compname"
+          type: "integer"
+          in: "query"
+          required: false
+          description: "公司名称" 
+        - name: "accesstype"
+          type: "integer"
+          in: "query"
+          required: true
+          description: "访问类型 1:访问量 2:点击量 3:线索 4:商机 5:订单"      
+        - $ref: "#/parameters/PageIndex"
+        - $ref: "#/parameters/PageSize"             
+      responses:
+        200:
+          description: "渠道明细"
+          schema:
+            $ref: "#/definitions/Visit_Info_List"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr" 
+    post:
+      summary: "线索收集--批量线索提交"
+      description: "收集从小蜜蜂、蜂巢、CRM等提交过来的数据"
+      tags:
+        - "线索列表"
+      parameters:
+        - name: "datas"
+          in: "body"
+          required: true
+          description: "线索"
+          schema:
+            $ref: "#/definitions/Accesses"
+      responses:
+        200:
+          description: "添加成功"
+        400:
+          $ref: "#/responses/ParametersErr"
+        500:
+          $ref: "#/responses/InnerErr"
+		    
+##############################################################################
+#                                 Parameters                                 #
+##############################################################################
+parameters:
+  PageIndex:
+    name: "pageIndex"
+    in: "query"
+    description: "当前页码，默认第1页"
+    required: true
+    type: "integer"
+    format: "int32"
+    minimum: 1
+    default: 1
+    
+  PageSize:
+    name: "pageSize"
+    in: "query"
+    description: "每页记录数，默认10条"
+    required: true
+    type: "integer"
+    format: "int32"
+    minimum: 1
+    maximum: 99999
+    default: 10
+##############################################################################
+#                                 Responses                                  #
+##############################################################################
+responses:
+  PutResp:
+    description: "修改成功"
+    schema:
+      $ref: '#/definitions/RowsResp'
+      
+  DeleteResp:
+    description: "删除成功"
+    schema:
+      $ref: '#/definitions/RowsResp'
+        
+  ParametersErr:
+    description: "参数异常"
+    schema:
+      $ref: '#/definitions/Error'
+  
+  NotFoundErr:
+    description: "资源不存在"
+    schema:
+      $ref: '#/definitions/Error'
+      
+  InnerErr:
+    description: "内部错误"
+    schema:
+      $ref: '#/definitions/Error'
+##############################################################################
+#                                 Definitions                                #
+##############################################################################
+definitions:
+  Theme:
+    type: "object"
+    description: "主题"
+    required:
+      - "scheme_id"
+      - "scheme_name"
+      - "comp_id"
+    properties:
+      scheme_id:
+        type: "integer"
+        description: "主题id"
+      scheme_name:
+        type: "string"
+        description: "主题"
+      comp_id:
+        type: "integer"
+        description: "企业id"
+      create_userid:
+        type: "string"
+        description: "创建人id"
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      modify_userid:
+        type: "string"
+        description: "修改人id"
+      modify_time:
+        type: "string"
+        format: "date-time"
+        description: "修改时间"
+  Themes:
+    type: "object"
+    description: "主题列表"
+    properties:
+      count:
+        type: "integer"
+        description: ""
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Theme_Urls"
+  Theme_Url:
+    type: "object"
+    description: "主题链接"
+    required: 
+      - "url_id"
+      - "scheme_id"
+      - "url_name"
+      - "url"
+      - "is_limit_time"
+      - "start_time"
+      - "end_time"
+    properties:
+      url_id:
+        type: "integer"
+        description: "链接id"
+      scheme_id:
+        type: "integer"
+        description: "主题id"
+      url_name:
+        type: "string"
+        description: "链接名称"
+      url:
+        type: "string"
+        description: "链接名称"
+      scheme_type:
+        type: "string"
+        description: "内容载体类型：('0':企业自建;'1':小蜜蜂;'2':蜂巢;'3':知识库;'4':CRM)"
+        enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+      is_limit_time:
+        type: "string"
+        description: "是否限制时间(0:不限时间；1:限定时间；)"
+        enum: 
+          - "0" 
+          - "1"
+      start_time:
+        type: "string"
+        format: "date-time"
+        description: "开始时间"
+      end_time:
+        type: "string"
+        format: "date-time"
+        description: "结束时间"
+      enable_form:
+        type: "string"
+        description: "埋点代码是否开启表单(0:关闭；1:开启；)"
+      form_item:
+        type: "string"
+        description: "表单必填选项,json字符串 {'filed_name':false or true } "
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      create_userid:
+        type: "integer"
+        description: "创建人id"
+      create_username:
+        type: "string"
+        description: "创建人名称"
+      status:
+        type: "integer"
+        description: "溯源时间是否已结束(0:已结束;1:未结束;)"
+        enum:
+          - 0
+          -
+      channelcount:
+        type: "integer"
+        description: "链接所选渠道个数"
+  Theme_Url_Post_Model:
+    type: "object"
+    description: "链接模型"
+    required: 
+      - "url_name"
+      - "url"
+      - "is_limit_time"
+      - "start_time"
+      - "end_time"
+    properties:
+      url_name:
+        type: "string"
+        description: "链接名称"
+      url:
+        type: "string"
+        description: "链接名称"
+      is_limit_time:
+        type: "string"
+        description: "是否限制时间(0:不限时间；1:限定时间；)"
+        enum: 
+          - "0" 
+          - "1"
+      scheme_type:
+        type: "string"
+        description: "内容载体类型：('0':企业自建;'1':小蜜蜂;'2':蜂巢;'3':知识库;'4':CRM)"
+        enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+      start_time:
+        type: "string"
+        format: "date-time"
+        description: "开始时间"
+      end_time:
+        type: "string"
+        format: "date-time"
+        description: "结束时间"
+      enable_form:
+        type: "string"
+        description: "埋点代码是否开启表单(0:关闭；1:开启；)"
+      form_item:
+        type: "string"
+        description: "表单必填选项,json字符串 {'filed_name':false or true } "
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+  Theme_Url_Put_Model:
+    type: "object"
+    description: "链接模型"
+    required: 
+      - "url_name"
+      - "url"
+      - "is_limit_time"
+      - "start_time"
+      - "end_time"
+    properties:
+      url_id:
+        type: "integer"
+        description: "链接id"
+      url_name:
+        type: "string"
+        description: "链接名称"
+      url:
+        type: "string"
+        description: "链接名称"
+      scheme_type:
+        type: "string"
+        description: "内容载体类型：('0':企业自建;'1':小蜜蜂;'2':蜂巢;'3':知识库;'4':CRM)"
+        enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+      is_limit_time:
+        type: "string"
+        description: "是否限制时间(0:不限时间；1:限定时间；)"
+        enum: 
+          - "0" 
+          - "1"
+      start_time:
+        type: "string"
+        format: "date-time"
+        description: "开始时间"
+      end_time:
+        type: "string"
+        format: "date-time"
+        description: "结束时间"
+      enable_form:
+        type: "string"
+        description: "埋点代码是否开启表单(0:关闭；1:开启；)"
+      form_item:
+        type: "string"
+        description: "表单必填选项,json字符串 {'filed_name':false or true } "
+  Theme_Post_Model:
+    type: "object"
+    description: "主题新增模型"
+    required:
+      - "scheme_name"
+      - "comp_id"
+      - "urls"
+      - "create_userid"
+      - "create_username"
+    properties:
+      scheme_name:
+        type: "string"
+        description: "主题名"
+      comp_id:
+        type: "integer"
+        description: "企业id"
+      urls:
+        type: "array"
+        items:
+          $ref: "#/definitions/Theme_Url_Post_Model"
+      create_userid:
+        type: "string"
+        description: "创建人id"
+      create_username:
+        type: "string"
+        description: "创建人名称"
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+  Extend_Attr_Model:
+    type: "object"
+    description: "扩展属性"
+    required:
+      - "attr_id"
+      - "attr_name"
+      - "attr_value"
+      - "access_id"
+      - "create_date"
+    properties:
+      attr_id:
+        type: "integer"
+        description: "自增ID"	
+      attr_name:
+        type: "string"
+        description: "属性名称"	
+      attr_value:
+        type: "string"
+        description: "属性值"	
+      access_id:
+        type: "integer"
+        description: "线索ID"		
+      create_date:
+        type: "string"
+        format: "date-time"
+        description: "添加时间"
+  Theme_Put_Model:
+    type: "object"
+    description: "主题修改模型"
+    properties:
+      scheme_name:
+        type: "string"
+        description: "主题名"
+      comp_id:
+        type: "integer"
+        description: "企业id"
+      update_urls:
+        type: "array"
+        items:
+          $ref: "#/definitions/Theme_Url_Put_Model"
+      insert_urls:
+        type: "array"
+        items:
+          $ref: "#/definitions/Theme_Url_Post_Model"
+      delete_urls:
+        type: "array"
+        items:
+          type: "integer"
+          description: "链接id数组"
+      modify_userid:
+        type: "string"
+        description: "修改人id"
+      modify_time:
+        type: "string"
+        format: "date-time"
+        description: "修改时间"
+  Theme_Urls:
+    type: "object"
+    description: "主题分页模型"
+    properties:
+      scheme_id:
+        type: "integer"
+        description: "主题id"
+      scheme_name:
+        type: "string"
+        description: "主题"
+      comp_id:
+        type: "integer"
+        description: "企业id"
+      create_userid:
+        type: "string"
+        description: "创建人id"
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      modify_userid:
+        type: "string"
+        description: "修改人id"
+      modify_time:
+        type: "string"
+        format: "date-time"
+        description: "修改时间"
+      urls:
+        type: "array"
+        items:
+          $ref: "#/definitions/Theme_Url"
+  Theme_SelectList:
+    type: "object"
+    description: "主题列表下拉选择"
+    properties:
+      scheme_id:
+        type: "integer"
+        description: "主题id"
+      scheme_name:
+        type: "string"
+        description: "主题名称"
+  Url_Move:
+    type: "object"
+    description: "链接移动时所需参数模型"
+    properties:
+      schemeid:
+        type: "integer"
+        description: "主题id"
+      urlids:
+        type: "array"
+        description: "链接实体数组"
+        items:
+          $ref: "#/definitions/Url_Move_Model"
+  Url_Move_Model:
+    type: "object"
+    description: "链接移动模型"
+    properties:
+      url_id:
+        type: "integer"
+        description: "链接id"
+      url_name:
+        type: "string"
+        description: "链接名称"
+      url:
+        type: "string"
+        description: "链接地址"
+  Channel_Type:
+    type: "object"
+    description: "渠道分类"
+    required: 
+      - "type_id"
+      - "p_type_id"
+      - "type_name"
+    properties:
+      type_id:
+        type: "integer"
+        description: "分类id"
+      p_type_id:
+        type: "integer"
+        description: "父分类id"
+      type_name:
+        type: "string"
+        description: "分类名称"
+      type_desc:
+        type: "string"
+        description: "分类描述"
+  Channel_Type_Tree:
+    type: "object"
+    description: "渠道分类树"
+    properties:
+      type_id:
+        type: "integer"
+        description: "分类id"
+      p_type_id:
+        type: "integer"
+        description: "父分类id"
+      type_name:
+        type: "string"
+        description: "分类名称"
+      type_desc:
+        type: "string"
+        description: "分类描述"
+      children:
+        type: "array"
+        description: "子分类"
+        items:
+          $ref: "#/definitions/Channel_Type"
+  Dict_Channels:
+    type: "object"
+    description: "渠道信息"
+    required: 
+      - "channel_id"
+      - "type_id"
+      - "channel_name"
+    properties:
+      channel_id:
+        type: "integer"
+        description: "渠道id"
+      type_id:
+        type: "integer"
+        description: "分类id"
+      channel_name:
+        type: "string"
+        description: "渠道名称"
+      channel_order:
+        type: "integer"
+        description: "渠道排序"
+      channel_setup_type:
+        type: "string"
+        description: "渠道设置类型('0' 预设渠道;'1' 自定义添加渠道)"
+        enum:
+          - "0"
+          - "1"
+      create_userid:
+        type: "string"
+        description: "创建人id"
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      modify_userid:
+        type: "string"
+        description: "修改人id"
+      modify_time:
+        type: "string"
+        format: "date-time"
+        description: "修改时间"
+      selected:
+        type: "boolean"
+        default: false
+        description: "是否被选择"
+  Channel_Post:
+    type: "object"
+    description: "新增渠道"
+    required:
+      - "type_id"
+      - "channel_name"
+      - "scheme_id"
+    properties:
+      type_id:
+        type: "integer"
+        description: "分类id"
+      channel_name:
+        type: "string"
+        description: "渠道名称"
+      channel_setup_type:
+        type: "string"
+        description: "渠道设置类型('0' 预设渠道;'1' 自定义添加渠道)"
+        enum:
+          - "0"
+          - "1"
+      create_userid:
+        type: "string"
+        description: "创建人id"
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      scheme_id:
+        type: "integer"
+        description: "主题id"
+  Url_Channels_Info:
+    type: "object"
+    description: "链接已选渠道"
+    required: 
+      - rel_id
+      - url_id
+      - channel_id
+    properties:
+      rel_id:
+        type: "integer"
+        description: "关联记录id"
+      url_id:
+        type: "integer"
+        description: "链接id"
+      channel_id:
+        type: "integer"
+        description: "渠道id"
+      create_userid:
+        type: "integer"
+        description: "创建人id"
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      modify_userid:
+        type: "string"
+        description: "修改人id"
+      modify_time:
+        type: "string"
+        format: "date-time"
+        description: "修改时间"
+  Url_Channels_Post_Info:
+    type: "object"
+    description: "添加已选择渠道模型"
+    required:
+      - channelid
+    properties:
+      channelid:
+        type: "integer"
+        description: "渠道id"
+  Channel_Params:
+    type: "object"
+    description: "渠道参数"
+    required: 
+      - "param_id"
+      - "url_id"
+      - "param_name"
+    properties:
+      param_id:
+        type: "integer"
+        description: "渠道参数id"
+      url_id:
+        type: "integer"
+        description: "链接id"
+      param_name:
+        type: "string"
+        description: "参数名称"
+      sort:
+        type: "integer"
+        description: "参数排序"
+      create_date:
+        type: "string"
+        description: "创建时间"
+  Channel_Params_Post:
+    type: "object"
+    description: "渠道参数新增模型"
+    required:
+      - rel_id
+      - param_name
+      - sort
+    properties:
+      rel_id:
+        type: "integer"
+        description: "关联id"
+      param_name:
+        type: "string"
+        description: "参数名称"
+      sort:
+        type: "integer"
+        description: "参数排序"
+  Channel_Params_Put:
+    type: "object"
+    description: "渠道参数修改模型"
+    required:
+      - param_name
+    properties:
+      param_name:
+        type: "string"
+        description: "参数名称"
+  Channel_Params_Model:
+    type: "object"
+    description: "渠道参数模型"
+    required: 
+      - "param_id"
+      - "param_name"
+    properties:
+      param_id:
+        type: "integer"
+        description: "渠道参数id"
+      param_name:
+        type: "string"
+        description: "参数名称"
+      sort:
+        type: "integer"
+        description: "参数排序"
+  Channels_Model:
+    type: "object"
+    description: "渠道+参数模型"
+    properties:
+      rel_id:
+        type: "integer"
+        description: "关联id"
+      channel_id:
+        type: "integer"
+        description: "渠道id"
+      type_id:
+        type: "integer"
+        description: "分类id"
+      channel_name:
+        type: "string"
+        description: "渠道名称"
+      params:
+        type: "array"
+        items:
+          $ref: "#/definitions/Channel_Params_Model"
+  Comp_Auth:
+    type: "object"
+    description: "企业授权"
+    required: 
+      - "auth_id"
+      - "comp_id"
+      - "sp_id"
+      - "auth_start_date"
+      - "auth_end_date"
+    properties:
+      auth_id:
+        type: "integer"
+        description: "授权id"
+      comp_id:
+        type: "integer"
+        description: "企业id"
+      comp_name:
+        type: "string"
+        description: "企业名称"
+      sp_id:
+        type: "integer"
+        description: "服务商id"
+      sp_name:
+        type: "string"
+        description: "服务商名称"
+      auth_start_date:
+        type: "string"
+        format: "date-time"
+        description: "授权生效时间"
+      auth_end_date:
+        type: "string"
+        format: "date-time"
+        description: "授权到期时间"
+      auth_status:
+        type: "string"
+        description: "授权状态(0:已结束;1:授权中;)"
+        enum: 
+          - "0"
+          - "1"
+      create_userid:
+        type: "string"
+        description: "创建人id"
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      modify_userid:
+        type: "string"
+        description: "修改人id"
+      modify_time:
+        type: "string"
+        format: "date-time"
+        description: "修改时间"
+  Comp_Auth_Model:
+    type: "object"
+    description: "授权模型"
+    required: 
+      - "auth_id"
+      - "comp_id"
+      - "sp_id"
+      - "auth_start_date"
+      - "auth_end_date"
+    properties:
+      auth_id:
+        type: "integer"
+        description: "授权id"
+      comp_id:
+        type: "integer"
+        description: "企业id"
+      comp_name:
+        type: "string"
+        description: "企业名称"
+      sp_id:
+        type: "integer"
+        description: "服务商id"
+      sp_name:
+        type: "string"
+        description: "服务商名称"
+      count:
+        type: "integer"
+        description: "溯源任务数"
+      auth_start_date:
+        type: "string"
+        format: "date-time"
+        description: "授权生效时间"
+      auth_end_date:
+        type: "string"
+        format: "date-time"
+        description: "授权到期时间"
+      auth_status:
+        type: "string"
+        description: "授权状态(0:已结束;1:授权中;)"
+        enum: 
+          - "0"
+          - "1"
+      create_userid:
+        type: "string"
+        description: "创建人id"
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      modify_userid:
+        type: "string"
+        description: "修改人id"
+      modify_time:
+        type: "string"
+        format: "date-time"
+        description: "修改时间"
+      counts:
+        type: "integer"
+        description: "溯源任务数"
+  Comp_Auth_List:
+    type: "object"
+    description: "企业授权列表"
+    properties:
+      count:
+        type: "integer"
+        description: "总记录数"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Comp_Auth_Model"
+  Comp_Auth_Post:
+    type: "object"
+    description: "企业授权提交模型"
+    required: 
+      - "comp_id"
+      - "comp_name"
+      - "sp_id"
+      - "sp_name"
+      - "auth_start_date"
+      - "auth_end_date"
+    properties:
+      comp_id:
+        type: "integer"
+        description: "企业id"
+      comp_name:
+        type: "string"
+        description: "企业名称"
+      sp_id:
+        type: "integer"
+        description: "服务商id"
+      sp_name:
+        type: "string"
+        description: "服务商名称"
+      auth_start_date:
+        type: "string"
+        format: "date-time"
+        description: "授权生效时间"
+      auth_end_date:
+        type: "string"
+        format: "date-time"
+        description: "授权到期时间"
+      auth_status:
+        type: "string"
+        description: "授权状态(0:已结束;1:授权中;)"
+        enum: 
+          - "0"
+          - "1"
+      create_userid:
+        type: "string"
+        description: "创建人id"
+      create_time:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+  Comp_Auth_Put:
+    type: "object"
+    description: "授权修改模型"
+    required: 
+      - "auth_id"
+      - "sp_id"
+      - "sp_name"
+      - "auth_start_date"
+      - "auth_end_date"
+      - "modify_userid"
+    properties:
+      auth_id:
+        type: "integer"
+        description: "授权id"
+      sp_id:
+        type: "integer"
+        description: "服务商id"
+      sp_name:
+        type: "string"
+        description: "服务商名称"
+      auth_start_date:
+        type: "string"
+        format: "date-time"
+        description: "授权生效时间"
+      auth_end_date:
+        type: "string"
+        format: "date-time"
+        description: "授权到期时间"
+      auth_status:
+        type: "string"
+        description: "授权状态(0:已结束;1:授权中;)"
+        enum: 
+          - "0"
+          - "1"
+      modify_userid:
+        type: "string"
+        description: "修改人id"
+      modify_time:
+        type: "string"
+        format: "date-time"
+        description: "修改时间"
+  Statistics_Url_Model:
+    type: "object"
+    description: "统计链接模型"
+    properties:
+      url_id:
+        type: "integer"
+        description: "链接id"
+      url_name:
+        type: "string"
+        description: "链接名称"
+      url:
+        type: "string"
+        description: "链接名称"
+      create_date:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      views:
+        type: "integer"
+        description: "访问"
+      data:
+        type: "integer"
+        description: "线索"
+      business:
+        type: "integer"
+        description: "商机"
+  Statistics_Model:
+    type: "object"
+    description: "效果统计模型"
+    properties:
+      scheme_id:
+        type: "integer"
+        description: "主题id"
+      scheme_name:
+        type: "string"
+        description: "主题名称"
+      create_date:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+      urls:
+        type: "array"
+        items:
+          $ref: "#/definitions/Statistics_Url_Model"
+  Statistics_List_Model:
+    type: "object"
+    description: "效果统计主题分页列表"
+    properties:
+      count:
+        type: "integer"
+        description: "总记录数"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Statistics_Model"
+  Statistics_Count_Model:
+    type: "object"
+    description: "效果统计-总链接数、总访问量、总线索量"
+    properties:
+      urlscount:
+        type: "integer"
+        description: "总链接数"
+      viewcount:
+        type: "integer"
+        description: "总访问量"
+      datacount:
+        type: "integer"
+        description: "总线索量"
+  Marketing_funnel:
+    type: "object"
+    description: "营销漏斗模型"
+    properties:
+      view:
+        type: "integer"
+        description: "访问"
+      hit:
+        type: "integer"
+        description: "点击"
+      data:
+        type: "integer"
+        description: "线索"
+      business:
+        type: "integer"
+        description: "商机"
+      order:
+        type: "integer"
+        description: "订单"
+  Channel_Details:
+    type: "object"
+    description: "渠道明细模型"
+    properties:
+      rownum:
+        type: "integer"
+        description: "排序"
+      one_channel:
+        type: "string"
+        description: "一级渠道分类名"
+      two_channel:
+        type: "string"
+        description: "二级渠道分类名"
+      channel_name:
+        type: "string"
+        description: "渠道名称"
+      param_name:
+        type: "string"
+        description: "参数名称"
+      view:
+        type: "integer"
+        description: "访问"
+      hit:
+        type: "integer"
+        description: "点击"
+      data:
+        type: "integer"
+        description: "线索"
+      business:
+        type: "integer"
+        description: "商机"
+      order:
+        type: "integer"
+        description: "订单"
+  Channel_Details_List:
+    type: "object"
+    description: "渠道明细分页模型"
+    properties:
+      count: 
+        type: "integer"
+        description: "总记录数"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Channel_Details"
+  Device_Model:
+    type: "object"
+    description: "设备模型"
+    properties:
+      name:
+        type: "string"
+        description: "设备名称"
+      value:
+        type: "integer"
+        description: "具体统计值"
+  Mobile_Model:
+    type: "object"
+    description: "手机品牌"
+    properties:
+      name:
+        type: "string"
+        description: "品牌名称"
+      value:
+        type: "integer"
+        description: "具体统计值"
+  Map_Model:
+    type: "object"
+    description: "地域模型"
+    properties:
+      name:
+        type: "string"
+        description: "名称"
+      value:
+        type: "integer"
+        description: "统计值"
+  Curve_Model:
+    type: "object"
+    description: "曲线图模型"
+    properties:
+      name:
+        type: "string"
+        description: "渠道名称"
+      data:
+        type: "array"
+        description: "统计数据"
+        items:
+          $ref: "#/definitions/tendency_data_model"
+  Access_Model:
+    type: "object"
+    description: "线索"
+    properties:
+      compid:
+        type: "integer"
+        description: "企业id"
+      batchNo:
+        type: "string"
+        description: "对应线索ID"
+      accesstype:
+        type: "integer"
+        description: "访问类型1:访问量 2:点击量 3:线索 4:商机 5:订单"
+      compname:
+        type: "string"
+        description: "公司名称"
+      linkman:
+        type: "string"
+        description: "姓名"
+      linkphone:
+        type: "string"
+        description: "手机"
+      inputer:
+        type: "string"
+        description: "录入者"
+      extendattr:
+        type: "array"
+        description: "扩展数据数组，格式如：[{'attr_name':'地址','attr_value':'湖南长沙'},{'attr_name':'来源','attr_value':'互联网'}]"
+        items:
+          $ref: "#/definitions/Extend_Attr_Model"
+  tendency_data_model:
+    type: "object"
+    description: "渠线图数据模型"
+    properties:
+      time: 
+        type: "integer"
+        format: "int64"
+        description: "时间戳"
+      value:
+        type: "integer"
+        description: "具体值"
+  Tendency_Channel_Model:
+    type: "object"
+    description: "访问趋势-渠道导航模型"
+    properties:
+      id:
+        type: "integer"
+        description: "id"
+      level:
+        type: "integer"
+        description: "层级"
+      name: 
+        type: "string"
+        description: "名称"
+  Tendency_Channel_List:
+    type: "object"
+    description: "访问趋势-渠道导航"
+    properties:
+      id:
+        type: "integer"
+        description: "id"
+      level:
+        type: "integer"
+        description: "层级"
+      name: 
+        type: "string"
+        description: "名称"
+      children:
+        type: "array"
+        items:
+          $ref: "#/definitions/Tendency_Channel_Model"
+  Curve_List_Model:
+    type: "object"
+    description: "访问趋势"
+    properties:
+      view:
+        type: "array"
+        items:
+          $ref: "#/definitions/Curve_Model"
+        description: "展示"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Curve_Model"
+        description: "数据"
+  Accesses:
+    type: "object"
+    description: "线索列表"
+    properties:
+      view:
+        type: "array"
+        items:
+          $ref: "#/definitions/Access_Model"
+        description: "展示"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Access_Model"
+        description: "数据"
+  
+  Visit_info:
+    type: "object"
+    description: "线索数据"
+    required: 
+     - "access_id"
+     - "rel_id"
+    properties:
+      access_id:
+        type: "integer"
+        format: "int64"
+        description: "线索记录id"
+      rel_id:
+        type: "integer"
+        description: "关联id"
+      comp_name:
+        type: "string"
+        description: "企业名称"
+      link_name:
+        type: "string"
+        description: "联系人"
+      link_phone:
+        type: "string"
+        description: "联系电话"
+      access_url:
+        type: "string"
+        description: "访问内容的URL完整地址，部分是渠道推广中，设置生成的url地址"
+      access_content:
+        type: "string"
+        description: "访问内容：用户访问的页面内容，目前未定义获取标准"
+      access_type:
+        type: "integer"
+        description: |
+          访问类型
+            1访问量
+            2点击量
+            3线索
+            4商机
+            5订单
+        enum: 
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+      content_source:
+        type: "string"
+        description: "内容载体名称    被访问内容的系统channel_type"
+      access_ip:
+        type: "string"
+        description: "来源地址ip"
+      source_type:
+        type: "string"
+        description: |
+          访问来源类型
+            '1' 微信朋友；
+            '2' 微信群；
+            '3' 微信朋友圈；
+            '99' 其它
+        enum: 
+          - "1"
+          - "2"
+          - "3"
+          - "99"
+      access_device_type:
+        type: "integer"
+        description: |
+          访问设备类型
+            1 pc
+            2 android
+            3 ios
+            4 其它
+        enum: 
+          - 1
+          - 2
+          - 3
+          - 4
+      access_device_vendor:
+        type: "string"
+        description: "手机品牌"
+      access_address_country:
+        type: "string"
+        description: "地址信息：国家"
+      access_address_province:
+        type: "string"
+        description: "地址信息：省份"
+      access_address_city:
+        type: "string"
+        description: "地址信息:城市"
+      customer_flag:
+        type: "string"
+        description: "客户端标识，由埋点代码获取"
+      create_date:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+  Visit_Info_List:
+    type: "object"
+    description: "线索列表分页模型"
+    properties:
+      count: 
+        type: "integer"
+        description: "总记录数"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Visit_Info"
+  Visit_Info: 
+    type: "object"
+    description: "线索明细模型"
+    properties:
+      access_id:
+        type: "integer"
+        description: "线索数据记录ID"
+      rel_id:
+        type: "integer"
+        description: "链接渠道关联ID"
+      param_id:
+        type: "integer"
+        description: "参数ID"
+      comp_name:
+        type: "string"
+        description: "企业名称"
+      link_man:
+        type: "string"
+        description: "联系人"
+      link_phone:
+        type: "string"
+        description: "联系电话"
+      access_url:
+        type: "string"
+        description: "访问内容的URL完整地址，部分是渠道推广中，设置生成的url地址"
+      access_content:
+        type: "string"
+        description: "访问内容：用户访问的页面内容，目前未定义获取标准"
+      access_type:
+        type: "string"
+        description: "访问类型1:访问量2:点击量3:线索4:商机5:订单"
+      content_source:
+        type: "string"
+        description: "内容载体名称被访问内容的系统channel_type"
+      access_ip:
+        type: "string"
+        description: "来源IP地址"
+      source_type:
+        type: "string"
+        description: "访问来源类型1 微信朋友；2 微信群；3 微信朋友圈；99 其它"
+      access_device_type:
+        type: "string"
+        description: "访问设备类型1:pc2: android3: ios4: 其它"
+      access_device_vendor:
+        type: "string"
+        description: "手机品牌"
+      access_address_country:
+        type: "string"
+        description: "地址信息，国家"
+      access_address_province:
+        type: "string"
+        description: "地址信息，省份"
+      access_address_city:
+        type: "string"
+        description: "地址信息，城市"
+      customer_flag:
+        type: "string"
+        description: "客户端标识，由埋点代码获取"
+      referrer_url:
+        type: "string"
+        description: "来源URL"
+      domain:
+        type: "string"
+        description: "域名"
+      create_date:
+        type: "string"
+        description: "创建时间"
+      scheme_id:
+        type: "integer"
+        description: "主题id"
+      comp_id:
+        type: "integer"
+        description: "企业id"
+      url_id:
+        type: "integer"
+        description: "链接id"
+      channel_id:
+        type: "integer"
+        description: "渠道id"
+      trace_key:
+        type: "string"
+        description: "跟踪键值"
+      inputer:
+        type: "string"
+        description: "录入者"
+      extend_attr:  
+        type: "array"
+        items:
+          $ref: "#/definitions/Extend_Attr_Model"
+  Data_Post_Model:
+    type: "object"
+    description: "数据收集模型"
+    required: 
+     - "rel_id"
+    properties:
+      rel_id:
+        type: "integer"
+        description: "关联id"
+      comp_name:
+        type: "string"
+        description: "企业名称"
+      link_name:
+        type: "string"
+        description: "联系人"
+      linke_phone:
+        type: "string"
+        description: "联系电话"
+      access_url:
+        type: "string"
+        description: "访问内容的URL完整地址，部分是渠道推广中，设置生成的url地址"
+      access_content:
+        type: "string"
+        description: "访问内容：用户访问的页面内容，目前未定义获取标准"
+      access_type:
+        type: "string"
+        description: |
+          访问类型
+            ‘1’访问量
+            ‘2’点击量
+            ‘3’线索
+            ‘4’商机
+            ‘5’订单
+        enum: 
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+      content_source:
+        type: "string"
+        description: "内容载体名称    被访问内容的系统channel_type"
+      access_ip:
+        type: "string"
+        description: "来源地址ip"
+      source_type:
+        type: "string"
+        description: |
+          访问来源类型
+            '1' 微信朋友；
+            '2' 微信群；
+            '3' 微信朋友圈；
+            '99' 其它
+        enum: 
+          - "1"
+          - "2"
+          - "3"
+          - "99"
+      access_device_type:
+        type: "string"
+        description: |
+          访问设备类型
+            '1' pc
+            '2' android
+            '3' ios
+            '4' 其它
+        enum: 
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+      access_device_vendor:
+        type: "string"
+        description: "手机品牌"
+      access_address_country:
+        type: "string"
+        description: "地址信息：国家"
+      access_address_province:
+        type: "string"
+        description: "地址信息：省份"
+      access_address_city:
+        type: "string"
+        description: "地址信息:城市"
+      customer_flag:
+        type: "string"
+        description: "客户端标识，由埋点代码获取"
+      create_date:
+        type: "string"
+        format: "date-time"
+        description: "创建时间"
+  Channel_DataCount:
+    type: "object"
+    description: "渠道是否已有数据模型"
+    properties:
+      channel_id:
+        type: "integer"
+        description: "渠道id"
+      count:
+        type: "integer"
+        description: "记录数据"
+  Param_DataCount:
+    type: "object"
+    description: "参数是否已有数据模型"
+    properties:
+      param_id:
+        type: "integer"
+        description: "参数id"
+      count:
+        type: "integer"
+        description: "记录数据"
+  Enterprise_Dropdown_List:
+    type: "object"
+    description: "企业下拉列表分页模型"
+    properties:
+      count:
+        type: "integer"
+        description: "总记录数"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Enterprise_Dropdown_Model"
+  Enterprise_Dropdown_Model:
+    type: "object"
+    description: "企业下拉列表模型"
+    properties:
+      comp_id:
+        type: "integer"
+        description: "企业id"
+      comp_name:
+        type: "string"
+        description: "企业名称"
+  Data_List:
+    type: "object"
+    description: "数据收集列表模型"
+    properties:
+      count:
+        type: "integer"
+        description: "总记录数"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Data_Model"
+  Data_Model:
+    type: "object"
+    description: "数据收集模型"
+    properties:
+      link_name:
+        type: "string"
+        description: "名称"
+      link_phone:
+        type: "string"
+        description: "电话"
+      comp_name:
+        type: "string"
+        description: "公司名称"
+      create_date:
+        type: "string"
+        format: "date-time"
+        description: "生成时间"
+      signin:
+        type: integer
+        description: "是否签到(0:未签到;1:已签到;)"
+        enum:
+          - 0
+          - 1
+  Code_Info:
+    type: "object"
+    description: "埋点代码"
+    required: 
+      - "code_id"
+    properties:
+      code_id:
+        type: "integer"
+        description: "代码id"
+      code_name:
+        type: "string"
+        description: "代码名称"
+      code_content:
+        type: "string"
+        description: "代码内容"
+  Error:
+    type: "object"
+    description: "错误"
+    required:
+      - "code"
+      - "message"
+    properties:
+      code:
+        type: "string"
+        description: "错误码"
+      message:
+        type: "string"
+        description: "错误描述"
+      errors:
+        type: "array"
+        description: "具体错误"
+        items:
+          $ref: '#/definitions/ErrorMsg'
+  ErrorMsg:
+    type: "object"
+    description: "错误消息详细信息"
+    properties:
+      field:
+        type: "string"
+        description: "错误字段"
+      message:
+        type: "string"
+        description: "错误原因"
+  RowsResp:
+    type: "object"
+    description: "修改/删除成功响应实体"
+    properties:
+      rows:
+        type: "integer"
+        description: "影响行数"
+  Resp:
+    type: "object"
+    description: "添加成功响应实体"
+    properties:
+      code:
+        type: "string"
+        description: "成功标识"
+        enum:
+          - "success"
+          - "failed"
+      message:
+        type: "string"
+        description: "详细信息"

@@ -1,0 +1,777 @@
+swagger: '2.0'
+info:
+  title: 大转盘API
+  version: 1.0.0
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+security:
+  - petstore_auth:
+      - turntable_info
+      - 'turntable_info:write'
+      - 'turntable_info:delete'
+      - 'turntable_info:read'
+      - 'turntable_info:create'
+paths:
+  /turntable_info:
+    get:
+      summary: 获得大转盘列表
+      operationId: knowledge_type_list
+      parameters:
+        - name: create_user
+          in: query
+          required: true
+          type: integer
+          description: 当前登录用户ID
+        - name: comp_id
+          in: query
+          required: true
+          type: integer
+          description: 当前登录用户的组织ID
+        - name: status
+          in: query
+          required: true
+          type: string
+          description: （全部：'0'，未开始：'1'，进行中：'2'，已结束：'3'）
+        - name: turntable_name
+          in: query
+          required: false
+          type: string
+          description: 大转盘名称
+        - name: pageindex
+          in: query
+          required: true
+          type: integer
+          format: int32
+          description: 当前页
+        - name: pagesize
+          in: query
+          required: true
+          type: integer
+          format: int32
+          description: 每页数量
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/turntable_info_list'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+    post:
+      summary: 新增大转盘
+      operationId: knowledge_type_add
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: 大转盘
+          schema:
+            $ref: '#/definitions/turntable_info_add'
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/turntable_info'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+    put:
+      summary: 编辑大转盘
+      operationId: knowledge_type_edit
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: 大转盘
+          schema:
+            $ref: '#/definitions/turntable_info_edit'
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/turntable_info'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  '/turntable_info/{turntable_id}':
+    get:
+      summary: 获得大转盘详情
+      operationId: turntable_info_detail
+      parameters:
+        - name: turntable_id
+          in: path
+          required: true
+          type: integer
+          description: 大转盘ID
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/turntable_info'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  /turntable_info/stop:
+    put:
+      summary: 停止活动
+      operationId: turntable_info_stop
+      parameters:
+        - name: turntable_id
+          in: query
+          required: true
+          type: integer
+          description: 大转盘ID
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/result'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  /turntable_info/reward_del:
+    delete:
+      summary: 删除奖项
+      operationId: reward_del
+      parameters:
+        - name: turntable_id
+          in: query
+          required: true
+          type: integer
+          description: 大转盘ID
+        - name: reward_id
+          in: query
+          required: true
+          type: integer
+          description: 大转盘ID
+        - name: status
+          in: query
+          required: true
+          type: string
+          description: 大转盘状态
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/result'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  /coupon_info:
+    get:
+      summary: 获得该组织下所有进行中/未开始的优惠券列表
+      operationId: coupon_info_list
+      parameters:
+        - name: compid
+          in: query
+          required: true
+          type: integer
+          description: 组织ID
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/coupon_list'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  /code_info:
+    get:
+      summary: 获得该组织下所有进行中/未开始的优惠码列表
+      operationId: code_info_list
+      parameters:
+        - name: comp_id
+          in: query
+          required: true
+          type: integer
+          description: 组织ID
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/code_list'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  /draw_item:
+    get:
+      summary: 获得抽奖记录
+      operationId: draw_item_list
+      parameters:
+        - name: turntable_info_id
+          in: query
+          type: integer
+          required: true
+          description: 大转盘ID
+        - name: is_reward
+          in: query
+          type: integer
+          required: true
+          description: 中奖来源
+        - name: actor_phone
+          in: query
+          type: integer
+          required: true
+          description: 手机号码
+        - name: reward_res
+          in: query
+          type: integer
+          required: true
+          description: 中奖情况
+        - name: pageindex
+          in: query
+          type: integer
+          required: true
+          description: 当前页码
+        - name: pagesize
+          in: query
+          type: integer
+          required: true
+          description: 每页数据量
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/draw_item_list'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+  /myreward/{turntable_id}:
+    get:
+      summary: 我的奖品
+      operationId: myreward
+      parameters:
+        - name: turntable_id
+          in: path
+          type: string
+          required: true
+          description: 手机号码
+        - name: actor_phone
+          in: query
+          type: string
+          required: true
+          description: 手机号码
+        - name: valid_code
+          in: query
+          type: string
+          required: true
+          description: 验证码
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/draw_item_list'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+            
+  /login:
+    post:
+      summary: 登录
+      operationId: login
+      parameters:
+        - name: body
+          in: body
+          required: true
+          description: 抽奖表单
+          schema:
+            $ref: '#/definitions/loginPost'
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/result'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+
+  /v1/valid_code:
+    post:
+      summary: 获得验证码
+      operationId: getCode
+      parameters:
+        - name: actor_phone
+          in: query
+          required: true
+          type: string
+          description: 手机号码
+      responses:
+        '200':
+          description: 执行成功
+          schema:
+            $ref: '#/definitions/result'
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+            
+  /draw/{turntable_id}:
+    post:
+      summary: 抽奖
+      operationId: draw
+      parameters:
+        - name: turntable_id
+          in: path
+          type: integer
+          required: true
+          description: 转盘ID
+        - name: body
+          in: body
+          required: true
+          description: 抽奖表单
+          schema:
+            $ref: '#/definitions/drawPost'
+      responses:
+        '200':
+          description: 执行成功
+        default:
+          description: 错误
+          schema:
+            $ref: '#/definitions/error'
+    
+definitions:
+  turntable_info:
+    description: 大转盘模型
+    type: object
+    properties:
+      turntable_id:
+        type: integer
+        description: 大转盘ID
+      turntable_name:
+        type: string
+        description: 大转盘名称
+      is_limit:
+        type: string
+        description: '是否限制抽奖次数(0:限制，1：不限制)'
+      total_amount_everyone:
+        type: integer
+        description: 每人总抽奖次数
+      total_amount_everyday:
+        type: integer
+        description: 每日可抽奖次数
+      total_amount:
+        type: integer
+        description: 每人最多可中奖次数
+      start_time:
+        type: string
+        description: 活动开始时间
+      end_time:
+        type: string
+        description: 活动结束时间
+      create_time:
+        type: string
+        description: 创建时间
+      lottery_people_number:
+        type: integer
+        description: 参与抽奖人数
+      lottery_number:
+        type: integer
+        description: 抽奖次数
+      prize_number:
+        type: integer
+        description: 中奖人数
+      no_prize_number:
+        type: integer
+        description: 未中奖人数
+      status:
+        type: string
+        description: '活动状态(''1'':未开始，''2''：进行中,''3''：已结束)'
+      reward:
+        type: array
+        description: 抽奖记录
+        items:
+            $ref: '#/definitions/reward_info_list'
+  turntable_info_list:
+    description: 大转盘list
+    type: object
+    properties:
+      page:
+        description: 总记录数
+        type: object
+        properties:
+          total:
+            description: 总记录数
+            type: integer
+      data:
+        description: 目录分类list
+        type: array
+        items:
+          $ref: '#/definitions/turntable_info'
+  turntable_info_add:
+    description: 新增大转盘时的模型
+    type: object
+    properties:
+      turntable_name:
+        type: string
+        description: 大转盘名称
+      start_time:
+        type: string
+        description: 活动开始时间
+      end_time:
+        type: string
+        description: 活动结束时间
+      is_limit:
+        type: string
+        description: '是否限制抽奖次数(0:限制，1：不限制)'
+      total_amount_everyone:
+        type: integer
+        description: 总抽奖次数
+      total_amount_everyday:
+        type: integer
+        description: 每人每日抽奖次数
+      total_amount:
+        type: integer
+        description: 每人最多可中奖次数
+      create_user:
+        type: string
+        description: 当前登录用户ID
+      comp_id:
+        type: string
+        description: 企业ID
+      reward:
+        type: object
+        description: >-
+          奖项数组[{reward_id:奖品ID，
+          reward_rate:中奖概率，reward_res：奖品来源（0：线下礼品1：优惠码2：优惠券），reward_rank：奖品等级，reward_rank_show：奖品等级是否显示到转盘，reward_name:奖品名称，reward_name_show：奖品名称是否显示到转盘，reward_amount:奖品总数，reward_desc：兑奖说明，reward_image:奖品图片，reward_from_id：优惠券或优惠码ID,receive_num:'已发放数量',invenroty_num:'库存'
+          }]
+  turntable_info_edit:
+    description: 编辑大转盘时的模型
+    type: object
+    properties:
+      turntable_id:
+        type: string
+        description: 大转盘ID
+      turntable_name:
+        type: string
+        description: 大转盘名称
+      start_time:
+        type: string
+        description: 活动开始时间
+      end_time:
+        type: string
+        description: 活动结束时间
+      is_limit:
+        type: string
+        description: '是否限制抽奖次数(0:限制，1：不限制)'
+      total_amount_everyone:
+        type: integer
+        description: 总抽奖次数
+      total_amount_everyday:
+        type: integer
+        description: 每人每日抽奖次数
+      total_amount:
+        type: integer
+        description: 每人最多可中奖次数
+      create_user:
+        type: string
+        description: 当前登录用户ID
+      comp_id:
+        type: string
+        description: 企业ID
+      reward:
+        type: object
+        description: >-
+          奖项数组[{reward_id:奖品ID，
+          reward_rate:中奖概率，reward_res：奖品来源（0：线下礼品1：优惠码2：优惠券），reward_rank：奖品等级，reward_rank_show：奖品等级是否显示到转盘，reward_name:奖品名称，reward_name_show：奖品名称是否显示到转盘，reward_amount:奖品总数，reward_desc：兑奖说明，reward_image:奖品图片，reward_from_id：优惠券或优惠码ID,receive_num:'已发放数量',invenroty_num:'库存'
+          }]
+  coupon_info:
+    description: 优惠券模型
+    type: object
+    properties:
+      coupon_uuid:
+        type: string
+        description: 优惠券主键
+      coupon_code:
+        type: string
+        description: 优惠券编号
+      coupon_name:
+        type: string
+        description: 优惠券名称
+  coupon_list:
+    description: 优惠券分页模型
+    type: object
+    properties:
+      page:
+        type: object
+        description: 总记录数
+        properties:
+          total:
+            type: integer
+      data:
+        description: 优惠券数据列表
+        type: array
+        items:
+          $ref: '#/definitions/coupon_info'
+  code_info:
+    description: 优惠码模型
+    type: object
+    properties:
+      code_id:
+        type: string
+        description: 优惠码主键
+      code_name:
+        type: string
+        description: 优惠码名称
+  code_list:
+    description: 优惠码分页模型
+    type: object
+    properties:
+      page:
+        type: object
+        description: 总记录数
+        properties:
+          total:
+            type: integer
+      data:
+        description: 优惠码数据列表
+        type: array
+        items:
+          $ref: '#/definitions/code_info'
+  draw_item:
+    description: 抽奖记录模型
+    type: object
+    properties:
+      join_id:
+        type: integer
+        description: 抽奖记录ID
+      turntable_id:
+        type: integer
+        description: 活动ID
+      actor_phone:
+        type: string
+        description: 抽奖人手机
+      is_reward:
+        type: string
+        description: 是否中奖(1：中奖，2：未中奖)
+      reward_state:
+        type: string
+        description: 领奖状态（1：已领奖，2：未领奖）
+      reward_res:
+        type: string
+        description: 奖品来源（0：线下礼品1：优惠码2：优惠券）
+      reward_name:
+        type: string
+        description: 奖品名称
+      reward_rank:
+        type: string
+        description: 奖品等级
+      join_time:
+        type: string
+        description: 抽奖时间
+  draw_item_list:
+    description: 抽奖记录分页模型
+    type: object
+    properties:
+      page:
+        type: object
+        description: 总记录数
+        properties:
+          total:
+            type: integer
+      data:
+        description: 抽奖记录数据列表
+        type: array
+        items:
+          $ref: '#/definitions/draw_item'
+      lottery_number:
+        type: integer
+        description: 总抽奖次数
+      prize_number:
+        type: integer
+        description: 中奖次数
+      no_prize_number:
+        type: integer
+        description: 未中奖次数
+  reward_info:
+    description: 奖品模型
+    type: object
+    properties:
+      reward_id:
+        type: integer
+        description: 奖品ID
+      reward_name:
+        type: string
+        description: 奖品名称
+      reward_rank:
+        type: string
+        description: 奖品等级
+      reward_desc:
+        type: string
+        description: 兑奖说明
+      join_time:
+        type: string
+        description: 中奖时间
+      join_id:
+        type: integer
+        description: 抽奖记录ID
+  reward_info_list:
+    description: 奖品列表
+    type: object
+    properties:
+      page:
+        type: object
+        properties:
+          total:
+            type: integer
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/reward_info'
+  draw_item_result:
+    description: 抽奖结果
+    type: object
+    properties:
+      is_reward:
+        description: 是否中奖（1：中奖2：未中奖）
+        type: string
+      reward_name:
+        description: 奖品名称
+        type: string
+      reward_rank:
+        description: 奖品等级
+        type: string
+  join_id:
+    description: 抽奖记录ID
+    type: object
+    properties:
+      join_id:
+        description: 抽奖记录ID
+        type: integer
+  drawPost:
+    description: 抽奖提交信息
+    type: object
+    properties:
+      actor_phone:
+        description: 手机号码
+        type: string
+      valid_code:
+        description: 验证码
+        type: string
+  loginPost:
+    description: 抽奖提交信息
+    type: object
+    properties:
+      actor_phone:
+        description: 手机号码
+        type: string
+      valid_code:
+        description: 验证码
+        type: string
+  draw_item_receive:
+    description: 领取奖品所传的参数（抽奖记录id数组）
+    type: object
+    properties:
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/join_id'
+  prize:
+    description: 中奖进行时
+    type: object
+    properties:
+      actor_phone:
+        type: string
+        description: 抽奖人手机号码
+      reward_name:
+        type: string
+        description: 奖品名称
+      reward_rank:
+        type: string
+        description: 奖品等级
+  priseze_list:
+    description: 中奖进行时列表
+    type: object
+    properties:
+      page:
+        type: object
+        properties:
+          total:
+            type: integer
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/prize'
+  addresult:
+    description: 新增成功后的返回结果
+    type: object
+    required:
+      - code
+      - message
+      - id
+    properties:
+      code:
+        type: string
+      id:
+        type: string
+      message:
+        type: string
+  result:
+    description: 执行能成功后的返回结果
+    type: object
+    required:
+      - code
+      - msg
+    properties:
+      code:
+        type: integer
+      msg:
+        type: string
+  error:
+    description: 错误模型
+    type: object
+    required:
+      - code
+      - msg
+    properties:
+      code:
+        type: integer
+      msg:
+        type: string
+parameters:
+  order:
+    name: orderflag
+    in: query
+    description: 排序标识
+    required: false
+    type: integer
+  pageindex:
+    name: pageindex
+    in: query
+    description: 当前页码（分页）
+    required: true
+    type: integer
+  pagesize:
+    name: pagesize
+    in: query
+    description: 每页条数（分页）
+    required: true
+    type: integer
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+  petstore_auth:
+    type: oauth2
+    authorizationUrl: 'http://swagger.io/api/oauth/dialog'
+    flow: implicit
+    scopes:
+      turntable_info: 可以增加修改删除查询大转盘信息
+      'turntable_info:write': 可以修改大转盘
+      'turntable_info:delete': 可以删除大转盘
+      'turntable_info:read': 可以读取大转盘
+      'turntable_info:create': 可以创建大转盘

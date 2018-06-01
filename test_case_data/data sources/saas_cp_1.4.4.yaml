@@ -1,0 +1,842 @@
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+info:
+  version: "1.4.4"
+  title: CP Service API
+  description: 业务服务--供应商服务接口说明
+
+host: ejw.hnjing.com
+#host: localhost:8080
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+
+#数据返回的约定
+#1.响应码只有200、400、403、404、405、500。
+#2.获取列表接口无数据时响应码200，返回空列表和page信息。
+#3.获取单个资源接口无数据时响应码404，返回404错误信息。
+#4.路径中的参数错误导致资源不存在，响应码404，返回404错误信息。
+#5.没有权限读取、修改、删除资源响应码403，返回403错误信息。
+#6.输入参数校验失败响应码400，返回400错误信息。
+#7.资源没有对应的方法响应码405，返回405错误信息。
+#8.删除资源时同时删除其相关关联关系，不要产生500错误。
+
+#必填字段约定
+#1.必填是指添加或修改信息时，该字段必须传值。
+#2.修改信息时必填字段可以不传，即为不修改。
+
+################################################################################
+#                              API Information                                 #
+################################################################################ 
+paths:
+  /partner/{partnerId}/employees:
+    get:
+      summary: 获取员工列表
+      description: 传入部门时需要根据部门查询员工列表；业务规则为：1、部门id不为0，需要查询出该部门以及所有子部门的员工列表；2、部门id为0，则查询出所有未分配部门的员工；3、部门id为null（未传部门id）则不做部门过滤
+      tags: 
+        - 员工
+      parameters:
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: depId
+          in: query
+          description: 部门id
+          required: false
+          type: string
+        -
+          name: status
+          in: query
+          description: 状态，0：离职；1：在职
+          required: false
+          type: integer
+        -
+          name: jobNoOrEmpName
+          in: query
+          description: 查询参数，该参数不为空时，根据员工工号或姓名过滤（ 返回工号或者姓名中包含该条件的数据）。
+          required: false
+          type: string
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+          
+      responses:
+        200:
+          description: 员工列表
+          schema:
+            $ref: '#/definitions/Employees'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+    
+    post:
+      summary: 批量添加员工
+      description: 批量添加员工
+      tags: 
+        - 员工
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: employees
+          in: body
+          description: 需要添加的信息
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeeReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeeResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+          
+  /partner/{partnerId}/employee:
+    post:
+      summary: 添加员工
+      description: 添加员工
+      tags: 
+        - 员工
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: employee
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/EmployeeReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/EmployeeResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+     
+  /partner/{partnerId}/employee/{empId}:
+    get:
+      summary: 获取员工信息
+      description: 获取员工信息
+      tags: 
+        - 员工
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: empId
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 员工信息
+          schema:
+            $ref: '#/definitions/EmployeeResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改员工信息
+      description: 修改员工信息
+      tags: 
+        - 员工
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: empId
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+        -
+          name: employee
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/EmployeeReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+  
+  /partner/{partnerId}/employee/{empId}/status:
+    put:
+      summary: 启用停用员工
+      description: 启用停用员工
+      tags: 
+        - 员工
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: empId
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+        -
+          name: status
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/EmployeeStatus'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+  
+  /partner/{partnerId}/products:
+    get:
+      summary: 获取产品列表
+      description: 获取产品列表
+      tags: 
+        - 产品
+      parameters:
+        - $ref: '#/parameters/PartnerId'
+        - name: productName
+          in: query
+          type: string
+          description: 产品名称
+        - name: typeId
+          in: query
+          type: integer
+          format: int32
+          description: 产品品类
+        - name: createTimeStart
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间(开始时间)
+        - name: createTimeEnd
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间(结束时间)
+        - name: productStatus
+          in: query
+          description: 产品状态，0：草稿；1：上架；2：下架
+          type: integer
+        - name: verifyStatus
+          in: query
+          description: 审核状态，0：无；1：上架待审核；2：下架待审核；3：上架审核通过；4：下架审核通过；5：上架审核不通过；6：下架审核不通过
+          type: integer
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+          
+      responses:
+        200:
+          description: 产品列表
+          schema:
+            $ref: '#/definitions/ProductsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+    
+  /partner/{partnerId}/product:
+    post:
+      summary: 添加产品
+      description: 添加产品
+      tags: 
+        - 产品
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: product
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/ProductReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/ProductResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+     
+  /partner/{partnerId}/product/{uuid}:
+    get:
+      summary: 获取产品信息
+      description: 获取产品信息
+      tags: 
+        - 产品
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: uuid
+          in: path
+          description: 产品编号
+          required: true
+          type: string
+
+      responses:
+        200:
+          description: 产品信息
+          schema:
+            $ref: '#/definitions/ProductResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改产品信息
+      description: 修改产品信息
+      tags: 
+        - 产品
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: uuid
+          in: path
+          description: 产品编号
+          required: true
+          type: string
+        -
+          name: product
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/ProductPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+    
+    delete:
+      summary: 删除产品
+      description: 删除产品，如果有上架审核通过记录，则不允许删除
+      tags: 
+        - 产品
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: uuid
+          in: path
+          description: 产品编号
+          required: true
+          type: string
+
+      responses:
+        200:
+          $ref: '#/responses/DeleteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+          
+  /partner/{partnerId}/product/{uuid}/release:
+    put:
+      summary: 产品上架申请
+      description: 产品上架申请（草稿产品发布）
+      tags: 
+        - 产品
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        - name: uuid
+          in: path
+          description: 产品编号
+          required: true
+          type: string
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+  
+  /partner/{partnerId}/product/{uuid}/off:
+    put:
+      summary: 产品下架申请
+      description: 产品下架申请
+      tags: 
+        - 产品
+      parameters:
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PartnerId'
+        - name: uuid
+          in: path
+          description: 产品编号
+          required: true
+          type: string
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+################################################################################
+#                                 Parameters                                  #
+################################################################################
+parameters:
+  PageNo:
+    name: pageNo
+    in: query
+    description: 当前页码，默认第1页
+    required: false
+    type: integer
+    format: int32
+    minimum: 1
+    default: 1
+    
+  PageSize:
+    name: pageSize
+    in: query
+    description: 每页记录数，默认10条
+    required: false
+    type: integer
+    format: int32
+    minimum: 1
+    maximum: 99999
+    default: 10
+    
+  Sort:  
+    name: sort
+    in: query
+    description: 排序方式，json格式：{"id":"asc","name":"desc"} ，必须Url编码
+    required: false
+    type: string
+    format: json
+    
+  UserId:
+    name: user-id
+    in: header
+    description: 当前操作用户id
+    required: true
+    type: string
+    
+  PartnerId:
+    name: partnerId
+    in: path
+    description: 合作伙伴id
+    required: true
+    type: integer
+    format: int32
+
+################################################################################
+#                                 Responses                                  #
+################################################################################
+responses:
+  PutResp:
+    description: 修改成功
+    schema:
+      $ref: '#/definitions/RowsResp'
+  
+  DeleteResp:
+    description: 删除成功
+    schema:
+      $ref: '#/definitions/RowsResp'
+      
+  ParametersErr:
+    description: 参数异常
+    schema:
+      $ref: '#/definitions/Error'
+  
+  NotFoundErr:
+    description: 资源不存在
+    schema:
+      $ref: '#/definitions/Error'
+      
+  InnerErr:
+    description: 内部错误
+    schema:
+      $ref: '#/definitions/Error'
+            
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  Gmt:
+    type: object
+    description: 时间信息
+    properties:
+      gmtCreate:
+        type: string
+        format: date-time
+        description: 创建时间
+      gmtModified:
+        type: string
+        format: date-time
+        description: 修改时间
+  
+  Employees:
+    type: object
+    description: 员工列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/EmployeeResp'
+          
+  EmployeeReqPost:
+    type: object
+    description: 员工信息添加实体
+    required:
+    - empName
+    - phone
+    - email
+    - status
+    allOf:
+    - $ref: '#/definitions/Employee'
+    properties:
+      roles:
+        type: array
+        description: 角色id列表
+        items:
+          type: integer
+      departments:
+        type: array
+        description: 部门列表
+        items:
+          type: object
+          description: 员工部门关系
+          properties:
+            depId:
+              type: integer
+              description: 部门id
+            position:
+              type: integer
+              description: 员工在该部门职位
+              
+  EmployeeReqPut:
+    type: object
+    description: 员工信息修改实体
+    allOf:
+    - $ref: '#/definitions/Employee'
+    properties:
+      roles:
+        type: array
+        description: 角色id列表
+        items:
+          type: integer
+      departments:
+        type: array
+        description: 部门列表
+        items:
+          type: object
+          description: 员工部门关系
+          properties:
+            depId:
+              type: integer
+              description: 部门id
+            position:
+              type: integer
+              description: 员工在该部门职位
+  
+  EmployeeResp:
+    type: object
+    description: 员工信息响应实体
+    allOf:
+    - $ref: '#/definitions/Employee'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      empId:
+        type: integer
+        description: 员工id
+      partnerId:
+        type: integer
+        description: 所属合作伙伴id
+      isAdmin:
+        type: integer
+        description: 是否为管理员，1：是；0：否
+        default: 0
+      roles:
+        type: array
+        description: 角色列表
+        items:
+          type: object
+          description: 角色关系
+          properties:
+            roleId:
+              type: integer
+              description: 角色id
+            roleName:
+              type: integer
+              description: 角色名称
+      departments:
+        type: array
+        description: 部门列表
+        items:
+          type: object
+          description: 员工部门关系
+          properties:
+            depId:
+              type: integer
+              description: 部门id
+            departName:
+              type: integer
+              description: 部门名称
+            position:
+              type: integer
+              description: 员工在该部门职位
+              
+  Employee:
+    type: object
+    description: 员工信息
+    properties:
+      empName:
+        type: string
+        description: 员工姓名
+        minLength: 1
+        maxLength: 10
+      jobNo:
+        type: string
+        description: 员工工号，只允许数字
+        maxLength: 20
+        pattern: '[0-9]{0,20}'
+      jobName:
+        type: string
+        description: 员工岗位
+        maxLength: 20
+      email:
+        type: string
+        description: 邮箱，格式：xxx@yyy.zzz
+        maxLength: 30
+      phone:
+        type: string
+        description: 手机，只允许数字
+        minLength: 11
+        maxLength: 11
+      status:
+        type: integer
+        enum: 
+          - 0
+          - 1
+        description: 状态 | 0，停用；1：正常
+        default: 1
+      entryDate:
+        type: string
+        format: date-time
+        description: 入职日期  
+      userId:
+        type: integer
+        description: 所属用户id
+        
+  EmployeeStatus:
+    type: object
+    description: 员工状态
+    required:
+      - status
+    properties:
+      status:
+        type: integer
+        enum: 
+          - 0
+          - 1
+        description: 状态，0，停用；1：正常
+  
+  ProductsPage:
+    type: object
+    description: 产品列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/ProductsResp'
+  
+  ProductsResp:
+    type: object
+    description: 产品列表响应实体
+    allOf:
+    - $ref: '#/definitions/Products'
+    properties:
+      productStatus:
+        type: integer
+        description: 产品状态，0，草稿；1：已上架；2：已下架
+      verifyStatus:
+        type: integer
+        description: 审核状态，0：无；1：上架待审核；2：下架待审核；3：上架审核通过；4：下架审核通过；5：上架审核不通过；6：下架审核不通过
+      verifyId:
+        type: integer
+        description: 审核记录id
+  
+  ProductResp:
+    type: object
+    description: 产品响应实体
+    allOf:
+    - $ref: '#/definitions/Product'
+    properties:
+      productStatus:
+        type: integer
+        description: 产品状态，0，草稿；1：已上架；2：已下架
+      verifyStatus:
+        type: integer
+        description: 审核状态，0：无；1：上架待审核；2：下架待审核；3：上架审核通过；4：下架审核通过；5：上架审核不通过；6：下架审核不通过
+      verifyId:
+        type: integer
+        description: 审核记录id
+        
+  Products:
+    type: object
+    description: 产品列表，更多产品参数参考产品库（ps）接口文档：products
+  
+  ProductReqPost:
+    type: object
+    description: 产品添加实体，更多参数参考产品库（ps）接口文档：productPost
+  
+  Product:
+    type: object
+    description: 产品响应实体，更多参数参考产品库（ps）接口文档：productResp
+    
+  ProductPut:
+    type: object
+    description: 产品修改实体，更多参数参考产品库（ps）接口文档：productPut
+    
+  RowsResp:
+    type: object
+    description: 修改/删除成功响应实体
+    properties:
+      rows:
+        type: integer
+        description: 影响行数
+  
+  Page:
+    type: object
+    description: 分页信息
+    properties:
+      page:
+        type: integer
+        description: 当前页码
+      nextPage:
+        type: integer
+        description: 下一页页码
+      prePage:
+        type: integer
+        description: 上一页页码
+      totalPages:
+        type: integer
+        description: 总页数
+      totalCount:
+        type: integer
+        description: 总记录数
+      firstPage:
+        type: boolean
+        description: 是否为首页
+      lastPage:
+        type: boolean
+        description: 是否为尾页
+      hasPrePage:
+        type: boolean
+        description: 是否有上一页
+      hasNextPage:
+        type: boolean
+        description: 是否有下一页
+      startRow:
+        type: integer
+        description: 当前页起始行
+      endRow:
+        type: integer
+        description: 当前页结束行
+        
+  Error:
+    type: object
+    description: 错误Bean
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: string
+        description: 错误码
+      message:
+        type: string
+        description: 错误描述
+      errors:
+        type: array
+        description: 具体错误
+        items:
+          $ref: '#/definitions/ErrorMsg'
+        
+  ErrorMsg:
+    type: object
+    description: 错误消息详细信息
+    properties:
+      field:
+        type: string
+        description: 错误字段
+      message:
+        type: string
+        description: 错误原因
