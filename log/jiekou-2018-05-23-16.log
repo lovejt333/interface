@@ -1,0 +1,484 @@
+[2018-05-23 16:36:04.106000] INFO: jiekou: 当前模块 requests封装
+[2018-05-23 16:36:04.107000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.107000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-23 16:36:04.123000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-23 16:36:04.124000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case.xlsx',)
+[2018-05-23 16:36:04.125000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-23 16:36:04.148000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-23 16:36:04.149000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case.xlsx',)
+[2018-05-23 16:36:04.149000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-23 16:36:04.164000] INFO: jiekou: 当前模块 测试
+[2018-05-23 16:36:04.164000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.165000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-23 16:36:04.187000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/cp/v1/partner/11/employees ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.188000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.188000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.189000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.209000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/cp/v1/partner/11/product ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.210000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.210000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.211000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.238000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/cp/v1/partner/11/product/13/off ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.239000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.240000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.242000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.277000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/cp/v1/partner/11/employee/12/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.278000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.279000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.281000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.317000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/cp/v1/partner/11/product/13 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.318000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.319000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.320000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.357000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/cp/v1/partner/11/products ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.358000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.358000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.359000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.412000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/cp/v1/partner/11/employee ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [object])', 'description': '', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:04.413000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.413000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.413000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [object])', 'description': '', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-23 16:36:04.444000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/cp/v1/partner/11/product/13/release ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.445000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.446000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.446000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.549000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/cp/v1/partner/11/employee/12 ,返回:{'result_act': {'errors': [], 'code': 404, 'message': '员工资源不存在'}, 'code': 0, 'result': 404},预期:code=403
+[2018-05-23 16:36:04.550000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.550000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.551000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'code': 404, 'message': '员工资源不存在'}, 'code': 0, 'result': 404}}
+[2018-05-23 16:36:04.588000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkschemes-all ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.589000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.590000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.590000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.732000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/rule/12/employees ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:04.733000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.733000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.734000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:04.755000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkproject/13/verify ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.756000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.756000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.757000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.780000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppor/14/shares ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:04.781000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.781000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.782000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:04.804000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/project-type/15/use ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.805000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.805000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.806000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.827000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/process ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.827000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.828000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.828000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.852000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkproject ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.853000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.853000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.854000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.878000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slclue ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.879000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.880000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.880000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.900000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkverify ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.901000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.901000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.902000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.919000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slorder/16 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.920000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.920000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.921000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.941000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppors ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.942000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.942000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.942000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.964000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/marketing/budget ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.965000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.965000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.966000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:04.985000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/rule ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:04.985000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:04.986000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:04.986000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.004000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkscheme/17/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.004000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.005000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.005000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.029000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkprojects ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.029000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.030000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.030000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.047000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/validstatus ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.048000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.048000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.049000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.067000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/marketing/check ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.068000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.068000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.069000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.086000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkproject/13 ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.088000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.088000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.089000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.108000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkproject/13/costs ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.108000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.109000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.110000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.127000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkverifies ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.127000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.128000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.128000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.146000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkscheme/17 ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.146000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.147000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.147000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.166000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkplan/18/principal ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.166000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.167000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.167000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.186000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/roles ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.186000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.187000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.187000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.205000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkprojects-all ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.205000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.206000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.206000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.225000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkclue ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.225000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.226000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.226000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.249000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/targets/employees ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.249000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.250000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.250000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.274000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slvisit ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.275000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.275000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.276000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.297000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slclue/19 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.298000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.298000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.299000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.320000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slnote ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.321000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.322000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.322000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.345000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/busioppors ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.346000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.347000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.347000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.375000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppor/14/end ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:05.375000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.376000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.376000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:05.400000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkplans-all ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.401000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.401000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.402000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.440000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/role/21/employees ,返回:{'result_act': {'errors': {}, 'code': '400', 'message': '请求参数异常'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:05.440000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.441000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.441000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': {}, 'code': '400', 'message': '请求参数异常'}, 'code': 0, 'result': 400}}
+[2018-05-23 16:36:05.521000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/customer-levels ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:05.522000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.523000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.524000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:05.547000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppor ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.548000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.549000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.550000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.570000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/order-statistic ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.571000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.572000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.573000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.592000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkprojects-schemes ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.593000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.594000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.595000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.616000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer-clean ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.617000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.618000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.619000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.639000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkscheme/17/principal ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.640000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.641000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.642000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.661000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/target ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.662000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.663000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.663000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:05.684000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/processes ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:05.685000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:05.685000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:05.686000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:06.443000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/ptcustomers ,返回:{'result_act': {'data': [{'gmtModified': '2018-03-16T10:47:38+08:00', 'address': '天心区芙蓉中路二段168号摩天一号二座21楼', 'customerType': 4, 'empModified': 1450, 'inviteCount': 0, 'industry': 141, 'phone': '', 'empCreate': 1450, 'empCreateName': '盛秀玲', 'clueId': 2, 'industryName': '烟煤和无烟煤开采洗选', 'customerName': '长沙市金伦投资咨询有限责任公司', 'empPrincipal': 1450, 'customerId': 1, 'empPrincipalName': '盛秀玲', 'gmtCreate': '2018-02-02T13:55:23+08:00', 'status': 1, 'partnerId': 190, 'empModifiedName': '盛秀玲', 'contactName': '15073293785', 'validStatus': 1, 'osId': 86, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'empPrincipal': 1450, 'contactName': '盛秀玲', 'customerType': 4, 'empPrincipalName': '盛秀玲', 'empModified': 1450, 'gmtCreate': '2018-02-02T13:56:04+08:00', 'inviteCount': 0, 'phone': '', 'gmtModified': '2018-02-08T11:06:46+08:00', 'status': 1, 'partnerId': 190, 'area': '湖北省/武汉市', 'empCreate': 1450, 'empModifiedName': '盛秀玲', 'empCreateName': '盛秀玲', 'validStatus': 1, 'customerId': 2, 'clueId': 3, 'channelName': '盛秀玲', 'customerName': '武汉长福亚太服饰股份有限公司'}, {'gmtModified': '2018-02-07T15:59:45+08:00', 'address': '企业麓谷', 'customerType': 4, 'empModified': 1450, 'inviteCount': 0, 'industry': 552, 'phone': '', 'empCreate': 1450, 'empCreateName': '盛秀玲', 'clueId': 15, 'industryName': '稻谷种植', 'customerName': '长沙市永发清洁服务有限公司', 'empPrincipal': 1450, 'empPrincipalName': '盛秀玲', 'gmtCreate': '2018-02-02T13:59:02+08:00', 'status': 1, 'partnerId': 190, 'empModifiedName': '盛秀玲', 'contactName': '盛秀玲11', 'validStatus': 1, 'customerId': 3, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'empPrincipal': 1450, 'contactName': '盛秀玲8', 'customerType': 4, 'empPrincipalName': '盛秀玲', 'empModified': 1450, 'gmtCreate': '2018-02-02T14:33:28+08:00', 'inviteCount': 0, 'phone': '', 'gmtModified': '2018-02-07T15:55:09+08:00', 'status': 1, 'partnerId': 190, 'area': '湖北省/武汉市', 'empCreate': 1450, 'empModifiedName': '盛秀玲', 'empCreateName': '盛秀玲', 'validStatus': 1, 'customerId': 4, 'clueId': 12, 'channelName': '盛秀玲', 'customerName': '广东信保建设投资管理有限公司'}, {'gmtModified': '2018-02-08T16:12:53+08:00', 'address': '雨花区韶山中路44号', 'customerType': 4, 'empModified': 1450, 'inviteCount': 0, 'industry': 117, 'phone': '', 'empCreate': 1453, 'empCreateName': '贺志华', 'clueId': 19, 'industryName': '谷物种植', 'customerName': '中国电信股份有限公司', 'empPrincipal': 1450, 'empPrincipalName': '盛秀玲', 'gmtCreate': '2018-02-02T16:20:40+08:00', 'status': 1, 'partnerId': 190, 'empModifiedName': '盛秀玲', 'contactName': '盛秀玲13', 'validStatus': 1, 'customerId': 5, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'gmtModified': '2018-03-19T09:56:46+08:00', 'address': '中国电信股份有限公司湖南互联网与增值业务事业部', 'customerType': 4, 'empModified': 2, 'inviteCount': 2, 'industry': 117, 'phone': '', 'empCreate': 1, 'empCreateName': '资质名称211', 'clueId': 17, 'industryName': '谷物种植', 'customerName': '中国电信股份有限公司创新业务事业部', 'empPrincipal': 2, 'empPrincipalName': '林姝3333334', 'gmtCreate': '2018-02-03T10:00:06+08:00', 'status': 1, 'partnerId': 1, 'empModifiedName': '林姝3333334', 'contactName': '盛秀玲12', 'validStatus': 1, 'customerId': 8, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'gmtModified': '2018-03-23T11:36:05+08:00', 'address': '互联网与增值业务事业部测试区域地址最大 测试验证', 'customerType': 4, 'empModified': 4, 'inviteCount': 0, 'industry': 117, 'phone': '', 'empCreate': 2, 'opinion': '客户电话不正确', 'empCreateName': '林姝3333334', 'clueId': 18, 'industryName': '谷物种植', 'customerName': '中国电信股份有限公司公众客户事业部', 'empPrincipal': 4, 'empPrincipalName': 'Binc', 'gmtCreate': '2018-02-03T13:51:33+08:00', 'status': 1, 'partnerId': 2, 'empModifiedName': 'Binc', 'contactName': '客户事业部', 'validStatus': 1, 'customerId': 9, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'gmtModified': '2018-02-13T00:00:01+08:00', 'address': '企业广场', 'customerType': 1, 'empModified': 1526, 'inviteCount': 0, 'industry': 556, 'phone': '', 'empCreate': 2, 'opinion': '测试', 'empCreateName': '林姝3333334', 'clueId': 21, 'industryName': '豆类种植', 'customerName': '长沙市开福区斯瑞乐教育咨询有限公司', 'empPrincipal': 1526, 'empPrincipalName': '盛秀玲', 'gmtCreate': '2018-02-03T14:05:39+08:00', 'status': 0, 'partnerId': 2, 'empModifiedName': '盛秀玲', 'contactName': '欧阳琳娜', 'validStatus': 1, 'customerId': 10, 'channelName': '盛秀玲', 'area': '湖南/湘潭'}, {'opinion': '客户电话不正确', 'gmtModified': '2018-02-14T00:00:01+08:00', 'address': '的风格让她', 'contactName': '盛秀玲4', 'customerType': 1, 'phone': '', 'empModified': 2, 'gmtCreate': '2018-02-03T14:06:22+08:00', 'inviteCount': 0, 'status': 0, 'partnerId': 2, 'area': '湖北省/武汉市', 'empCreate': 2, 'empModifiedName': '林姝3333334', 'empCreateName': '林姝3333334', 'validStatus': 1, 'customerId': 11, 'clueId': 8, 'channelName': '盛秀玲', 'customerName': '珠海益康建设工程有限公司'}, {'gmtModified': '2018-02-14T00:00:01+08:00', 'contactName': ' 王小姐姐', 'customerType': 1, 'phone': '', 'empModified': 2, 'gmtCreate': '2018-02-03T15:14:54+08:00', 'inviteCount': 0, 'industry': 552, 'status': 0, 'industryName': '稻谷种植', 'partnerId': 2, 'area': '湖南省/全部', 'empCreate': 2, 'empModifiedName': '林姝3333334', 'empCreateName': '林姝3333334', 'validStatus': 1, 'customerId': 12, 'clueId': 133, 'channelName': '林姝3333334', 'customerName': '长沙市芙蓉区李德缝纫店'}], 'page': {'startRow': 1, 'totalCount': 98, 'nextPage': 2, 'totalPages': 10, 'lastPage': False, 'limit': 10, 'hasNextPage': True, 'firstPage': True, 'page': 1, 'endRow': 10, 'offset': 0, 'hasPrePage': False, 'prePage': 1}}, 'code': 0, 'result': 200},预期:code=403
+[2018-05-23 16:36:06.448000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.450000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.452000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'data': [{'gmtModified': '2018-03-16T10:47:38+08:00', 'address': '天心区芙蓉中路二段168号摩天一号二座21楼', 'customerType': 4, 'empModified': 1450, 'inviteCount': 0, 'industry': 141, 'phone': '', 'empCreate': 1450, 'empCreateName': '盛秀玲', 'clueId': 2, 'industryName': '烟煤和无烟煤开采洗选', 'customerName': '长沙市金伦投资咨询有限责任公司', 'empPrincipal': 1450, 'customerId': 1, 'empPrincipalName': '盛秀玲', 'gmtCreate': '2018-02-02T13:55:23+08:00', 'status': 1, 'partnerId': 190, 'empModifiedName': '盛秀玲', 'contactName': '15073293785', 'validStatus': 1, 'osId': 86, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'empPrincipal': 1450, 'contactName': '盛秀玲', 'customerType': 4, 'empPrincipalName': '盛秀玲', 'empModified': 1450, 'gmtCreate': '2018-02-02T13:56:04+08:00', 'inviteCount': 0, 'phone': '', 'gmtModified': '2018-02-08T11:06:46+08:00', 'status': 1, 'partnerId': 190, 'area': '湖北省/武汉市', 'empCreate': 1450, 'empModifiedName': '盛秀玲', 'empCreateName': '盛秀玲', 'validStatus': 1, 'customerId': 2, 'clueId': 3, 'channelName': '盛秀玲', 'customerName': '武汉长福亚太服饰股份有限公司'}, {'gmtModified': '2018-02-07T15:59:45+08:00', 'address': '企业麓谷', 'customerType': 4, 'empModified': 1450, 'inviteCount': 0, 'industry': 552, 'phone': '', 'empCreate': 1450, 'empCreateName': '盛秀玲', 'clueId': 15, 'industryName': '稻谷种植', 'customerName': '长沙市永发清洁服务有限公司', 'empPrincipal': 1450, 'empPrincipalName': '盛秀玲', 'gmtCreate': '2018-02-02T13:59:02+08:00', 'status': 1, 'partnerId': 190, 'empModifiedName': '盛秀玲', 'contactName': '盛秀玲11', 'validStatus': 1, 'customerId': 3, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'empPrincipal': 1450, 'contactName': '盛秀玲8', 'customerType': 4, 'empPrincipalName': '盛秀玲', 'empModified': 1450, 'gmtCreate': '2018-02-02T14:33:28+08:00', 'inviteCount': 0, 'phone': '', 'gmtModified': '2018-02-07T15:55:09+08:00', 'status': 1, 'partnerId': 190, 'area': '湖北省/武汉市', 'empCreate': 1450, 'empModifiedName': '盛秀玲', 'empCreateName': '盛秀玲', 'validStatus': 1, 'customerId': 4, 'clueId': 12, 'channelName': '盛秀玲', 'customerName': '广东信保建设投资管理有限公司'}, {'gmtModified': '2018-02-08T16:12:53+08:00', 'address': '雨花区韶山中路44号', 'customerType': 4, 'empModified': 1450, 'inviteCount': 0, 'industry': 117, 'phone': '', 'empCreate': 1453, 'empCreateName': '贺志华', 'clueId': 19, 'industryName': '谷物种植', 'customerName': '中国电信股份有限公司', 'empPrincipal': 1450, 'empPrincipalName': '盛秀玲', 'gmtCreate': '2018-02-02T16:20:40+08:00', 'status': 1, 'partnerId': 190, 'empModifiedName': '盛秀玲', 'contactName': '盛秀玲13', 'validStatus': 1, 'customerId': 5, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'gmtModified': '2018-03-19T09:56:46+08:00', 'address': '中国电信股份有限公司湖南互联网与增值业务事业部', 'customerType': 4, 'empModified': 2, 'inviteCount': 2, 'industry': 117, 'phone': '', 'empCreate': 1, 'empCreateName': '资质名称211', 'clueId': 17, 'industryName': '谷物种植', 'customerName': '中国电信股份有限公司创新业务事业部', 'empPrincipal': 2, 'empPrincipalName': '林姝3333334', 'gmtCreate': '2018-02-03T10:00:06+08:00', 'status': 1, 'partnerId': 1, 'empModifiedName': '林姝3333334', 'contactName': '盛秀玲12', 'validStatus': 1, 'customerId': 8, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'gmtModified': '2018-03-23T11:36:05+08:00', 'address': '互联网与增值业务事业部测试区域地址最大 测试验证', 'customerType': 4, 'empModified': 4, 'inviteCount': 0, 'industry': 117, 'phone': '', 'empCreate': 2, 'opinion': '客户电话不正确', 'empCreateName': '林姝3333334', 'clueId': 18, 'industryName': '谷物种植', 'customerName': '中国电信股份有限公司公众客户事业部', 'empPrincipal': 4, 'empPrincipalName': 'Binc', 'gmtCreate': '2018-02-03T13:51:33+08:00', 'status': 1, 'partnerId': 2, 'empModifiedName': 'Binc', 'contactName': '客户事业部', 'validStatus': 1, 'customerId': 9, 'channelName': '盛秀玲', 'area': '湖南/长沙'}, {'gmtModified': '2018-02-13T00:00:01+08:00', 'address': '企业广场', 'customerType': 1, 'empModified': 1526, 'inviteCount': 0, 'industry': 556, 'phone': '', 'empCreate': 2, 'opinion': '测试', 'empCreateName': '林姝3333334', 'clueId': 21, 'industryName': '豆类种植', 'customerName': '长沙市开福区斯瑞乐教育咨询有限公司', 'empPrincipal': 1526, 'empPrincipalName': '盛秀玲', 'gmtCreate': '2018-02-03T14:05:39+08:00', 'status': 0, 'partnerId': 2, 'empModifiedName': '盛秀玲', 'contactName': '欧阳琳娜', 'validStatus': 1, 'customerId': 10, 'channelName': '盛秀玲', 'area': '湖南/湘潭'}, {'opinion': '客户电话不正确', 'gmtModified': '2018-02-14T00:00:01+08:00', 'address': '的风格让她', 'contactName': '盛秀玲4', 'customerType': 1, 'phone': '', 'empModified': 2, 'gmtCreate': '2018-02-03T14:06:22+08:00', 'inviteCount': 0, 'status': 0, 'partnerId': 2, 'area': '湖北省/武汉市', 'empCreate': 2, 'empModifiedName': '林姝3333334', 'empCreateName': '林姝3333334', 'validStatus': 1, 'customerId': 11, 'clueId': 8, 'channelName': '盛秀玲', 'customerName': '珠海益康建设工程有限公司'}, {'gmtModified': '2018-02-14T00:00:01+08:00', 'contactName': ' 王小姐姐', 'customerType': 1, 'phone': '', 'empModified': 2, 'gmtCreate': '2018-02-03T15:14:54+08:00', 'inviteCount': 0, 'industry': 552, 'status': 0, 'industryName': '稻谷种植', 'partnerId': 2, 'area': '湖南省/全部', 'empCreate': 2, 'empModifiedName': '林姝3333334', 'empCreateName': '林姝3333334', 'validStatus': 1, 'customerId': 12, 'clueId': 133, 'channelName': '林姝3333334', 'customerName': '长沙市芙蓉区李德缝纫店'}], 'page': {'startRow': 1, 'totalCount': 98, 'nextPage': 2, 'totalPages': 10, 'lastPage': False, 'limit': 10, 'hasNextPage': True, 'firstPage': True, 'page': 1, 'endRow': 10, 'offset': 0, 'hasPrePage': False, 'prePage': 1}}, 'code': 0, 'result': 200}}
+[2018-05-23 16:36:06.497000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/contacts ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:06.499000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.501000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.503000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:06.536000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slvisits ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:06.537000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.539000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.540000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:06.756000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/ptcustomer/20 ,返回:{'result_act': {'gmtModified': '2018-02-08T17:16:03+08:00', 'address': '火车站路999号33333333333333333333333333333333333333333333333333333333333333333333333333334444444444444444', 'contactId': 18, 'customerType': 4, 'empModified': 1450, 'inviteCount': 0, 'industry': 612, 'isSuperior': 0, 'partnerId': 190, 'phone': '', 'empCreate': 1450, 'empCreateName': '盛秀玲', 'customerTypeName': '转商机', 'clueId': 5, 'industryName': '烟煤和无烟煤开采洗选', 'customerName': '苏州仁义诚投资有限公司', 'empPrincipal': 1450, 'phoneId': 0, 'isPrincipal': 0, 'empPrincipalName': '盛秀玲', 'partnerName': '长沙伊特--盛秀玲服务商', 'gmtCreate': '2018-02-05T13:53:18+08:00', 'status': 1, 'area': '湖北/武汉', 'empModifiedName': '盛秀玲', 'contactName': '盛秀玲1333333', 'validStatus': 1, 'customerId': 20, 'channelName': '盛秀玲'}, 'code': 0, 'result': 200},预期:code=403
+[2018-05-23 16:36:06.757000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.757000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.758000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'gmtModified': '2018-02-08T17:16:03+08:00', 'address': '火车站路999号33333333333333333333333333333333333333333333333333333333333333333333333333334444444444444444', 'contactId': 18, 'customerType': 4, 'empModified': 1450, 'inviteCount': 0, 'industry': 612, 'isSuperior': 0, 'partnerId': 190, 'phone': '', 'empCreate': 1450, 'empCreateName': '盛秀玲', 'customerTypeName': '转商机', 'clueId': 5, 'industryName': '烟煤和无烟煤开采洗选', 'customerName': '苏州仁义诚投资有限公司', 'empPrincipal': 1450, 'phoneId': 0, 'isPrincipal': 0, 'empPrincipalName': '盛秀玲', 'partnerName': '长沙伊特--盛秀玲服务商', 'gmtCreate': '2018-02-05T13:53:18+08:00', 'status': 1, 'area': '湖北/武汉', 'empModifiedName': '盛秀玲', 'contactName': '盛秀玲1333333', 'validStatus': 1, 'customerId': 20, 'channelName': '盛秀玲'}, 'code': 0, 'result': 200}}
+[2018-05-23 16:36:06.783000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkscheme/17/verify ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:06.784000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.785000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.786000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:06.811000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slprotects ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:06.812000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.813000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.814000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:06.836000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomers ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [array])', 'description': '文件路径', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:06.837000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.838000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.839000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [array])', 'description': '文件路径', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-23 16:36:06.860000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/customer-level/22/use ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:06.861000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.862000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.863000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:06.881000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20 ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:06.882000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.883000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.884000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:06.909000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkplan ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:06.910000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.910000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.911000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:06.930000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/process/23/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:06.930000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.931000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.931000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:06.960000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/ptclue ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [object])', 'description': '', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:06.960000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.961000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.962000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [object])', 'description': '', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-23 16:36:06.989000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/targets/employee/24 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:06.990000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:06.991000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:06.992000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.014000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppor/14/stages ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.016000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.016000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.017000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.039000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkplans ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.040000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.041000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.041000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.064000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slprotects/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:07.065000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.065000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.065000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:07.090000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slprotect/25/shares ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:07.091000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.092000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.094000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:07.119000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/contact ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.121000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.122000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.123000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.145000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slprotect/25 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.145000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.146000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.146000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.169000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/sldaytasks ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.169000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.170000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.170000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.190000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/rules/employees ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.191000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.192000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.192000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.214000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slvisit/26 ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.214000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.215000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.215000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.234000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/sldaytasks/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.235000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.235000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.236000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.255000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkclues ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.255000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.256000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.256000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.273000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slprotect/25/principal ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.274000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.274000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.275000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.298000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slclues ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [array])', 'description': '文件路径', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:07.298000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.299000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.299000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [array])', 'description': '文件路径', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-23 16:36:07.374000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/contact/27 ,返回:{'result_act': {'errors': [{'field': 'customerId', 'message': '至少保留一个联系人'}], 'code': 400, 'message': '参数异常'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:07.376000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.378000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.380000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [{'field': 'customerId', 'message': '至少保留一个联系人'}], 'code': 400, 'message': '参数异常'}, 'code': 0, 'result': 400}}
+[2018-05-23 16:36:07.404000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/sldaytask/28/principal ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.405000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.406000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.406000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.426000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/bindos ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.427000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.428000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.428000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.450000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppors/distrib ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.450000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.451000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.452000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.470000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/target/29 ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.471000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.471000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.472000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.492000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/rules ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.492000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.493000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.494000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.521000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/project-types ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:07.522000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.523000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.523000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:07.543000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppor/14/principal ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.544000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.544000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.545000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.567000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/sldaytask/28 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.567000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.568000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.568000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.892000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkproject/13/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.894000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.896000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.898000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.924000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slclue/19/lock ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.925000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.926000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.926000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.946000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkverify/30 ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.947000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.948000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.949000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.970000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkproject/13/principal ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.971000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.971000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.972000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:07.995000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppor/14/stage/29 ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:07.996000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:07.996000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:07.997000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.021000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/employee/customers ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.022000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.023000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.023000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.049000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkclue/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.050000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.051000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.052000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.071000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkschemes ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.072000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.073000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.074000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.096000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/shares ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:08.097000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.098000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.098000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:08.118000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkscheme/17/channels ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.118000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.119000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.120000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.141000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppor/14 ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:08.142000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.142000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.143000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:08.166000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/rule/12/vals ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:08.167000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.167000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.167000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:08.188000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkscheme ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.189000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.189000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.190000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.208000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slorder ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.209000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.209000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.210000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.230000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slnotes ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.231000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.231000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.231000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.250000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/invite ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.251000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.251000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.252000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.274000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slbusioppor/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.274000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.275000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.275000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.303000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/rule/12 ,返回:{'result_act': {'errors': {}, 'code': '400', 'message': '请求参数异常'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:08.303000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.304000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.304000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': {}, 'code': '400', 'message': '请求参数异常'}, 'code': 0, 'result': 400}}
+[2018-05-23 16:36:08.327000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slorders ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.328000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.328000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.329000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.355000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomers/distrib ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.355000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.356000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.356000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.380000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomers/pickup ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.381000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.382000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.382000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.412000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/process/23 ,返回:{'result_act': {'errors': {}, 'code': '400', 'message': '请求参数异常'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:08.413000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.413000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.414000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': {}, 'code': '400', 'message': '请求参数异常'}, 'code': 0, 'result': 400}}
+[2018-05-23 16:36:08.444000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/principal ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.444000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.445000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.445000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.468000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/employee/roles ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.469000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.471000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.472000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.797000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkplan/18 ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.800000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.802000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.804000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.834000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.835000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.836000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.837000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.867000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkscheme/17/costs ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [array])', 'description': '成本添加实体', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:08.868000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.868000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.869000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': 'instance type (string) does not match any allowed primitive type (allowed: [array])', 'description': '成本添加实体', 'field': '""'}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-23 16:36:08.887000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slclue/19/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.888000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.889000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.889000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.911000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/customer-types ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400},预期:code=403
+[2018-05-23 16:36:08.912000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.912000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.913000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 400}}
+[2018-05-23 16:36:08.931000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/projects ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.932000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.932000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.933000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.953000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/mkplan/18/status ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.953000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.954000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.955000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.973000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/targets ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.974000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.974000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.975000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-23 16:36:08.993000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/slcustomer/20/phone/31/ismain ,返回:{'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403},预期:code=403
+[2018-05-23 16:36:08.994000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 16:36:08.995000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 16:36:08.995000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': '?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkcyI6eyJwbCI6W10sInBhcnRuZXJzIjpbXSwiZW50IjpbXX0sInNpZ24iOiI0Nzg0ODc0Yi01Yzc5LTRlYmMtYTM4YS1lOGU3YjRiMWViYjEiLCJ1aWQiOjIzMywicmVtZW1iZXIiOiJ0cnVlIn0sImV4cGlyZXMiOjE1MjcwNzE3NjZ9.5H9oot4efuM8ZKx1ibTNHgTd3liPt5_MQA5z1IxsHXw', 'code': 0, 'result': 403}}

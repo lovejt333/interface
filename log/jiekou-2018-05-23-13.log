@@ -1,0 +1,48 @@
+[2018-05-23 13:56:18.592000] INFO: jiekou: 当前模块 requests封装
+[2018-05-23 13:56:18.593000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:18.593000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-23 13:56:18.608000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-23 13:56:18.609000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case.xlsx',)
+[2018-05-23 13:56:18.609000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-23 13:56:18.627000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-23 13:56:18.628000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case.xlsx',)
+[2018-05-23 13:56:18.628000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-23 13:56:18.637000] INFO: jiekou: 当前模块 测试
+[2018-05-23 13:56:18.637000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:18.638000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-23 13:56:18.730000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/employees ,返回:{'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0},预期:code=403
+[2018-05-23 13:56:18.731000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 13:56:18.732000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:18.733000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0}, 'asserqiwang': 'code=403'}
+[2018-05-23 13:56:18.780000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/employee ,返回:{'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0},预期:code=403
+[2018-05-23 13:56:18.780000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 13:56:18.781000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:18.781000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0}, 'asserqiwang': 'code=403'}
+[2018-05-23 13:56:18.811000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/products ,返回:{'result': 401, 'code': 0},预期:code=403
+[2018-05-23 13:56:18.812000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 13:56:18.812000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:18.813000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 401, 'code': 0}, 'asserqiwang': 'code=403'}
+[2018-05-23 13:56:18.859000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/product ,返回:{'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0},预期:code=403
+[2018-05-23 13:56:18.860000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 13:56:18.861000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:18.861000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0}, 'asserqiwang': 'code=403'}
+[2018-05-23 13:56:18.883000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/employee/12/status ,返回:{'result': 401, 'code': 0},预期:code=403
+[2018-05-23 13:56:18.884000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 13:56:18.884000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:18.885000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 401, 'code': 0}, 'asserqiwang': 'code=403'}
+[2018-05-23 13:56:18.920000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/product/13/release ,返回:{'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0},预期:code=403
+[2018-05-23 13:56:18.921000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 13:56:18.921000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:18.922000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0}, 'asserqiwang': 'code=403'}
+[2018-05-23 13:56:18.960000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/product/13 ,返回:{'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0},预期:code=403
+[2018-05-23 13:56:18.961000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 13:56:18.961000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:18.962000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0}, 'asserqiwang': 'code=403'}
+[2018-05-23 13:56:18.999000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/product/13/off ,返回:{'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0},预期:code=403
+[2018-05-23 13:56:18.999000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 13:56:19.000000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:19.000000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 404, 'result_act': {'message': '资源不存在', 'errors': {}, 'code': '404'}, 'code': 0}, 'asserqiwang': 'code=403'}
+[2018-05-23 13:56:19.022000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/crm/v1/partner/11/employee/12 ,返回:{'result': 401, 'code': 0},预期:code=403
+[2018-05-23 13:56:19.022000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-23 13:56:19.023000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-23 13:56:19.023000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 401, 'code': 0}, 'asserqiwang': 'code=403'}

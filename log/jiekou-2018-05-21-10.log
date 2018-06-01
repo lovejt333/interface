@@ -1,0 +1,42 @@
+[2018-05-21 10:35:27.280403] INFO: jiekou: 当前模块 requests封装
+[2018-05-21 10:35:27.281403] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-21 10:35:27.282403] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-21 10:35:27.302403] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-21 10:35:27.303403] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case.xlsx',)
+[2018-05-21 10:35:27.303403] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-21 10:35:27.318403] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-21 10:35:27.318403] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case.xlsx',)
+[2018-05-21 10:35:27.319403] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-21 10:35:27.323403] INFO: jiekou: 当前模块 测试
+[2018-05-21 10:35:27.323403] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-21 10:35:27.324403] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-21 10:35:27.354403] INFO: jiekou: inputdata> 参数:{
+ "mobilePhone": "15000000000",
+ "password": "123456",
+ "remember": true,
+ "siteName": "main"
+}, url:http://www1.ejw.cn/api/login ,返回:{'result': 400, 'result_act': {'errors': '参数转换异常', 'msg': '请求参数异常', 'code': 400}, 'code': 0},预期:code=200
+[2018-05-21 10:35:27.355403] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-21 10:35:27.355403] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-21 10:35:27.356403] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=200', 'fanhuijson': {'result': 400, 'result_act': {'errors': '参数转换异常', 'msg': '请求参数异常', 'code': 400}, 'code': 0}}
+[2018-05-21 10:35:27.446403] INFO: jiekou: inputdata> 参数:{'password':'1222'}, url:http://www.tuling123.com/openapi/api ,返回:{'result': 200, 'result_act': {'text': '亲爱的，参数异常。', 'code': 40007}, 'code': 0},预期:code=200
+[2018-05-21 10:35:27.447403] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-21 10:35:27.448403] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-21 10:35:27.449403] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=200', 'fanhuijson': {'result': 200, 'result_act': {'text': '亲爱的，参数异常。', 'code': 40007}, 'code': 0}}
+[2018-05-21 10:35:27.498403] INFO: jiekou: inputdata> 参数:{'password':'1222'}, url:http://www.tuling123.com/openapi/api
+ ,返回:{'result': 200, 'result_act': {'text': '亲爱的，参数异常。', 'code': 40007}, 'code': 0},预期:code=200
+[2018-05-21 10:35:27.499403] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-21 10:35:27.499403] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-21 10:35:27.500403] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=200', 'fanhuijson': {'result': 200, 'result_act': {'text': '亲爱的，参数异常。', 'code': 40007}, 'code': 0}}
+[2018-05-21 10:35:27.521403] INFO: jiekou: inputdata> 参数:{"partnerId": 2,"partnerType": "111","partnerNo": "<2>","partnerName": "武汉天策时代网络文化传媒有限公司0557","area": "武汉","address": "关山大道光谷软件园F2栋801","phone":"13467318480","fax": "0755-61672214","status": 1,"detail": "合作伙伴信息的描述测试","longitude": 53.5,"latitude": -28,"organizType": 1}, url:http://192.168.150.20:8085/ps/v1/partner ,返回:{'result': 404, 'result_act': {'errors': [], 'message': '资源不存在', 'code': '404'}, 'code': 0},预期:code=200
+[2018-05-21 10:35:27.522403] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-21 10:35:27.522403] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-21 10:35:27.522403] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=200', 'fanhuijson': {'result': 404, 'result_act': {'errors': [], 'message': '资源不存在', 'code': '404'}, 'code': 0}}
+[2018-05-21 10:35:27.537403] INFO: jiekou: inputdata> 参数:, url:http://192.168.150.20:8085/ps/v1/partner/{{partnerId}}?type=1111111 ,返回:{'result': 404, 'result_act': {'errors': [], 'message': '资源不存在', 'code': '404'}, 'code': 0},预期:code=200
+[2018-05-21 10:35:27.538403] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-21 10:35:27.539403] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-21 10:35:27.539403] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=200', 'fanhuijson': {'result': 404, 'result_act': {'errors': [], 'message': '资源不存在', 'code': '404'}, 'code': 0}}
+[2018-05-21 10:35:27.603403] INFO: jiekou: inputdata> 参数:, url:http://admin.ejw.cn/portal/v1/partners?sort=%7B%22gmtCreate%22%3A%22desc%22%7D&status=0&partnerName=xxxx&pageNo=1&pageSize=10 ,返回:{'result': 200, 'result_act': {'data': [], 'page': {'limit': 10, 'offset': 0, 'totalCount': 0, 'hasPrePage': False, 'page': 1, 'firstPage': True, 'endRow': 0, 'prePage': 1, 'hasNextPage': False, 'startRow': 0, 'lastPage': True, 'nextPage': 1, 'totalPages': 0}}, 'code': 0},预期:code=200
+[2018-05-21 10:35:27.604403] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-21 10:35:27.604403] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-21 10:35:27.605403] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=200', 'fanhuijson': {'result': 200, 'result_act': {'data': [], 'page': {'limit': 10, 'offset': 0, 'totalCount': 0, 'hasPrePage': False, 'page': 1, 'firstPage': True, 'endRow': 0, 'prePage': 1, 'hasNextPage': False, 'startRow': 0, 'lastPage': True, 'nextPage': 1, 'totalPages': 0}}, 'code': 0}}

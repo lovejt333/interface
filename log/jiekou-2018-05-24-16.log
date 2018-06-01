@@ -1,0 +1,18 @@
+[2018-05-24 16:22:14.878000] INFO: jiekou: 当前模块 requests封装
+[2018-05-24 16:22:14.880000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-24 16:22:14.881000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-24 16:22:14.896000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-24 16:22:14.896000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case1.xlsx',)
+[2018-05-24 16:22:14.897000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-24 16:22:14.917000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-24 16:22:14.918000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case1.xlsx',)
+[2018-05-24 16:22:14.918000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-24 16:22:14.929000] INFO: jiekou: 当前模块 测试
+[2018-05-24 16:22:14.930000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-24 16:22:14.930000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-24 16:22:14.942000] INFO: jiekou: get请求出错，出错原因:No JSON object could be decoded
+[2018-05-24 16:22:14.953000] INFO: jiekou: put请求出错，出错原因:No JSON object could be decoded
+[2018-05-24 16:22:15.128000] INFO: jiekou: post请求出错，出错原因:No JSON object could be decoded
+[2018-05-24 16:22:15.167000] INFO: jiekou: get请求出错，出错原因:No JSON object could be decoded
+[2018-05-24 16:22:15.186000] INFO: jiekou: post请求出错，出错原因:No JSON object could be decoded
+[2018-05-24 16:22:15.204000] INFO: jiekou: put请求出错，出错原因:No JSON object could be decoded

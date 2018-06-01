@@ -1,0 +1,188 @@
+[2018-05-26 10:49:55.482822] INFO: jiekou: 当前模块 requests封装
+[2018-05-26 10:49:55.482822] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:49:55.482822] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-26 10:49:55.514022] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-26 10:49:55.529622] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case1.xlsx',)
+[2018-05-26 10:49:55.530622] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-26 10:49:55.547222] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-26 10:49:55.547222] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case1.xlsx',)
+[2018-05-26 10:49:55.547222] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-26 10:49:55.562822] INFO: jiekou: 当前模块 测试
+[2018-05-26 10:49:55.562822] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:49:55.562822] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-26 10:49:55.578422] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:49:55.578422] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:49:55.578422] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:49:55.578422] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:49:58.702222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productsales/1productUuids1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:49:58.704222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:49:58.706222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:49:58.708222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:01.760622] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/authproduct ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:01.776222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:01.776222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:01.776222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:04.842022] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/authproduct ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:04.842022] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:04.842022] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:04.842022] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:07.911422] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/attrtemprepeat ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:07.911422] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:07.911422] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:07.911422] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:07.942622] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productgroup/1uuid1 ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:07.960222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:07.960222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:07.960222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:10.979222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productgroup/1uuid1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:10.979222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:10.994822] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:10.994822] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:14.060222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productgroup/1uuid1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:14.060222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:14.060222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:14.060222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:14.093422] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productgroup ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:14.093422] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:14.093422] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:14.109022] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:14.124622] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1/typeId/1pTypeId1 ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:14.124622] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:14.124622] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:14.124622] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:17.132422] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:17.133422] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:17.133422] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:17.134422] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:20.196022] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:20.196022] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:20.196022] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:20.212622] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:23.274022] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:23.274022] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:23.274022] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:23.274022] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:26.340822] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productstock/1productSpecUuid1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:26.340822] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:26.340822] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:26.356422] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:26.388622] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemporder ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:26.388622] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:26.388622] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:26.388622] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:29.422822] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productnum ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:29.422822] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:29.422822] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:29.422822] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:32.480422] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/products-stock ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:32.496022] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:32.496022] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:32.496022] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:35.557422] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/products-stock ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:35.557422] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:35.557422] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:35.557422] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:35.604222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/products ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:35.604222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:35.604222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:35.604222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:35.635422] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productname ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:35.635422] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:35.635422] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:35.651022] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:35.682222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemp ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:35.682222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:35.682222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:35.682222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:38.638622] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttyperepeat ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:38.638622] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:38.638622] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:38.638622] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:38.669822] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productnew/1uuid1 ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:38.669822] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:38.669822] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:38.669822] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:41.710222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/saleflag ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:41.712222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:41.714222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:41.716222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:41.741822] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1/productattrtemps ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:41.741822] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:41.741822] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:41.741822] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:44.774022] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/sellattrs ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:44.774022] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:44.774022] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:44.774022] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:47.854022] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1/auth ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:47.854022] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:47.854022] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:47.854022] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:50.915222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:50.930822] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:50.930822] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:50.930822] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:53.986622] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemp/1attrId1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:53.986622] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:54.002222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:54.002222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:57.058422] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemp/1attrId1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:50:57.058422] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:57.074022] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:57.074022] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:50:57.105222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemp/1attrId1 ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:50:57.105222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:50:57.105222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:50:57.105222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:00.142222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/cpProduct/sp/1productSpecUuid1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:51:00.144222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:00.146222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:00.148222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:03.215222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1/abspath ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:51:03.217222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:03.219222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:03.221222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:06.286222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productsaleflag ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:51:06.288222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:06.290222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:06.292222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:09.358222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/authpartner ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:51:09.360222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:09.362222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:09.364222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:12.432222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/authpartner ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:51:12.434222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:12.436222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:12.438222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:12.471222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttypes ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:51:12.473222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:12.475222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:12.477222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:15.503222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/sproductauth ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:51:15.505222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:15.506222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:15.508222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:18.576222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/spauth ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:51:18.578222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:18.580222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:18.582222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:18.617222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/verify-saleflag ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:51:18.619222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:18.621222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:18.623222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:18.659222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/products-detail ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:51:18.661222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:18.663222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:18.665222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:21.647222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:51:21.649222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:21.650222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:21.652222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:21.686222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1 ,返回:{'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'},预期:code=403
+[2018-05-26 10:51:21.688222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:21.690222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:21.692222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 403, 'code': 0, 'result_act': '{"error_code":99999,"message":"没有权限访问此接口"}\n'}, 'asserqiwang': 'code=403'}
+[2018-05-26 10:51:24.719222] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1 ,返回:{'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'},预期:code=403
+[2018-05-26 10:51:24.721222] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-26 10:51:24.723222] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-26 10:51:24.724222] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result': 502, 'code': 0, 'result_act': '<html><head><title>502 Bad Gateway</title></head><body bgcolor="white"><center><h1>502 Bad Gateway</h1></center><hr><center>ewj-gateway/1.0.48</center></body></html>\n'}, 'asserqiwang': 'code=403'}

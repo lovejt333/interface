@@ -1,0 +1,13 @@
+[2018-05-24 14:55:58.368000] INFO: jiekou: 当前模块 requests封装
+[2018-05-24 14:55:58.371000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-24 14:55:58.372000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-24 14:55:58.394000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-24 14:55:58.395000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case1.xlsx',)
+[2018-05-24 14:55:58.395000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-24 14:55:58.415000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-24 14:55:58.416000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case1.xlsx',)
+[2018-05-24 14:55:58.416000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-24 14:55:58.425000] INFO: jiekou: 当前模块 测试
+[2018-05-24 14:55:58.425000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-24 14:55:58.426000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-24 14:55:58.483000] INFO: jiekou: get请求出错，出错原因:No JSON object could be decoded

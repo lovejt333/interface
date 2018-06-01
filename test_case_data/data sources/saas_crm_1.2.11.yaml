@@ -1,0 +1,7036 @@
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+info:
+  version: "1.2.11"
+  title: CRM Service API
+  description: 业务服务--客户关系服务接口说明
+
+host: crm
+
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+
+#数据返回的约定
+#1.响应码只有200、400、403、404、405、500。
+#2.获取列表接口无数据时响应码200，返回空列表和page信息。
+#3.获取单个资源接口无数据时响应码404，返回404错误信息。
+#4.路径中的参数错误导致资源不存在，响应码404，返回404错误信息。
+#5.没有权限读取、修改、删除资源响应码403，返回403错误信息。
+#6.输入参数校验失败响应码400，返回400错误信息。
+#7.资源没有对应的方法响应码405，返回405错误信息。
+#8.删除资源时同时删除其相关关联关系，不要产生500错误。
+
+#必填字段约定
+#1.必填是指添加或修改信息时，该字段必须传值。
+#2.修改信息时必填字段可以不传，即为不修改。
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+paths:
+
+  /mkplans:
+    get:
+      summary: 市场计划列表
+      description: 获取市场计划列表，有数据权限控制，以emp-id过滤数据，需要校验emp-id和user-id匹配
+      tags:
+        - 市场计划
+      parameters:
+        - name: planName
+          in: query
+          type: string
+          description: 计划名称，模糊匹配
+        - name: planType
+          in: query
+          type: string
+          description: 计划类型，多种类型以逗号分隔，1：年度计划；2：季度计划；3：月度计划；4：其他计划
+        - name: planParent
+          in: query
+          type: integer
+          description: 父级计划id，0为顶级
+        - name: empPrincipal
+          in: query
+          type: integer
+          description: 计划负责人员工id
+        - name: status
+          in: query
+          type: integer
+          format: int32
+          description: 计划状态，0：计划中；2：进行中；3：已中止；4：已结束；5：已作废
+        - name: createTimeStart
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间(开始时间)
+        - name: createTimeEnd
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间(结束时间)
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 市场计划列表
+          schema:
+            $ref: '#/definitions/PlansPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkplans-all:
+    get:
+      summary: 市场计划列表
+      description: 市场计划列表，无数据权限控制
+      tags:
+        - 市场计划
+      parameters:
+        - name: partnerId
+          in: query
+          type: integer
+          description: 合作伙伴id
+        - name: planType
+          in: query
+          type: string
+          description: 计划类型，多种类型以逗号分隔，1：年度计划；2：季度计划；3：月度计划；4：其他计划
+        - name: planParent
+          in: query
+          type: integer
+          description: 父级计划id，0为顶级（返回所有子计划）
+        - name: status
+          in: query
+          type: string
+          description: 计划状态，多个状态以逗号分隔，0：计划中；2：进行中；3：已中止；4：已结束；5：已作废
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 市场计划列表
+          schema:
+            $ref: '#/definitions/PlansPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkplan:
+    post:
+      summary: 添加市场计划
+      description: 添加市场计划
+      tags:
+        - 市场计划
+      parameters:
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/PlanReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/RowsResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkplan/{planId}:
+    get:
+      summary: 获取市场计划基本信息
+      description: 获取市场计划基本信息
+      tags:
+        - 市场计划
+      parameters:
+        - name: planId
+          in: path
+          description: 市场计划id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+
+      responses:
+        200:
+          description: 市场计划信息
+          schema:
+            $ref: '#/definitions/PlanResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改市场计划
+      description: 修改市场计划，只有计划负责人为当前操作人才允许操作，只有状态=0、2（计划中、进行中） 才允许修改。
+      tags:
+        - 市场计划
+      parameters:
+        - name: planId
+          in: path
+          description: 市场计划id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 市场计划信息
+          schema:
+            $ref: '#/definitions/PlanReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkplan/{planId}/status:
+    put:
+      summary: 启用中止作废市场计划
+      description: 启用中止作废市场计划，只有计划负责人为当前操作人才允许操作，只有状态=2（进行中） 才允许中止，只有状态=0、3（计划中、已中止） 才允许启用，只有状态=0、3（计划中、已中止） 才允许作废
+      tags:
+        - 市场计划
+      parameters:
+        - name: planId
+          in: path
+          description: 市场计划id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                enum:
+                  - 2
+                  - 3
+                  - 5
+                description: 状态，2：启用；3：中止；5：作废
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkplan/{planId}/principal:
+    put:
+      summary: 转移市场计划负责人
+      description: 转移市场计划负责人，只有计划负责人为当前操作人才允许操作，只有状态=0、2（计划中、进行中） 才允许转移
+      tags:
+        - 市场计划
+      parameters:
+        - name: planId
+          in: path
+          description: 市场计划id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 计划负责人员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkprojects:
+    get:
+      summary: 市场活动列表
+      description: 获取市场活动列表，有数据权限控制，以emp-id过滤数据，需要校验emp-id和user-id匹配
+      tags:
+        - 市场活动
+      parameters:
+        - name: projectName
+          in: query
+          type: string
+          description: 活动名称，模糊匹配
+        - name: projectType
+          in: query
+          type: integer
+          description: 活动类型，1：促销活动；2：公关活动
+        - name: planId
+          in: query
+          type: integer
+          description: 市场计划id
+        - name: empPrincipal
+          in: query
+          type: integer
+          description: 活动负责人员工id
+        - name: status
+          in: query
+          type: integer
+          format: int32
+          description: 活动状态，0：计划中；10：待审核 ；11：审核通过；12：审核未通过；2：进行中；3：已中止；4：已结束；5：已作废
+        - name: beginDate
+          in: query
+          type: string
+          format: date
+          description: 活动开始时间
+        - name: endDate
+          in: query
+          type: string
+          format: date
+          description: 活动结束时间
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 市场活动列表
+          schema:
+            $ref: '#/definitions/ProjectsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkprojects-all:
+    get:
+      summary: 市场活动列表
+      description: 市场活动列表，无数据权限控制
+      tags:
+        - 市场活动
+      parameters:
+        - name: partnerId
+          in: query
+          type: integer
+          description: 合作伙伴id
+        - name: planId
+          in: query
+          type: integer
+          description: 市场计划id
+        - name: status
+          in: query
+          type: string
+          description: 活动状态，多个状态以逗号分隔，0：计划中；10：待审核 ；11：审核通过；12：审核未通过；2：进行中；3：已中止；4：已结束；5：已作废
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 市场计划列表
+          schema:
+            $ref: '#/definitions/ProjectsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkprojects-schemes:
+    get:
+      summary: 市场活动+方案列表
+      description: 市场活动+方案列表，无数据权限控制
+      tags:
+        - 市场活动
+      parameters:
+        - name: partnerId
+          in: query
+          type: integer
+          description: 合作伙伴id
+        - name: planId
+          in: query
+          type: integer
+          description: 市场计划id
+        - name: status
+          in: query
+          type: string
+          description: 活动状态，多个状态以逗号分隔，0：计划中；10：待审核 ；11：审核通过；12：审核未通过；2：进行中；3：已中止；4：已结束；5：已作废
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 市场计划列表
+          schema:
+            $ref: '#/definitions/ProjectsSchemesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkproject:
+    post:
+      summary: 添加市场活动
+      description: 添加市场活动
+      tags:
+        - 市场活动
+      parameters:
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/ProjectReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/RowsResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkproject/{projectId}:
+    get:
+      summary: 获取市场活动基本信息
+      description: 获取市场活动基本信息
+      tags:
+        - 市场活动
+      parameters:
+        - name: projectId
+          in: path
+          description: 市场活动id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+
+      responses:
+        200:
+          description: 市场活动信息
+          schema:
+            $ref: '#/definitions/ProjectResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改市场活动
+      description: 修改市场活动，只有活动负责人为当前操作人才允许操作，只有状态=0、12（计划中、审核未通过） 才允许修改
+      tags:
+        - 市场活动
+      parameters:
+        -
+          name: projectId
+          in: path
+          description: 市场活动id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 市场活动信息
+          schema:
+            $ref: '#/definitions/ProjectReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkproject/{projectId}/status:
+    put:
+      summary: 启用中止作废市场活动
+      description: 启用中止作废市场活动，只有活动负责人为当前操作人才允许操作，只有状态=2（进行中） 才允许中止，只有状态=11、3（审核通过、已中止） 才允许启用，只有状态=0、12、3（计划中、审核未通过、已中止） 才允许作废
+      tags:
+        - 市场活动
+      parameters:
+        - name: projectId
+          in: path
+          description: 市场活动id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                enum:
+                  - 2
+                  - 3
+                  - 5
+                description: 状态，2：启用；3：中止；5：作废
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkproject/{projectId}/principal:
+    put:
+      summary: 转移市场活动负责人
+      description: 转移市场活动负责人，只有活动负责人为当前操作人才允许操作，只有状态=0、11、2（计划中、审核通过、进行中） 才允许转移
+      tags:
+        - 市场活动
+      parameters:
+        - name: projectId
+          in: path
+          description: 市场活动id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 活动负责人员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkproject/{projectId}/costs:
+    get:
+      summary: 获取市场活动成本列表
+      description: 获取市场活动成本列表
+      tags:
+        - 市场活动
+      parameters:
+        - name: projectId
+          in: path
+          description: 市场活动id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 市场活动成本列表
+          schema:
+            $ref: '#/definitions/Costs'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkproject/{projectId}/verify:
+    get:
+      summary: 获取市场活动审核信息
+      description: 获取市场活动审核信息
+      tags:
+        - 市场活动
+      parameters:
+        - name: projectId
+          in: path
+          description: 市场活动id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 市场活动审核信息
+          schema:
+            $ref: '#/definitions/VerifyResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkschemes:
+    get:
+      summary: 活动方案列表
+      description: 获取活动方案列表，有数据权限控制，以emp-id过滤数据，需要校验emp-id和user-id匹配
+      tags:
+        - 活动方案
+      parameters:
+        - name: schemeName
+          in: query
+          type: string
+          description: 方案名称，模糊匹配
+        - name: projectId
+          in: query
+          type: integer
+          description: 市场活动id
+        - name: empPrincipal
+          in: query
+          type: integer
+          description: 方案负责人员工id
+        - name: status
+          in: query
+          type: integer
+          format: int32
+          description: 方案状态，0：计划中；10：待审核 ；11：审核通过；12：审核未通过；2：进行中；3：已中止；4：已结束；5：已作废
+        - name: beginDate
+          in: query
+          type: string
+          format: date
+          description: 实施开始时间
+        - name: endDate
+          in: query
+          type: string
+          format: date
+          description: 实施结束时间
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 活动方案列表
+          schema:
+            $ref: '#/definitions/SchemesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkschemes-all:
+    get:
+      summary: 活动方案列表
+      description: 活动方案列表，无数据权限控制
+      tags:
+        - 活动方案
+      parameters:
+        - name: partnerId
+          in: query
+          type: integer
+          description: 合作伙伴id
+        - name: projectId
+          in: query
+          type: integer
+          description: 市场活动id
+        - name: status
+          in: query
+          type: string
+          description: 方案状态，多个状态以逗号分隔，0：计划中；10：待审核 ；11：审核通过；12：审核未通过；2：进行中；3：已中止；4：已结束；5：已作废
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 市场计划列表
+          schema:
+            $ref: '#/definitions/SchemesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkscheme:
+    post:
+      summary: 添加活动方案
+      description: 添加活动方案
+      tags:
+        - 活动方案
+      parameters:
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SchemeReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SchemeResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkscheme/{schemeId}:
+    get:
+      summary: 获取活动方案基本信息
+      description: 获取活动方案基本信息
+      tags:
+        - 活动方案
+      parameters:
+        - name: schemeId
+          in: path
+          description: 活动方案id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+
+      responses:
+        200:
+          description: 活动方案信息
+          schema:
+            $ref: '#/definitions/SchemeResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改活动方案
+      description: 修改活动方案，只有方案负责人为当前操作人才允许操作，只有状态=0、12（计划中、审核未通过） 才允许修改
+      tags:
+        - 活动方案
+      parameters:
+        -
+          name: schemeId
+          in: path
+          description: 活动方案id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 活动方案信息
+          schema:
+            $ref: '#/definitions/SchemeReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkscheme/{schemeId}/status:
+    put:
+      summary: 启用中止作废活动方案
+      description: 启用中止作废活动方案，只有方案负责人为当前操作人才允许操作，只有状态=2（进行中） 才允许中止，只有状态=11、3（审核通过、已中止） 才允许启用，只有状态=0、12、3（计划中、审核未通过、已中止） 才允许作废
+      tags:
+        - 活动方案
+      parameters:
+        - name: schemeId
+          in: path
+          description: 活动方案id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                enum:
+                  - 2
+                  - 3
+                  - 5
+                description: 状态，2：启用；3：中止；5：作废
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkscheme/{schemeId}/principal:
+    put:
+      summary: 转移活动方案负责人
+      description: 转移活动方案负责人，只有方案负责人为当前操作人才允许操作，只有状态=0、11、2（计划中、审核通过、进行中） 才允许转移
+      tags:
+        - 活动方案
+      parameters:
+        - name: schemeId
+          in: path
+          description: 活动方案id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 活动负责人员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkscheme/{schemeId}/costs:
+    get:
+      summary: 获取活动方案成本列表
+      description: 获取活动方案成本列表
+      tags:
+        - 活动方案
+      parameters:
+        - name: schemeId
+          in: path
+          description: 活动方案id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 活动方案成本列表
+          schema:
+            $ref: '#/definitions/Costs'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    post:
+      summary: 添加活动方案成本
+      description: 添加活动方案成本，只有方案负责人为当前操作人才允许操作
+      tags:
+        - 活动方案
+      parameters:
+        - name: schemeId
+          in: path
+          description: 活动方案id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CostReq'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/RowsResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkscheme/{schemeId}/verify:
+    get:
+      summary: 获取活动方案审核信息
+      description: 获取活动方案审核信息
+      tags:
+        - 活动方案
+      parameters:
+        - name: schemeId
+          in: path
+          description: 活动方案id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 活动方案审核信息
+          schema:
+            $ref: '#/definitions/VerifyResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkscheme/{schemeId}/channels:
+    get:
+      summary: 获取市场渠道列表
+      description: 获取市场渠道列表
+      tags:
+        - 线索
+      parameters:
+        - name: schemeId
+          in: path
+          description: 活动方案id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 市场渠道列表
+          schema:
+            $ref: '#/definitions/Channels'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkclues:
+    get:
+      summary: 线索列表
+      description: 获取线索列表
+      tags:
+        - 线索
+      parameters:
+        - name: schemeId
+          in: query
+          type: integer
+          description: 方案id
+          required: true
+        - name: channelId
+          in: query
+          type: integer
+          description: 渠道id
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称
+        - name: status
+          in: query
+          type: integer
+          description: 线索状态，0：未转销售；1：已转销售；2：已删除
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 线索列表
+          schema:
+            $ref: '#/definitions/CluesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkclue:
+    post:
+      summary: 添加线索
+      description: 添加线索
+      tags:
+        - 线索
+      parameters:
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/CluesReq'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/RowsResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkclue/status:
+    put:
+      summary: 线索转销售/删除
+      description: 线索转销售/删除，只有状态=0（未转销售） 才允许转销售
+      tags:
+        - 线索
+      parameters:
+        -
+          name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              schemeId:
+                type: integer
+                description: 所属活动方案id
+              channelId:
+                type: integer
+                description: 所属渠道id
+              clueId:
+                type: array
+                description: 线索id列表
+                items:
+                  type: integer
+                  description: 线索id
+              status:
+                type: integer
+                enum:
+                  - 1
+                  - 2
+                description: 状态，1：转销售；2：删除
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /marketing/check:
+    get:
+      summary: 市场计划/活动/方案校验
+      description: 市场计划/活动/方案校验，判断符合条件的记录是否存在（添加时重名校验只传名称，修改时重名校验传id+名称）
+      tags:
+        - 市场管理
+      parameters:
+        - name: mkType
+          in: query
+          description: 市场类型，1：市场计划；2：市场活动；3：活动方案
+          required: true
+          type: integer
+        - name: partnerId
+          in: query
+          description: 合作伙伴id
+          type: integer
+          required: true
+        - name: mkId
+          in: query
+          description: 市场计划/活动/方案id，使用"!="匹配（不等于）
+          required: false
+          type: integer
+        - name: mkName
+          in: query
+          description: 市场计划/活动/方案名称，使用"="匹配（全匹配）
+          required: true
+          type: string
+
+      responses:
+        200:
+          description: 记录数
+          schema:
+            $ref: '#/definitions/RowsResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /marketing/budget:
+    get:
+      summary: 获取市场计划/活动/方案剩余预算金额
+      description: 获取市场计划/活动/方案剩余预算金额，不计当前操作市场计划/活动/方案id
+      tags:
+        - 市场管理
+      parameters:
+        - name: mkType
+          in: query
+          description: 市场类型，1：市场计划；2：市场活动；3：活动方案
+          required: true
+          type: integer
+        - name: parentId
+          in: query
+          description: 父级市场计划/活动id
+          required: true
+          type: integer
+        - name: curId
+          in: query
+          description: 当前操作市场计划/活动/方案id
+          type: integer
+
+      responses:
+        200:
+          description: 余额信息
+          schema:
+            $ref: '#/definitions/BudgetResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkverifies:
+    get:
+      summary: 获取市场活动审核记录列表
+      description: 获取市场活动审核记录列表
+      tags:
+        - 市场管理
+      parameters:
+        - name: mkType
+          in: query
+          enum:
+            - 2
+            - 3
+          description: 审核类型，2：市场活动；3：活动方案
+          required: true
+          type: integer
+        - name: mkId
+          in: query
+          description: 活动/方案id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 审核记录列表
+          schema:
+            $ref: '#/definitions/VerifyRecords'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkverify:
+    post:
+      summary: 提交审核
+      description: 提交审核，只有活动/方案负责人为当前操作人才允许操作，只有活动/方案状态=0、12（计划中、审核不通过） 才允许操作
+      tags:
+        - 市场管理
+      parameters:
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/VerifyReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/RowsResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /mkverify/{verifyId}:
+    get:
+      summary: 获取审核基本信息
+      description: 获取审核基本信息
+      tags:
+        - 市场管理
+      parameters:
+        -
+          name: verifyId
+          in: path
+          description: 审核记录id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 审核信息
+          schema:
+            $ref: '#/definitions/VerifyResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 审核
+      description: 审核，只有审核状态=0（待审核） 才允许操作
+      tags:
+        - 市场管理
+      parameters:
+        -
+          name: verifyId
+          in: path
+          description: 审核记录id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpId'
+        - $ref: '#/parameters/UserId'
+        -
+          name: body
+          in: body
+          description: 审核信息
+          schema:
+            $ref: '#/definitions/VerifyReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slclues:
+    get:
+      summary: 销售线索列表
+      description: 获取销售线索列表
+      tags:
+        - 销售-线索
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: beginDate
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间-起始
+        - name: endDate
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间-结束
+        - name: empCreate
+          in: query
+          type: integer
+          description: 创建人，全匹配
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称，模糊匹配
+        - name: area
+          in: query
+          type: string
+          description: 区域，前面匹配
+        - name: industry
+          in: query
+          type: integer
+          description: 行业，全匹配
+        - name: status
+          in: query
+          type: string
+          description: 线索状态，多个状态以英文逗号分隔，0：待清洗；1：清洗通过；2：清洗不通过；3：已作废
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 线索列表
+          schema:
+            $ref: '#/definitions/SaleCluesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    post:
+      summary: 批量添加线索
+      description: 批量添加线索
+      tags:
+        - 销售-线索
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            type: array
+            items:
+              type: string
+              description: 文件路径
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/RowsResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slclue:
+    post:
+      summary: 添加线索
+      description: 添加线索
+      tags:
+        - 销售-线索
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SaleClueReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SaleClueResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slclue/{clueId}/status:
+    put:
+      summary: 线索清洗不通过/作废
+      description: 线索清洗不通过/作废
+      tags:
+        - 销售-线索
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: clueId
+          in: path
+          description: 线索id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                enum:
+                  - 2
+                  - 3
+                description: 状态，2：清洗不通过；3：已作废
+              cleanOpinion:
+                type: string
+                description: 清洗意见，status=2 必填
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slclue/{clueId}/lock:
+    put:
+      summary: 线索锁定/解锁
+      description: 线索锁定/解锁
+      tags:
+        - 销售-线索
+      parameters:
+        - name: clueId
+          in: path
+          description: 线索id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              locked:
+                type: integer
+                enum:
+                  - 0
+                  - 1
+                description: 是否锁定，0：未锁定，1：已锁定
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slclue/{clueId}:
+    get:
+      summary: 获取线索基本信息
+      description: 获取线索基本信息
+      tags:
+        - 销售-线索
+      parameters:
+        - name: clueId
+          in: path
+          description: 线索id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 线索信息
+          schema:
+            $ref: '#/definitions/SaleClueResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomers:
+    get:
+      summary: 销售客户列表
+      description: 获取销售客户列表
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: scene
+          in: query
+          type: integer
+          description: 场景，0：全部；1：我负责的；2：我下属负责的；3：我共享的；4：共享给我的，默认0
+          required: false
+        - name: beginDate
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间-起始
+        - name: endDate
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间-结束
+        - name: empCreate
+          in: query
+          type: integer
+          description: 创建人，全匹配
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称，模糊匹配
+        - name: area
+          in: query
+          type: string
+          description: 区域，前面匹配
+        - name: industry
+          in: query
+          type: integer
+          description: 行业，全匹配
+        - name: status
+          in: query
+          type: string
+          description: 客户状态，多个状态以英文逗号分隔，0：待处理；1：已领取；3：已作废
+        - name: contactName
+          in: query
+          type: string
+          description: 联系人，模糊匹配
+        - name: customerLevel
+          in: query
+          type: string
+          description: 客户级别
+        - name: customerType
+          in: query
+          type: string
+          description: 客户类型
+        - name: validStatus
+          in: query
+          type: string
+          description: 有效状态，0：失效；1：有效
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 客户列表
+          schema:
+            $ref: '#/definitions/SaleCustomersPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    post:
+      summary: 批量导入客户
+      description: 批量导入客户
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            type: array
+            items:
+              type: string
+              description: 文件路径
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/RowsResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomers/distrib:
+    put:
+      summary: 批量分配私海客户
+      description: 批量分配私海客户
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 分配信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 负责人员工id
+              customerIds:
+                type: array
+                description: 客户id数组
+                items:
+                  type: integer
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomers/pickup:
+    get:
+      summary: 可领取任务数量
+      description: 获取可领取任务数量
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 数量信息
+          schema:
+            type: object
+            properties:
+              perMax:
+                type: integer
+                description: 每次领取最大数量
+              maxCount:
+                type: integer
+                description: 最大跟进数量
+              leftCount:
+                type: integer
+                description: 当前可领取数量
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 批量领取任务
+      description: 批量领取任务
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 领取信息
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+                description: 领取条数
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer-clean:
+    post:
+      summary: 添加客户（线索清洗）
+      description: 添加客户（线索清洗）
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SaleCustomerReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SaleCustomerResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer:
+    post:
+      summary: 添加客户
+      description: 添加客户
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SaleCustomerReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SaleCustomerResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}:
+    get:
+      summary: 获取客户基本信息
+      description: 获取客户基本信息
+      tags:
+        - 销售-客户
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 客户信息
+          schema:
+            $ref: '#/definitions/SaleCustomerResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改客户信息
+      description: 修改客户信息
+      tags:
+        - 销售-客户
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 客户信息
+          schema:
+            $ref: '#/definitions/SaleCustomerReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/order-statistic:
+    get:
+      summary: 获取客户订单统计信息
+      description: 获取客户订单统计信息
+      tags:
+        - 销售-客户
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 订单统计信息
+          schema:
+            type: object
+            properties:
+              allAmount:
+                type: number
+                format: double
+                description: 累计消费金额
+              allCount:
+                type: integer
+                description: 累计交易次数
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/validstatus:
+    put:
+      summary: 客户批量失效
+      description: 客户批量失效
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 客户信息
+          schema:
+            type: object
+            properties:
+              customerIds:
+                type: array
+                description: 客户id数组
+                items:
+                  type: integer
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/shares:
+    get:
+      summary: 客户共享信息
+      description: 获取客户共享信息
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 员工列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 共享客户信息（全量数据修改）
+      description: 共享客户信息（全量数据修改）
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empIds:
+                type: array
+                description: 员工id数组
+                items:
+                  type: integer
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/principal:
+    put:
+      summary: 转移客户负责人
+      description: 转移客户负责人
+      tags:
+        - 销售-客户
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 客户负责人员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/projects:
+    get:
+      summary: 参与活动列表
+      description: 获取参与活动列表
+      tags:
+        - 销售-客户
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+      responses:
+        200:
+          description: 参与活动列表
+          schema:
+            $ref: '#/definitions/SaleProjectsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/bindos:
+    put:
+      summary: 客户绑定组织库企业
+      description: 客户绑定组织库企业
+      tags:
+        - 销售-客户
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 客户信息
+          schema:
+            type: object
+            properties:
+              osId:
+                type: integer
+                description: os企业id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/invite:
+    post:
+      summary: 邀请客户平台注册
+      description: 邀请客户平台注册
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            type: object
+            properties:
+              contactName:
+                type: string
+                description: 联系人
+              phone:
+                type: string
+                description: 联系电话
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/busioppors:
+    get:
+      summary: 客户商机列表
+      description: 客户商机列表
+      tags:
+        - 销售-客户
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - name: scene
+          in: query
+          type: integer
+          description: 场景，0：全部；1：我负责的；2：我下属负责的
+          required: false
+        - name: status
+          in: query
+          type: string
+          description: 商机状态，多个状态以英文逗号分隔，0：待分配；1：待处理；2：跟进中；3：已转订单；4：已作废
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+      responses:
+        200:
+          description: 商机列表
+          schema:
+            $ref: '#/definitions/SaleSimpleBusiopporsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/contacts:
+    get:
+      summary: 客户联系人列表
+      description: 客户联系人列表
+      tags:
+        - 销售-联系人
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+      responses:
+        200:
+          description: 联系人列表
+          schema:
+            $ref: '#/definitions/SaleContactsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/contact:
+    post:
+      summary: 添加客户联系人
+      description: 添加客户联系人
+      tags:
+        - 销售-联系人
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SaleContactReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SaleContactResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/contact/{contactId}:
+    get:
+      summary: 获取客户联系人基本信息
+      description: 获取客户联系人基本信息
+      tags:
+        - 销售-联系人
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - name: contactId
+          in: path
+          description: 联系人id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 客户联系人信息
+          schema:
+            $ref: '#/definitions/SaleContactResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改客户联系人
+      description: 修改客户联系人
+      tags:
+        - 销售-联系人
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - name: contactId
+          in: path
+          description: 联系人id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        -
+          name: body
+          in: body
+          description: 客户联系人信息
+          schema:
+            $ref: '#/definitions/SaleContactReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    delete:
+      summary: 删除客户联系人
+      description: 删除客户联系人
+      tags:
+        - 销售-联系人
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - name: contactId
+          in: path
+          description: 联系人id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          $ref: '#/responses/DeleteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slcustomer/{customerId}/phone/{phoneId}/ismain:
+    put:
+      summary: 设置默认电话
+      description: 设置默认电话
+      tags:
+        - 销售-联系人
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: phoneId
+          in: path
+          description: 联系电话id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /sldaytasks:
+    get:
+      summary: 每日任务列表
+      description: 获取每日任务列表
+      tags:
+        - 销售-每日任务
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: scene
+          in: query
+          type: integer
+          description: 场景，0：全部；1：我负责的；2：我下属负责的
+          required: true
+        - name: beginDate
+          in: query
+          type: string
+          format: date-time
+          description: 分配时间-起始
+        - name: endDate
+          in: query
+          type: string
+          format: date-time
+          description: 分配时间-结束
+        - name: empPrincipal
+          in: query
+          type: integer
+          description: 负责人员工id，全匹配
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称，模糊匹配
+        - name: area
+          in: query
+          type: string
+          description: 区域，前面匹配
+        - name: industry
+          in: query
+          type: integer
+          description: 行业，全匹配
+        - name: status
+          in: query
+          type: string
+          description: 任务状态，多个状态以英文逗号分隔，0：待处理；1：跟进中；2：已转客保；3：已作废
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 每日任务列表
+          schema:
+            $ref: '#/definitions/SaleDaytasksPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /sldaytasks/status:
+    put:
+      summary: 每日任务批量转客保/跟进/废弃
+      description: 每日任务批量转客保/跟进/废弃
+      tags:
+        - 销售-每日任务
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 每日任务信息
+          schema:
+            type: object
+            properties:
+              taskIds:
+                type: array
+                description: 任务id数组
+                items:
+                  type: integer
+              status:
+                type: integer
+                enum:
+                  - 1
+                  - 2
+                  - 3
+                description: 任务状态，1：跟进中；2：已转客保；3：已作废
+              opinion:
+                type: string
+                description: 意见，status=3 必填
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /sldaytask/{taskId}:
+    get:
+      summary: 获取每日任务信息
+      description: 获取每日任务信息
+      tags:
+        - 销售-每日任务
+      parameters:
+        - name: taskId
+          in: path
+          description: 每日任务id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 每日任务信息
+          schema:
+            $ref: '#/definitions/SaleDaytaskResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /sldaytask/{taskId}/principal:
+    put:
+      summary: 转移每日任务负责人
+      description: 转移每日任务负责人，同时更新客户负责人
+      tags:
+        - 销售-每日任务
+      parameters:
+        - name: taskId
+          in: path
+          description: 每日任务id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 任务负责人员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slprotects:
+    get:
+      summary: 客保客户列表
+      description: 获取客保客户列表
+      tags:
+        - 销售-客保
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: scene
+          in: query
+          type: integer
+          description: 场景，0：全部；1：我负责的；2：我下属负责的；3：我共享的；4：共享给我的
+          required: true
+        - name: beginDate
+          in: query
+          type: string
+          format: date-time
+          description: 转客保时间-起始
+        - name: endDate
+          in: query
+          type: string
+          format: date-time
+          description: 转客保时间-结束
+        - name: empPrincipal
+          in: query
+          type: integer
+          description: 负责人员工id，全匹配
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称，模糊匹配
+        - name: contactName
+          in: query
+          type: string
+          description: 联系人，模糊匹配
+        - name: area
+          in: query
+          type: string
+          description: 区域，前面匹配
+        - name: industry
+          in: query
+          type: integer
+          description: 行业，全匹配
+        - name: status
+          in: query
+          type: string
+          description: 客保状态，多个状态以英文逗号分隔，0：待处理；1：跟进中；2：已转商机；3：已作废
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 客保列表
+          schema:
+            $ref: '#/definitions/SaleCustomerProtectsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slprotects/status:
+    put:
+      summary: 客保批量跟进/废弃
+      description: 客保批量跟进/废弃
+      tags:
+        - 销售-客保
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 客保信息
+          schema:
+            type: object
+            properties:
+              protectIds:
+                type: array
+                description: 客保id数组
+                items:
+                  type: integer
+              status:
+                type: integer
+                enum:
+                  - 1
+                  - 3
+                description: 客保状态，1：跟进中；3：已作废
+              opinion:
+                type: string
+                description: 意见，status=3 必填
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slprotect/{protectId}:
+    get:
+      summary: 获取客保信息
+      description: 获取客保信息
+      tags:
+        - 销售-客保
+      parameters:
+        - name: protectId
+          in: path
+          description: 客保id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 客保信息
+          schema:
+            $ref: '#/definitions/SaleCustomerProtectResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slprotect/{protectId}/shares:
+    get:
+      summary: 客保共享信息
+      description: 获取客保共享信息
+      tags:
+        - 销售-客保
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: protectId
+          in: path
+          description: 客保id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 员工列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 共享客保信息（全量数据修改）
+      description: 共享客保信息（全量数据修改）
+      tags:
+        - 销售-客保
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: protectId
+          in: path
+          description: 客保id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empIds:
+                type: array
+                description: 员工id数组
+                items:
+                  type: integer
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slprotect/{protectId}/principal:
+    put:
+      summary: 转移客保负责人，同时更新客户负责人
+      description: 转移客保负责人，同时更新客户负责人
+      tags:
+        - 销售-客保
+      parameters:
+        - name: protectId
+          in: path
+          description: 客保id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 客保负责人员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppors:
+    get:
+      summary: 销售商机列表
+      description: 获取销售商机列表
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: scene
+          in: query
+          type: integer
+          description: 场景，0：全部；1：我负责的；2：我下属负责的；3：我共享的；4：共享给我的
+          required: true
+        - name: beginDate
+          in: query
+          type: string
+          format: date-time
+          description: 分配时间-起始
+        - name: endDate
+          in: query
+          type: string
+          format: date-time
+          description: 分配时间-结束
+        - name: empPrincipal
+          in: query
+          type: integer
+          description: 负责人员工id，全匹配
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称，模糊匹配
+        - name: contactName
+          in: query
+          type: string
+          description: 联系人，模糊匹配
+        - name: area
+          in: query
+          type: string
+          description: 区域，前面匹配
+        - name: industry
+          in: query
+          type: integer
+          description: 行业，全匹配
+        - name: status
+          in: query
+          type: string
+          description: 商机状态，多个状态以英文逗号分隔，0：待分配；1：待处理；2：跟进中；3：已转订单；4：已作废
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 商机列表
+          schema:
+            $ref: '#/definitions/SaleBusiopporsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppors/distrib:
+    put:
+      summary: 批量分配商机
+      description: 批量分配商机
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 分配信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 负责人员工id
+              busiopporIds:
+                type: array
+                description: 商机id数组
+                items:
+                  type: integer
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppor:
+    post:
+      summary: 添加商机
+      description: 添加商机
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SaleBusiopporReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SaleBusiopporResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppor/{busiopporId}:
+    get:
+      summary: 获取商机信息
+      description: 获取商机信息
+      tags:
+        - 销售-商机
+      parameters:
+        - name: busiopporId
+          in: path
+          description: 商机id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 商机信息
+          schema:
+            $ref: '#/definitions/SaleBusiopporResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改商机信息
+      description: 修改商机信息，status=3（已转订单），不允许修改
+      tags:
+        - 销售-商机
+      parameters:
+        - name: busiopporId
+          in: path
+          description: 商机id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 商机信息
+          schema:
+            $ref: '#/definitions/SaleBusiopporReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppor/{busiopporId}/shares:
+    get:
+      summary: 商机共享信息
+      description: 获取商机共享信息
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: busiopporId
+          in: path
+          description: 商机id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 员工列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 共享商机信息（全量数据修改）
+      description: 共享商机信息（全量数据修改）
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: busiopporId
+          in: path
+          description: 商机id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empIds:
+                type: array
+                description: 员工id数组
+                items:
+                  type: integer
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppor/status:
+    put:
+      summary: 商机批量跟进/废弃
+      description: 商机批量跟进/废弃
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 商机信息
+          schema:
+            type: object
+            properties:
+              busiopporIds:
+                type: array
+                description: 商机id数组
+                items:
+                  type: integer
+              status:
+                type: integer
+                enum:
+                  - 2
+                  - 4
+                description: 商机状态，2：跟进中；4：已作废
+              opinion:
+                type: string
+                description: 意见，status=4 必填
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppor/{busiopporId}/principal:
+    put:
+      summary: 转移商机负责人
+      description: 转移商机负责人
+      tags:
+        - 销售-商机
+      parameters:
+        - name: busiopporId
+          in: path
+          description: 商机id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 商机信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 商机负责人员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppor/{busiopporId}/stages:
+    get:
+      summary: 商机销售阶段列表
+      description: 获取商机销售阶段列表
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: busiopporId
+          in: path
+          description: 商机id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 销售阶段列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SaleBusiopporStage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppor/{busiopporId}/end:
+    get:
+      summary: 商机销售结束阶段信息
+      description: 获取商机销售结束阶段信息
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: busiopporId
+          in: path
+          description: 商机id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 销售结束阶段信息
+          schema:
+            type: object
+            properties:
+              endType:
+                type: string
+                description: 结束类型，1：赢单；2：输单；3：无效；多个类型以逗号分隔
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 结束销售阶段
+      description: 结束销售阶段
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: busiopporId
+          in: path
+          description: 商机id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 商机结束信息
+          schema:
+            type: object
+            properties:
+              endTypeVal:
+                type: integer
+                enum:
+                  - 1
+                  - 2
+                  - 3
+                description: 结束类型值，1：赢单；2：输单；3：无效
+              endOpinion:
+                type: string
+                description: 结束意见，status=2、3 必填
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slbusioppor/{busiopporId}/stage/{recordId}:
+    put:
+      summary: 提交销售阶段数据
+      description: 提交销售阶段数据
+      tags:
+        - 销售-商机
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: busiopporId
+          in: path
+          description: 商机id
+          required: true
+          type: integer
+        - name: recordId
+          in: path
+          description: 阶段记录id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 阶段数据信息
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SaleBusiopporForm'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slorders:
+    get:
+      summary: 销售订单列表
+      description: 获取销售订单列表
+      tags:
+        - 销售-订单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: scene
+          in: query
+          type: integer
+          description: 场景，0：全部；1：我负责的；2：我下属负责的
+          required: true
+        - name: beginDate
+          in: query
+          type: string
+          description: 交付日期-起始
+        - name: endDate
+          in: query
+          type: string
+          description: 交付日期-结束
+        - name: empPrincipal
+          in: query
+          type: integer
+          description: 负责人员工id，全匹配
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称，模糊匹配
+        - name: orderId
+          in: query
+          type: string
+          description: 订单编号，模糊匹配
+        - name: productCode
+          in: query
+          type: string
+          description: 产品编号，全匹配
+        - name: industry
+          in: query
+          type: integer
+          description: 行业，全匹配
+        - name: orderState
+          in: query
+          type: string
+          description: 订单状态，多个状态以英文逗号分隔，0：新建；1：生效；2：完成；3：取消
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 订单列表
+          schema:
+            $ref: '#/definitions/SaleOrdersPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slorder:
+    post:
+      summary: 添加订单
+      description: 添加订单
+      tags:
+        - 销售-订单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SaleOrderReq'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SaleOrderResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slorder/{orderId}:
+    get:
+      summary: 获取订单详细信息
+      description: 获取订单详细信息
+      tags:
+        - 销售-订单
+      parameters:
+        - name: orderId
+          in: path
+          description: 订单id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 订单信息
+          schema:
+            $ref: '#/definitions/SaleOrderDetailResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slvisits:
+    get:
+      summary: 上门拜访列表
+      description: 获取上门拜访列表，默认按创建时间倒序
+      tags:
+        - 销售-拜访
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: saleType
+          in: query
+          type: integer
+          enum:
+            - 1
+            - 2
+          description: 业务类型，1：线索；2：客户
+          required: true
+        - name: saleId
+          in: query
+          type: integer
+          description: 业务id（线索/客户id）
+          required: true
+        - name: saleSubType
+          in: query
+          type: integer
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+          description: 子业务类型，1：每日任务；2：客保客户；3：商机；4：老客户
+          required: false
+        - name: saleSubId
+          in: query
+          type: integer
+          description: 子业务id（每日任务/客保/商机/老客户id）
+          required: false
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 拜访列表
+          schema:
+            $ref: '#/definitions/VisitsPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slvisit:
+    post:
+      summary: 添加上门拜访
+      description: 添加上门拜访
+      tags:
+        - 销售-拜访
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/VisitReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/VisitResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slvisit/{visitId}:
+    put:
+      summary: 修改反馈
+      description: 修改上门拜访反馈信息
+      tags:
+        - 销售-拜访
+      parameters:
+        - name: visitId
+          in: path
+          description: 拜访ID
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 修改信息
+          schema:
+            $ref: '#/definitions/VisitReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slnotes:
+    get:
+      summary: 批注列表
+      description: 获取批注列表，默认按创建时间倒序
+      tags:
+        - 销售-批注
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: saleType
+          in: query
+          type: integer
+          enum:
+            - 1
+            - 2
+          description: 业务类型，1：线索；2：客户
+          required: true
+        - name: saleId
+          in: query
+          type: integer
+          description: 业务id（线索/客户id）
+          required: true
+        - name: saleSubType
+          in: query
+          type: integer
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+          description: 子业务类型，1：每日任务；2：客保客户；3：商机；4：老客户
+          required: false
+        - name: saleSubId
+          in: query
+          type: integer
+          description: 子业务id（每日任务/客保/商机/老客户id）
+          required: false
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 批注列表
+          schema:
+            $ref: '#/definitions/NotesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /slnote:
+    post:
+      summary: 添加批注
+      description: 添加批注
+      tags:
+        - 销售-批注
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/NoteReq'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/NoteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/processes:
+    get:
+      summary: 销售流程列表
+      description: 获取销售流程列表
+      tags:
+        - 设置-销售流程
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: processName
+          in: query
+          type: string
+          description: 流程名称，模糊匹配
+        - name: status
+          in: query
+          type: integer
+          description: 流程状态，0：停用；1：启用
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 流程列表
+          schema:
+            $ref: '#/definitions/SaleProcessesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/process:
+    post:
+      summary: 添加销售流程
+      description: 添加销售流程
+      tags:
+        - 设置-销售流程
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SaleProcessReq'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SaleProcessResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/process/{processId}:
+    get:
+      summary: 获取销售流程基本信息
+      description: 获取销售流程基本信息
+      tags:
+        - 设置-销售流程
+      parameters:
+        - name: processId
+          in: path
+          description: 销售流程id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+
+      responses:
+        200:
+          description: 销售流程信息
+          schema:
+            $ref: '#/definitions/SaleProcessResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改销售流程
+      description: 修改销售流程
+      tags:
+        - 设置-销售流程
+      parameters:
+        - name: processId
+          in: path
+          description: 销售流程id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: body
+          in: body
+          description: 销售流程信息
+          schema:
+            $ref: '#/definitions/SaleProcessReq'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    delete:
+      summary: 删除销售流程
+      description: 删除销售流程
+      tags:
+        - 设置-销售流程
+      parameters:
+        - name: processId
+          in: path
+          description: 销售流程id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+
+      responses:
+        200:
+          $ref: '#/responses/DeleteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/process/{processId}/status:
+    put:
+      summary: 销售流程启用停用
+      description: 销售流程启用停用
+      tags:
+        - 设置-销售流程
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: processId
+          in: path
+          description: 销售流程id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            description: 状态
+            required:
+              - status
+            properties:
+              status:
+                type: integer
+                enum:
+                  - 0
+                  - 1
+                description: 状态，0，停用；1：启用
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/targets:
+    get:
+      summary: 销售目标列表
+      description: 获取销售目标列表，按年、月排序
+      tags:
+        - 设置-销售目标
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: targetType
+          in: query
+          type: integer
+          description: 目标类型，1：公司；2：部门；3：员工
+          required: true
+        - name: targetId
+          in: query
+          type: integer
+          description: 公司/部门/员工id
+        - name: targetYear
+          in: query
+          type: integer
+          description: 目标年度
+
+      responses:
+        200:
+          description: 目标列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SaleTargetResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/targets/employees:
+    get:
+      summary: 已设置目标员工列表
+      description: 获取已设置目标员工列表
+      tags:
+        - 设置-销售目标
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+      responses:
+        200:
+          description: 已设置销售目标员工列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/targets/employee/{empId}:
+    delete:
+      summary: 删除员工目标
+      description: 删除员工目标
+      tags:
+        - 设置-销售目标
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: empId
+          in: path
+          description: 员工id
+          type: integer
+          required: true
+      responses:
+        200:
+          $ref: '#/responses/DeleteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/target:
+    post:
+      summary: 添加目标
+      description: 添加目标
+      tags:
+        - 设置-销售流程
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SaleTargetReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SaleTargetResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/target/{recordId}:
+    put:
+      summary: 修改目标
+      description: 修改目标
+      tags:
+        - 设置-销售流程
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: recordId
+          in: path
+          description: 记录id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 修改信息
+          schema:
+            $ref: '#/definitions/SaleTargetReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/project-types:
+    get:
+      summary: 活动类型列表
+      description: 获取活动类型列表
+      tags:
+        - 设置-活动类型
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+      responses:
+        200:
+          description: 活动类型列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ProjectTypeResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改活动类型（全量数据修改）
+      description: 修改活动类型（全量数据修改）
+      tags:
+        - 设置-活动类型
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: body
+          in: body
+          description: 活动类型信息
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ProjectTypeReq'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/project-type/{typeId}/use:
+    get:
+      summary: 活动类型是否已使用
+      description: 判断活动类型是否已使用
+      tags:
+        - 设置-活动类型
+      parameters:
+        - name: typeId
+          in: path
+          description: 活动类型id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+
+      responses:
+        200:
+          description: 是否已使用
+          schema:
+            $ref: '#/definitions/YesNo'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/customer-types:
+    get:
+      summary: 客户类型列表
+      description: 获取客户类型列表
+      tags:
+        - 设置-客户类型
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+      responses:
+        200:
+          description: 客户类型列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CustomerTypeResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改客户类型（全量数据修改）
+      description: 修改客户类型（全量数据修改）
+      tags:
+        - 设置-客户类型
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: body
+          in: body
+          description: 客户类型信息
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CustomerTypeReq'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/customer-levels:
+    get:
+      summary: 客户级别列表
+      description: 获取客户级别列表
+      tags:
+        - 设置-客户级别
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+      responses:
+        200:
+          description: 客户级别列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CustomerLevelResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改客户级别（全量数据修改）
+      description: 修改客户级别（全量数据修改）
+      tags:
+        - 设置-客户级别
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: body
+          in: body
+          description: 客户级别信息
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CustomerLevelReq'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/customer-level/{levelId}/use:
+    get:
+      summary: 客户级别是否已使用
+      description: 判断客户级别是否已使用
+      tags:
+        - 设置-客户级别
+      parameters:
+        - name: levelId
+          in: path
+          description: 级别id
+          required: true
+          type: integer
+        - $ref: '#/parameters/PartnerId'
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 是否已使用
+          schema:
+            $ref: '#/definitions/YesNo'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/rules:
+    get:
+      summary: 获取销售规则列表
+      description: 获取销售规则列表
+      tags:
+        - 设置-销售规则
+      parameters:
+        - name: ruleName
+          in: query
+          description: 规则名称
+          type: string
+        - $ref: '#/parameters/PartnerId'
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+      responses:
+        200:
+          description: 销售规则列表
+          schema:
+            $ref: '#/definitions/RulesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/rule:
+    post:
+      summary: 添加销售规则
+      description: 添加销售规则
+      tags:
+        - 设置-销售规则
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: role
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/RuleReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/RuleResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/rule/{ruleId}:
+    get:
+      summary: 获取销售规则信息
+      description: 获取销售规则信息
+      tags:
+        - 设置-销售规则
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: ruleId
+          in: path
+          description: 销售规则id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 销售规则信息
+          schema:
+            $ref: '#/definitions/RuleResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改销售规则信息
+      description: 修改销售规则信息
+      tags:
+        - 设置-销售规则
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: ruleId
+          in: path
+          description: 销售规则id
+          required: true
+          type: integer
+        - name: role
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/RuleReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    delete:
+      summary: 删除销售规则
+      description: 删除销售规则（同时删除关联信息）
+      tags:
+        - 设置-销售规则
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: ruleId
+          in: path
+          description: 销售规则id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          $ref: '#/responses/DeleteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/rule/{ruleId}/vals:
+    get:
+      summary: 获取销售规则数据列表
+      description: 获取销售规则数据列表
+      tags:
+        - 设置-销售规则
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: ruleId
+          in: path
+          description: 销售规则id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 销售规则数据列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RuleValResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改销售规则数据列表（全量数据修改）
+      description: 修改销售规则数据列表（全量数据修改）
+      tags:
+        - 设置-销售规则
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: ruleId
+          in: path
+          description: 销售规则id
+          required: true
+          type: integer
+        - name: operations
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RuleValReq'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/rules/employees:
+    get:
+      summary: 已设置销售规则员工列表
+      description: 获取已设置销售规则员工列表
+      tags:
+        - 设置-销售规则
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: ruleId
+          in: query
+          description: 销售规则id，不为空时，则不返回该规则下的员工
+          type: integer
+      responses:
+        200:
+          description: 已设置销售规则员工列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/rule/{ruleId}/employees:
+    get:
+      summary: 获取销售规则拥有员工列表
+      description: 获取销售规则拥有员工列表
+      tags:
+        - 设置-销售规则
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: ruleId
+          in: path
+          description: 销售规则id
+          required: true
+          type: integer
+        - name: empId
+          in: query
+          description: 员工id
+          type: integer
+      responses:
+        200:
+          description: 销售规则拥有员工列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改销售规则拥有员工（全量数据修改）
+      description: 修改销售规则拥有员工（全量数据修改）
+      tags:
+        - 设置-销售规则
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: ruleId
+          in: path
+          description: 销售规则id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: array
+            items:
+              type: integer
+              description: 员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/roles:
+    get:
+      summary: 获取销售角色列表
+      description: 获取销售角色列表
+      tags:
+        - 设置-销售角色
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+      responses:
+        200:
+          description: 角色列表
+          schema:
+            $ref: '#/definitions/RolesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/role/{roleId}/employees:
+    get:
+      summary: 获取销售角色拥有员工列表
+      description: 获取销售角色拥有员工列表
+      tags:
+        - 设置-销售角色
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: roleId
+          in: path
+          description: 销售角色id
+          required: true
+          type: integer
+        - name: empId
+          in: query
+          description: 员工id
+          type: integer
+      responses:
+        200:
+          description: 员工列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改销售角色拥有员工（全量数据修改）
+      description: 修改销售角色拥有员工（全量数据修改）
+      tags:
+        - 设置-销售角色
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: roleId
+          in: path
+          description: 销售角色id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: array
+            items:
+              type: integer
+              description: 员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    delete:
+      summary: 批量删除销售角色拥有的员工
+      description: 删除销售角色拥有的员工
+      tags:
+        - 设置-销售角色
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: roleId
+          in: path
+          description: 销售角色id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要删除的信息
+          schema:
+            type: array
+            items:
+              type: integer
+              description: 员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/DeleteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /employee/customers:
+    get:
+      summary: 员工负责的客户列表
+      description: 获取员工负责的客户列表
+      tags:
+        - 销售-客户
+      parameters:
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称，模糊匹配
+        - name: status
+          in: query
+          type: string
+          description: 客户状态，多个状态以英文逗号分隔，0：待处理；1：已领取；3：已作废
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 客户列表
+          schema:
+            $ref: '#/definitions/SaleCustomersSimplePage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /employee/roles:
+    get:
+      summary: 员工拥有的角色列表
+      description: 获取员工拥有的角色列表
+      tags:
+        - 销售-客户
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 角色列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Role'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /ptcustomers:
+    get:
+      summary: 客户列表（仅供后台内部调用）
+      description: 获取客户列表（仅供后台内部调用）
+      tags:
+        - 平台-客户
+      parameters:
+        - name: beginDate
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间-起始
+        - name: endDate
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间-结束
+        - name: empCreate
+          in: query
+          type: integer
+          description: 创建人，全匹配
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称，模糊匹配
+        - name: customerLevel
+          in: query
+          type: string
+          description: 客户级别，全匹配
+        - name: customerType
+          in: query
+          type: string
+          description: 客户类型，全匹配
+        - name: validStatus
+          in: query
+          type: string
+          description: 有效状态，0：失效；1：有效
+        - name: phone
+          in: query
+          type: string
+          description: 联系电话，全匹配
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 客户列表
+          schema:
+            $ref: '#/definitions/PtCustomersPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /ptcustomer/{customerId}:
+    get:
+      summary: 获取客户基本信息
+      description: 获取客户基本信息
+      tags:
+        - 平台-客户
+      parameters:
+        - name: customerId
+          in: path
+          description: 客户id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 客户信息
+          schema:
+            $ref: '#/definitions/PtCustomerResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /ptclue:
+    post:
+      summary: 添加线索
+      description: 添加线索
+      tags:
+        - 平台-客户
+      parameters:
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/SaleClueReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/SaleClueResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+################################################################################
+#                                 Parameters                                  #
+################################################################################
+parameters:
+  PageNo:
+    name: pageNo
+    in: query
+    description: 当前页码，默认第1页
+    required: false
+    type: integer
+    format: int32
+    minimum: 1
+    default: 1
+
+  PageSize:
+    name: pageSize
+    in: query
+    description: 每页记录数，默认10条
+    required: false
+    type: integer
+    format: int32
+    minimum: 1
+    maximum: 99999
+    default: 10
+
+  Sort:
+    name: sort
+    in: query
+    description: 排序方式，json格式：{"id":"asc","name":"desc"} ，必须Url编码
+    required: false
+    type: string
+    format: json
+
+  UserId:
+    name: user-id
+    in: header
+    description: 当前操作用户id
+    required: true
+    type: string
+
+  EmpId:
+    name: emp-id
+    in: header
+    description: 当前操作员工id
+    required: true
+    type: string
+
+  EmpIds:
+    name: emp-ids
+    in: header
+    description: 当前操作员工id列表
+    required: true
+    type: string
+
+  CurEmpId:
+    name: curEmpId
+    in: query
+    description: 当前操作员工id
+    required: true
+    type: integer
+    format: int32
+
+  PartnerId:
+    name: partnerId
+    in: path
+    description: 合作伙伴id
+    required: true
+    type: integer
+    format: int32
+
+################################################################################
+#                                 Responses                                  #
+################################################################################
+responses:
+  PutResp:
+    description: 修改成功
+    schema:
+      $ref: '#/definitions/RowsResp'
+
+  DeleteResp:
+    description: 删除成功
+    schema:
+      $ref: '#/definitions/RowsResp'
+
+  ParametersErr:
+    description: 参数异常
+    schema:
+      $ref: '#/definitions/Error'
+
+  NotFoundErr:
+    description: 资源不存在
+    schema:
+      $ref: '#/definitions/Error'
+
+  InnerErr:
+    description: 内部错误
+    schema:
+      $ref: '#/definitions/Error'
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  Gmt:
+    type: object
+    description: 时间信息
+    properties:
+      gmtCreate:
+        type: string
+        format: date-time
+        description: 创建时间
+      gmtModified:
+        type: string
+        format: date-time
+        description: 修改时间
+
+  Emp:
+    type: object
+    description: 数据员工信息
+    properties:
+      empCreate:
+        type: integer
+        description: 创建人员工id
+      empModified:
+        type: integer
+        description: 修改人员工id
+
+  Employee:
+    type: object
+    description: 员工信息
+    properties:
+      empId:
+        type: integer
+        description: 员工id
+      empName:
+        type: string
+        description: 员工姓名
+      depId:
+        type: integer
+        description: 部门id
+      depName:
+        type: string
+        description: 部门名称
+      depPathName:
+        type: string
+        description: 部门全路径名称
+      position:
+        type: integer
+        description: 职位，1：负责人；2：助理；其他：员工
+
+  PlansPage:
+    type: object
+    description: 市场计划列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/PlansResp'
+
+  PlanReqPost:
+    type: object
+    description: 市场计划添加实体
+    required:
+    - planName
+    allOf:
+    - $ref: '#/definitions/Plan'
+    properties:
+      projectPrincipal:
+        description: 活动负责人列表
+        type: array
+        items:
+          type: integer
+          description: 员工id
+
+  PlanReqPut:
+    type: object
+    description: 市场计划修改实体
+    allOf:
+    - $ref: '#/definitions/Plan'
+    properties:
+      projectPrincipal:
+        description: 活动负责人列表
+        type: array
+        items:
+          type: integer
+          description: 员工id
+
+  PlansResp:
+    type: object
+    description: 市场计划列表响应实体
+    allOf:
+    - $ref: '#/definitions/Plan'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      planId:
+        type: integer
+        description: 市场计划id
+      empPrincipalDetail:
+        $ref: '#/definitions/Employee'
+      status:
+        type: integer
+        description: 计划状态，0：计划中；2：进行中；3：已中止；4：已结束；5：已作废
+      isPrincipal:
+        type: integer
+        description: 是否负责人标记，0：否；1：是
+
+  PlanResp:
+    type: object
+    description: 市场计划响应实体
+    allOf:
+    - $ref: '#/definitions/Plan'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      planId:
+        type: integer
+        description: 市场计划id
+      empCreate:
+        type: integer
+        description: 创建人员工id
+      empPrincipalDetail:
+        $ref: '#/definitions/Employee'
+      status:
+        type: integer
+        description: 计划状态，0：计划中；2：进行中；3：已中止；4：已结束；5：已作废
+      projectPrincipal:
+        description: 活动负责人列表
+        type: array
+        items:
+          $ref: '#/definitions/Employee'
+      isPrincipal:
+        type: integer
+        description: 是否负责人标记，0：否；1：是
+      actualCost:
+        type: number
+        format: double
+        description: 实际成本
+
+  Plan:
+    type: object
+    description: 市场计划信息
+    properties:
+      planParent:
+        type: integer
+        description: 父级计划id，0为顶级
+        default: 0
+      partnerId:
+        type: integer
+        description: 企业id
+      planName:
+        type: string
+        description: 计划名称，同一合作伙伴内不重复
+        minLength: 1
+        maxLength: 20
+      planType:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+        description: 计划类型，1：年度计划；2：季度计划；3：月度计划；4：其他计划
+      planDate:
+        type: string
+        description: 计划时间
+        maxLength: 40
+      budgetMin:
+        type: number
+        format: double
+        description: 最小预算金额
+      budgetMax:
+        type: number
+        format: double
+        description: 最大预算金额
+      content:
+        type: string
+        description: 计划内容
+        maxLength: 500
+      files:
+        type: array
+        description: 附件列表
+        items:
+          $ref: '#/definitions/File'
+
+  ProjectsPage:
+    type: object
+    description: 市场活动列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/ProjectsResp'
+
+  ProjectReqPost:
+    type: object
+    description: 市场活动添加实体
+    required:
+    - projectName
+    allOf:
+    - $ref: '#/definitions/Project'
+    properties:
+      schemePrincipal:
+        description: 方案负责人列表
+        type: array
+        items:
+          type: integer
+          description: 员工id
+
+  ProjectReqPut:
+    type: object
+    description: 市场活动修改实体
+    allOf:
+    - $ref: '#/definitions/Project'
+    properties:
+      schemePrincipal:
+        description: 方案负责人列表
+        type: array
+        items:
+          type: integer
+          description: 员工id
+
+  ProjectsResp:
+    type: object
+    description: 市场活动列表响应实体
+    allOf:
+    - $ref: '#/definitions/Project'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      projectId:
+        type: integer
+        description: 市场活动id
+      empPrincipalDetail:
+        $ref: '#/definitions/Employee'
+      status:
+        type: integer
+        description: 活动状态，0：计划中；10：待审核 ；11：审核通过；12：审核未通过；2：进行中；3：已中止；4：已结束；5：已作废
+      isPrincipal:
+        type: integer
+        description: 是否负责人标记，0：否；1：是
+      isVerifier:
+        type: integer
+        description: 是否审核人标记，0：否；1：是
+
+  ProjectsSchemesPage:
+    type: object
+    description: 市场活动+方案列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/ProjectsSchemesResp'
+
+  ProjectsSchemesResp:
+    type: object
+    description: 市场活动+方案列表响应实体
+    allOf:
+    - $ref: '#/definitions/Project'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      projectId:
+        type: integer
+        description: 市场活动id
+      empPrincipalDetail:
+        $ref: '#/definitions/Employee'
+      status:
+        type: integer
+        description: 活动状态，0：计划中；10：待审核 ；11：审核通过；12：审核未通过；2：进行中；3：已中止；4：已结束；5：已作废
+      isPrincipal:
+        type: integer
+        description: 是否负责人标记，0：否；1：是
+      isVerifier:
+        type: integer
+        description: 是否审核人标记，0：否；1：是
+      schemes:
+        type: array
+        description: 方案列表
+        items:
+          $ref: '#/definitions/SchemeResp'
+
+  ProjectResp:
+    type: object
+    description: 市场活动响应实体
+    allOf:
+    - $ref: '#/definitions/Project'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      projectId:
+        type: integer
+        description: 市场活动id
+      empCreate:
+        type: integer
+        description: 创建人员工id
+      empPrincipalDetail:
+        $ref: '#/definitions/Employee'
+      status:
+        type: integer
+        description: 活动状态，0：计划中；10：待审核 ；11：审核通过；12：审核未通过；2：进行中；3：已中止；4：已结束；5：已作废
+      schemePrincipal:
+        description: 方案负责人列表
+        type: array
+        items:
+          $ref: '#/definitions/Employee'
+      isPrincipal:
+        type: integer
+        description: 是否负责人标记，0：否；1：是
+      isVerifier:
+        type: integer
+        description: 是否审核人标记，0：否；1：是
+      verifyId:
+        type: integer
+        description: 最近一次审核记录id，活动状态为0时不传，非0时必传
+      actualCost:
+        type: number
+        format: double
+        description: 实际成本
+
+  Project:
+    type: object
+    description: 市场活动信息
+    properties:
+      planId:
+        type: integer
+        description: 关联计划id
+      partnerId:
+        type: integer
+        description: 企业id
+      projectName:
+        type: string
+        description: 活动名称，同一合作伙伴内不重复
+        minLength: 1
+        maxLength: 20
+      projectType:
+        type: integer
+        enum:
+          - 1
+          - 2
+        description: 活动类型，1：促销活动；2：公关活动
+      beginDate:
+        type: string
+        format: date
+        description: 活动开始时间
+      endDate:
+        type: string
+        format: date
+        description: 活动结束时间
+      budget:
+        type: number
+        format: double
+        description: 预算金额
+      content:
+        type: string
+        description: 活动内容
+        maxLength: 500
+      files:
+        type: array
+        description: 附件列表
+        items:
+          $ref: '#/definitions/File'
+
+  SchemesPage:
+    type: object
+    description: 活动方案列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SchemeResp'
+
+  SchemeReqPost:
+    type: object
+    description: 活动方案添加实体
+    required:
+    - schemeName
+    allOf:
+    - $ref: '#/definitions/Scheme'
+
+  SchemeReqPut:
+    type: object
+    description: 活动方案修改实体
+    allOf:
+    - $ref: '#/definitions/Scheme'
+
+  SchemeResp:
+    type: object
+    description: 活动方案响应实体
+    allOf:
+    - $ref: '#/definitions/Scheme'
+    - $ref: '#/definitions/Gmt'
+    properties:
+      schemeId:
+        type: integer
+        description: 活动方案id
+      empCreate:
+        type: integer
+        description: 创建人员工id
+      empPrincipalDetail:
+        $ref: '#/definitions/Employee'
+      status:
+        type: integer
+        description: 方案状态，0：计划中；10：待审核 ；11：审核通过；12：审核未通过；2：进行中；3：已中止；4：已结束；5：已作废
+      isPrincipal:
+        type: integer
+        description: 是否负责人标记，0：否；1：是
+      isVerifier:
+        type: integer
+        description: 是否审核人标记，0：否；1：是
+      verifyId:
+        type: integer
+        description: 最近一次审核记录id，活动状态为0时不传，非0时必传
+      actualCost:
+        type: number
+        format: double
+        description: 实际成本
+      actualPerson:
+        type: integer
+        description: 实际邀请人数
+
+  Scheme:
+    type: object
+    description: 活动方案信息
+    properties:
+      projectId:
+        type: integer
+        description: 关联活动id
+      partnerId:
+        type: integer
+        description: 企业id
+      schemeName:
+        type: string
+        description: 方案名称，同一合作伙伴内不重复
+        minLength: 1
+        maxLength: 20
+      beginDate:
+        type: string
+        format: date
+        description: 实施开始时间
+      endDate:
+        type: string
+        format: date
+        description: 实施结束时间
+      budget:
+        type: number
+        format: double
+        description: 预算金额
+      content:
+        type: string
+        description: 方案内容
+        maxLength: 500
+      expectPerson:
+        type: integer
+        description: 预计邀请人数
+      themeName:
+        type: string
+        description: 传播内容主题名称
+        maxLength: 50
+      themeUrl:
+        type: string
+        description: 传播内容URL
+        maxLength: 100
+      themeId:
+        type: integer
+        description: 传播内容主题ID（溯源的scheme_id）
+      urlId:
+        type: integer
+        description: 传播内容URLid（溯源的url_id）
+      files:
+        type: array
+        description: 附件列表
+        items:
+          $ref: '#/definitions/File'
+
+  Costs:
+    type: object
+    description: 成本列表
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/CostResp'
+      total:
+        type: number
+        format: double
+        description: 总计费用金额
+      hasRecord:
+        type: integer
+        description: 是否有费用记录，0：无；1：有
+
+  CostResp:
+    type: object
+    description: 成本响应实体
+    properties:
+      channelId:
+        type: integer
+        description: 渠道id
+      channelName:
+        type: string
+        description: 渠道名称
+      total:
+        type: number
+        format: double
+        description: 渠道合计费用金额
+      costs:
+        type: array
+        items:
+          type: object
+          properties:
+            costId:
+              type: integer
+              description: 费用id
+            costName:
+              type: string
+              description: 费用名称
+            cost:
+              type: number
+              format: double
+              description: 费用金额
+
+  CostReq:
+    type: object
+    description: 成本添加实体
+    properties:
+      channelId:
+        type: integer
+        description: 渠道id
+      channelName:
+        type: string
+        description: 渠道名称
+      costs:
+        type: array
+        items:
+          type: object
+          properties:
+            costId:
+              type: integer
+              description: 费用id
+            cost:
+              type: number
+              format: double
+              description: 费用金额
+
+  Channels:
+    type: object
+    description: 渠道列表
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+          properties:
+            channelId:
+              type: integer
+              description: 渠道id
+            channelName:
+              type: string
+              description: 渠道名称
+
+  CluesPage:
+    type: object
+    description: 线索列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/CluesResp'
+
+  CluesResp:
+    type: object
+    description: 线索响应实体
+    allOf:
+    - $ref: '#/definitions/Clue'
+    properties:
+      clueId:
+        type: integer
+        description: 线索id
+      channelName:
+        type: string
+        description: 渠道名称
+      createDate:
+        type: string
+        description: 创建时间
+      status:
+        type: integer
+        description: 线索状态，0：未转销售；1：已转销售；2：已删除
+      industryName:
+        type: string
+        description: 行业名称
+
+  CluesReq:
+    type: object
+    description: 线索添加实体
+    allOf:
+    - $ref: '#/definitions/Clue'
+
+  Clue:
+    type: object
+    description: 线索实体
+    properties:
+      schemeId:
+        type: integer
+        description: 所属活动方案id
+      channelId:
+        type: integer
+        description: 所属渠道id
+      customerName:
+        type: string
+        description: 客户名称
+      contactName:
+        type: string
+        description: 联系人
+      phone:
+        type: string
+        description: 联系电话
+      industry:
+        type: integer
+        description: 行业
+      area:
+        type: string
+        description: 区域
+      address:
+        type: string
+        description: 地址
+
+  VerifyResp:
+    type: object
+    description: 审核响应实体
+    allOf:
+    - $ref: '#/definitions/Gmt'
+    properties:
+      status:
+        type: integer
+        enum:
+          - 0
+          - 1
+          - 2
+        description: 审核状态，0：待审核；1：审核通过；2：审核不通过
+      opinion:
+        type: string
+        description: 审核意见
+        maxLength: 100
+      verifyTime:
+        type: string
+        format: date-time
+        description: 审核时间
+
+  VerifyReqPost:
+    type: object
+    description: 审核添加实体
+    required:
+    - mkType
+    - mkId
+    properties:
+      mkType:
+        type: integer
+        enum:
+          - 2
+          - 3
+        description: 审核类型，2：市场活动；3：活动方案
+      mkId:
+        type: integer
+        description: 活动/方案id
+
+  VerifyReqPut:
+    type: object
+    description: 审核修改实体
+    properties:
+      status:
+        type: integer
+        enum:
+          - 1
+          - 2
+        description: 审核状态，1：审核通过；2：审核不通过
+      opinion:
+        type: string
+        description: 审核意见
+        maxLength: 200
+
+  VerifyRecords:
+    type: object
+    description: 审核记录
+    properties:
+      recordId:
+        type: integer
+        description: 记录id
+      opTime:
+        type: string
+        format: date-time
+        description: 操作时间
+      opEmpName:
+        type: string
+        description: 操作员工名称
+      opJobNo:
+        type: string
+        description: 操作员工工号
+      opName:
+        type: string
+        description: 操作名称
+      opOpinion:
+        type: string
+        description: 操作意见
+
+  BudgetResp:
+    type: object
+    description: 预算响应实体
+    properties:
+      budget:
+        type: number
+        format: double
+        description: 剩余预算金额
+
+  SaleCluesPage:
+    type: object
+    description: 销售线索列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleClueResp'
+
+  SaleClueResp:
+    type: object
+    description: 销售线索响应实体
+    allOf:
+    - $ref: '#/definitions/SaleClue'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      clueId:
+        type: integer
+        description: 线索ID
+      syClueId:
+        type: integer
+        description: 对应溯源线索id
+      partnerId:
+        type: integer
+        description: 企业id
+      status:
+        type: integer
+        description: 线索状态，0：待清洗；1：清洗通过；2：清洗不通过；3：已作废
+      locked:
+        type: integer
+        description: 是否锁定，0：未锁定，1：已锁定
+      lockEmp:
+        type: integer
+        description: 锁定员工id
+      lockTime:
+        type: string
+        format: date-time
+        description: 锁定时间
+      cleanEmp:
+        type: integer
+        description: 清洗人
+      cleanTime:
+        type: string
+        format: date-time
+        description: 清洗时间
+      cleanOpinion:
+        type: string
+        description: 清洗意见
+      customerId:
+        type: integer
+        description: 客户id
+      busiopporCount:
+        type: integer
+        description: 转商机数量
+      industryName:
+        type: string
+        description: 行业名称
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+      empCleanName:
+        type: string
+        description: 清洗员工姓名
+      projectName:
+        type: string
+        description: 活动名称
+
+  SaleClueReqPost:
+    type: object
+    description: 销售线索添加实体
+    required:
+    - customerName
+    allOf:
+    - $ref: '#/definitions/SaleClue'
+
+  SaleClue:
+    type: object
+    description: 销售线索实体
+    properties:
+      partnerId:
+        type: integer
+        description: 企业id
+      projectId:
+        type: integer
+        description: 活动id
+      channelId:
+        type: integer
+        description: 渠道id
+      channelName:
+        type: string
+        description: 渠道名称
+      customerName:
+        type: string
+        description: 客户名称
+      contactName:
+        type: string
+        description: 联系人
+      phone:
+        type: string
+        description: 联系电话
+      industry:
+        type: integer
+        description: 行业
+      area:
+        type: string
+        description: 区域
+      address:
+        type: string
+        description: 地址
+
+  SaleCustomersSimplePage:
+    type: object
+    description: 客户简单信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleCustomerSimpleResp'
+
+  SaleCustomerSimpleResp:
+    type: object
+    description: 客户简单信息响应实体
+    allOf:
+    - $ref: '#/definitions/SaleCustomer'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      customerId:
+        type: integer
+        description: 客户ID，自增
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+      status:
+        type: integer
+        description: 客户状态，0：待处理；1：已领取；3：已作废
+      customerType:
+        type: integer
+        description: 客户类型，1：私海客户；2：每日任务；3：客保客户；4：商机；5：订单；6：已成交
+      osId:
+        type: integer
+        description: 对应os库的合作伙伴id
+
+  PtCustomersPage:
+    type: object
+    description: 客户信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/PtCustomerResp'
+
+  PtCustomerResp:
+    type: object
+    description: 客户信息响应实体
+    allOf:
+    - $ref: '#/definitions/SaleCustomerResp'
+    properties:
+      partnerId:
+        type: integer
+        description: 企业ID
+      partnerName:
+        type: string
+        description: 企业名称
+
+  SaleCustomersPage:
+    type: object
+    description: 客户信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleCustomerResp'
+
+  SaleCustomerResp:
+    type: object
+    description: 客户信息响应实体
+    allOf:
+    - $ref: '#/definitions/SaleCustomer'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      customerId:
+        type: integer
+        description: 客户ID
+      projectId:
+        type: integer
+        description: 活动id
+      clueId:
+        type: integer
+        description: 线索id
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+      status:
+        type: integer
+        description: 客户状态，0：待处理；1：已领取；3：已作废
+      customerType:
+        type: integer
+        description: 客户类型，1：私海客户；2：每日任务；3：客保客户；4：商机；5：订单；6：已成交
+      osId:
+        type: integer
+        description: 对应os库的合作伙伴id
+      industryName:
+        type: string
+        description: 行业名称
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+      empModifiedName:
+        type: string
+        description: 最后修改员工姓名
+      empPrincipalName:
+        type: string
+        description: 负责人姓名
+      channelName:
+        type: string
+        description: 渠道名称
+      projectName:
+        type: string
+        description: 活动名称
+      opinion:
+        type: string
+        description: 意见
+      customerTypeName:
+        type: string
+        description: 客户类型名称
+      customerLevelName:
+        type: string
+        description: 客户级别名称
+      validStatus:
+        type: integer
+        description: 有效状态，0：失效；1：有效
+      isPrincipal:
+        type: integer
+        description: 是否负责人标记，0：否；1：是
+      isSuperior:
+        type: integer
+        description: 是否负责人上级标记，0：否；1：是
+
+  SaleCustomerReqPost:
+    type: object
+    description: 客户信息添加实体
+    required:
+    - customerName
+    allOf:
+    - $ref: '#/definitions/SaleCustomer'
+    properties:
+      projectId:
+        type: integer
+        description: 活动id
+      clueId:
+        type: integer
+        description: 线索id
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+      osId:
+        type: integer
+        description: 对应os库的合作伙伴id
+
+  SaleCustomerReqPut:
+    type: object
+    description: 客户信息修改实体
+    allOf:
+    - $ref: '#/definitions/SaleCustomer'
+
+  SaleCustomer:
+    type: object
+    description: 客户信息实体
+    properties:
+      customerName:
+        type: string
+        description: 客户名称
+      industry:
+        type: integer
+        description: 行业
+      area:
+        type: string
+        description: 区域
+      address:
+        type: string
+        description: 地址
+      contactName:
+        type: string
+        description: 联系人
+      phone:
+        type: string
+        description: 联系电话
+      customerPhone:
+        type: string
+        description: 企业电话
+      customerLevel:
+        type: integer
+        description: 客户级别
+      mainBusiness:
+        type: string
+        description: 主营业务/产品
+      scale:
+        type: integer
+        description: 公司规模，1：50人以下，2：50-100人，3：100-500人，4：500-1000人，5：1000人以上
+      website:
+        type: string
+        description: 网站
+      wx:
+        type: string
+        description: 微信公众号
+      wb:
+        type: string
+        description: 微博
+
+  SaleProjectsPage:
+    type: object
+    description: 参与活动列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleProject'
+
+  SaleProject:
+    type: object
+    description: 参与活动实体
+    allOf:
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      clueId:
+        type: integer
+        description: 线索ID
+      contactName:
+        type: string
+        description: 联系人
+      phone:
+        type: string
+        description: 联系电话
+      busiopporCount:
+        type: integer
+        description: 转商机数量
+      projectId:
+        type: integer
+        description: 活动id
+      projectName:
+        type: string
+        description: 活动名称
+      beginDate:
+        type: string
+        format: date
+        description: 活动开始时间
+      endDate:
+        type: string
+        format: date
+        description: 活动结束时间
+
+  SaleContactsPage:
+    type: object
+    description: 客户联系人列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleContactResp'
+
+  SaleContactResp:
+    type: object
+    description: 客户联系人信息响应实体
+    allOf:
+    - $ref: '#/definitions/SaleContact'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      contactId:
+        type: integer
+        description: 联系人ID，自增
+      customerId:
+        type: integer
+        description: 客户id
+      isMain:
+        type: integer
+        description: 是否主联系人，0：否；1：是
+
+  SaleContactReqPost:
+    type: object
+    description: 客户联系人信息添加实体
+    required:
+    - contactName
+    allOf:
+    - $ref: '#/definitions/SaleContact'
+
+  SaleContactReqPut:
+    type: object
+    description: 客户联系人信息修改实体
+    allOf:
+    - $ref: '#/definitions/SaleContact'
+
+  SaleContact:
+    type: object
+    description: 客户联系人实体
+    properties:
+      contactName:
+        type: string
+        description: 联系人
+      jobName:
+        type: string
+        description: 职务
+      isIncharge:
+        type: integer
+        description: 是否决策人，0：否；1：是
+      phones:
+        type: array
+        items:
+          $ref: '#/definitions/SaleContactPhone'
+        description: 联系电话列表
+
+  SaleContactPhone:
+    type: object
+    description: 客户联系人电话实体
+    properties:
+      phoneId:
+        type: integer
+        description: 联系电话ID
+      phone:
+        type: string
+        description: 联系电话
+      isMain:
+        type: integer
+        description: 是否主电话，0：否；1：是
+
+  SaleDaytasksPage:
+    type: object
+    description: 每日任务列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleDaytaskResp'
+
+  SaleDaytaskResp:
+    type: object
+    description: 每日任务响应实体
+    allOf:
+    - $ref: '#/definitions/SaleCustomerResp'
+    properties:
+      taskInfo:
+        type: object
+        description: 每日任务实体
+        allOf:
+        - $ref: '#/definitions/SaleDaytask'
+        - $ref: '#/definitions/Gmt'
+        - $ref: '#/definitions/Emp'
+        properties:
+          empDistribName:
+            type: string
+            description: 分配人姓名
+          empPrincipalName:
+            type: string
+            description: 负责人姓名
+          deadline:
+            type: integer
+            description:  是否临近到期，0：否；1：是
+          isPrincipal:
+            type: integer
+            description: 是否负责人标记，0：否；1：是
+          isSuperior:
+            type: integer
+            description: 是否负责人上级标记，0：否；1：是
+
+  SaleDaytask:
+    type: object
+    description: 每日任务实体
+    properties:
+      taskId:
+        type: integer
+        description: 任务ID
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+      partnerId:
+        type: integer
+        description: 企业id
+      customerId:
+        type: integer
+        description: 客户id
+      empDistrib:
+        type: integer
+        description: 分配人员工id
+      distribTime:
+        type: string
+        format: date-time
+        description: 分配时间
+      handleTime:
+        type: string
+        format: date-time
+        description: 跟进时间
+      status:
+        type: integer
+        description: 任务状态，0：待处理；1：跟进中；2：已转客保；3：已作废
+      opinion:
+        type: string
+        description: 意见
+
+  SaleCustomerProtectsPage:
+    type: object
+    description: 客保信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleCustomerProtectResp'
+
+  SaleCustomerProtectResp:
+    type: object
+    description: 客保信息响应实体
+    allOf:
+    - $ref: '#/definitions/SaleCustomerResp'
+    properties:
+      protectInfo:
+        type: object
+        description: 客保信息实体
+        allOf:
+        - $ref: '#/definitions/SaleCustomerProtect'
+        - $ref: '#/definitions/Gmt'
+        - $ref: '#/definitions/Emp'
+        properties:
+          empPrincipalName:
+            type: string
+            description: 负责人姓名
+          deadline:
+            type: integer
+            description:  是否临近到期，0：否；1：是
+          isPrincipal:
+            type: integer
+            description: 是否负责人标记，0：否；1：是
+          isSuperior:
+            type: integer
+            description: 是否负责人上级标记，0：否；1：是
+
+  SaleCustomerProtect:
+    type: object
+    description: 客保信息实体
+    properties:
+      protectId:
+        type: integer
+        description: 任务ID
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+      partnerId:
+        type: integer
+        description: 企业id
+      customerId:
+        type: integer
+        description: 客户id
+      handleTime:
+        type: string
+        format: date-time
+        description: 跟进时间
+      status:
+        type: integer
+        description: 客保状态，0：待处理；1：跟进中；2：已转商机；3：已作废
+      opinion:
+        type: string
+        description: 意见
+
+  SaleBusiopporsPage:
+    type: object
+    description: 商机信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleBusiopporResp'
+
+  SaleBusiopporResp:
+    type: object
+    description: 商机信息响应实体
+    allOf:
+    - $ref: '#/definitions/SaleBusioppor'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      busiopporId:
+        type: integer
+        description: 商机ID，自增
+      partnerId:
+        type: integer
+        description: 企业id
+      processId:
+        type: integer
+        description: 流程id
+      customerId:
+        type: integer
+        description: 客户id
+      customerName:
+        type: string
+        description: 客户名称
+      contactName:
+        type: string
+        description: 联系人
+      phone:
+        type: string
+        description: 联系电话
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+      processName:
+        type: string
+        description: 流程名称
+      curStage:
+        type: string
+        description: 当前阶段，0：未开始，-1：已结束，其他：对应阶段记录id
+      endType:
+        type: string
+        description: 结束类型，1：赢单；2：输单；3：无效；多个类型以逗号分隔
+      endTypeVal:
+        type: integer
+        description: 结束类型值
+      endOpinion:
+        type: string
+        description: 结束意见
+      status:
+        type: integer
+        description: 商机状态，0：待分配；1：待处理；2：跟进中；3：已转订单；4：已作废
+      empDistrib:
+        type: integer
+        description: 分配人
+      distribTime:
+        type: string
+        format: date-time
+        description: 分配时间
+      handleTime:
+        type: string
+        format: date-time
+        description: 跟进时间
+      orderId:
+        type: string
+        description: 订单id
+      orderTime:
+        type: string
+        format: date-time
+        description: 转订单时间
+      deadline:
+        type: integer
+        description:  是否临近到期，0：否；1：是
+      curStageName:
+        type: string
+        description: 当前阶段名称
+      curStageWinRate:
+        type: integer
+        description: 当前阶段赢率
+      empPrincipalName:
+        type: string
+        description: 负责人姓名
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+      empDistribName:
+        type: string
+        description: 分配人姓名
+      isPrincipal:
+        type: integer
+        description: 是否负责人标记，0：否；1：是
+      isSuperior:
+        type: integer
+        description: 是否负责人上级标记，0：否；1：是
+
+  SaleBusiopporReqPost:
+    type: object
+    description: 商机信息添加实体
+    required:
+    - busiopporName
+    allOf:
+    - $ref: '#/definitions/SaleBusioppor'
+    properties:
+      protectId:
+        type: integer
+        description: 客保id
+      processId:
+        type: integer
+        description: 流程id
+      customerId:
+        type: integer
+        description: 客户id
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+
+  SaleBusiopporReqPut:
+    type: object
+    description: 商机信息修改实体
+    allOf:
+    - $ref: '#/definitions/SaleBusioppor'
+
+  SaleBusioppor:
+    type: object
+    description: 商机信息实体
+    properties:
+      clueId:
+        type: integer
+        description: 对应线索id
+      contactId:
+        type: integer
+        description: 联系人ID
+      phoneId:
+        type: integer
+        description: 联系电话ID
+      busiopporName:
+        type: string
+        description: 商机名称
+      productId:
+        type: string
+        description: 产品id
+      doneTime:
+        type: string
+        format: date
+        description: 预计成交日期
+      amount:
+        type: number
+        format: double
+        description: 成交金额
+      demand:
+        type: string
+        description: 需求说明
+
+  SaleSimpleBusiopporsPage:
+    type: object
+    description: 商机简单信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleSimpleBusiopporResp'
+
+  SaleSimpleBusiopporResp:
+    type: object
+    description: 商机简单信息响应实体
+    allOf:
+    - $ref: '#/definitions/SaleBusioppor'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+
+  SaleBusiopporStage:
+    type: object
+    description: 流程阶段信息实体
+    properties:
+      stageRecordId:
+        type: integer
+        description: 记录ID，自增
+      busiopporId:
+        type: integer
+        description: 商机id
+      stageOrder:
+        type: integer
+        description: 阶段排序号
+      stageId:
+        type: integer
+        description: 阶段id
+      stageName:
+        type: string
+        description: 阶段名称
+      winRate:
+        type: integer
+        description: 赢率
+      remindDay:
+        type: integer
+        description: 提醒停留天数
+      remindType:
+        type: string
+        description: 提醒类型，两位字符串，1为提醒、0为不提醒，第一位：短信，第二位：站内信
+      remindContent:
+        type: string
+        description: 提醒内容
+      status:
+        type: integer
+        description: 阶段状态，0：未完成；1：已完成
+      forms:
+        type: array
+        items:
+          - $ref: '#/definitions/SaleBusiopporFormResp'
+
+  SaleBusiopporFormResp:
+    type: object
+    description: 流程阶段表单信息响应实体
+    allOf:
+    - $ref: '#/definitions/SaleBusiopporForm'
+    properties:
+      stageRecordId:
+        type: integer
+        description: 阶段记录id
+      formId:
+        type: integer
+        description: 表单id
+      formName:
+        type: string
+        description: 表单名称
+
+  SaleBusiopporForm:
+    type: object
+    description: 流程阶段表单信息实体
+    properties:
+      formRecordId:
+        type: integer
+        description: 记录ID
+      formVal:
+        type: string
+        description: 表单值
+
+  SaleOrdersPage:
+    type: object
+    description: 订单信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleOrderResp'
+
+  SaleOrderResp:
+    type: object
+    description: 订单信息响应实体
+    allOf:
+    - $ref: '#/definitions/SaleOrder'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      orderId:
+        type: string
+        description: 订单ID
+      customerName:
+        type: string
+        description: 客户名称
+      contactName:
+        type: string
+        description: 联系人
+      phone:
+        type: string
+        description: 联系电话
+      industryName:
+        type: string
+        description: 行业名称
+      busiopporName:
+        type: string
+        description: 商机名称
+      productName:
+        type: string
+        description: 产品名称
+      amountPrice:
+        type: number
+        format: double
+        description: 成交金额
+      orderState:
+        type: string
+        description: 订单状态，0：新建；1：生效；2：完成；3：取消
+      empPrincipalName:
+        type: string
+        description: 负责人姓名
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+
+  SaleOrderReq:
+    type: object
+    description: 订单信息添加实体
+    allOf:
+    - $ref: '#/definitions/SaleOrder'
+    properties:
+      odOrder:
+        $ref: '#/definitions/OdOrder'
+
+  SaleOrderDetailResp:
+    type: object
+    description: 订单详情实体
+    allOf:
+    - $ref: '#/definitions/OdOrderDetail'
+    properties:
+      isPrincipal:
+        type: integer
+        description: 是否负责人标记，0：否；1：是
+      isSuperior:
+        type: integer
+        description: 是否负责人上级标记，0：否；1：是
+      busioppor:
+        $ref: '#/definitions/SaleBusiopporResp'
+
+  OdOrder:
+    type: object
+    description: 订单服务订单信息实体，具体参考订单服务接口文档PlaceOrderPost实体
+
+  OdOrderDetail:
+    type: object
+    description: 订单服务订单详情实体，具体参考订单服务接口文档orderdetail实体
+
+  SaleOrder:
+    type: object
+    description: 订单信息实体
+    properties:
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+      partnerId:
+        type: integer
+        description: 企业id
+      customerId:
+        type: integer
+        description: 客户id
+      contactId:
+        type: integer
+        description: 联系人ID
+      phoneId:
+        type: integer
+        description: 联系电话ID
+      busiopporId:
+        type: integer
+        description: 商机ID
+      handDate:
+        type: string
+        format: date
+        description: 交付日期
+
+  VisitsPage:
+    type: object
+    description: 拜访列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/VisitResp'
+
+  VisitResp:
+    type: object
+    description: 拜访响应实体
+    allOf:
+    - $ref: '#/definitions/Visit'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      visitId:
+        type: integer
+        description: 拜访ID
+      togethers:
+        type: array
+        items:
+          type: object
+          description: 陪同人
+          properties:
+            empTogether:
+              type: string
+              description: 陪同员工id
+            empName:
+              type: string
+              description: 陪同员工姓名
+
+  VisitReqPost:
+    type: object
+    description: 拜访添加实体
+    required:
+    - visitTitle
+    - visitName
+    - visitPhone
+    allOf:
+    - $ref: '#/definitions/Visit'
+    properties:
+      togethers:
+        type: array
+        items:
+          type: object
+          description: 陪同人
+          properties:
+            empTogether:
+              type: string
+              description: 陪同员工id
+
+  VisitReqPut:
+    type: object
+    description: 拜访修改实体
+    required:
+    - visitOpinion
+    properties:
+      visitOpinion:
+        type: string
+        description: 反馈意见
+
+  Visit:
+    type: object
+    description: 拜访实体
+    properties:
+      saleType:
+        type: integer
+        enum:
+          - 1
+          - 2
+        description: 业务类型，1：线索；2：客户
+      saleId:
+        type: integer
+        description: 业务id（线索/客户id）
+      saleSubType:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+        description: 子业务类型，1：每日任务；2：客保客户；3：商机；4：老客户
+      saleSubId:
+        type: integer
+        description: 子业务id（每日任务/客保/商机/老客户id）
+      visitTitle:
+        type: string
+        description: 拜访主题
+      visitTimeBegin:
+        type: string
+        description: 拜访开始时间
+      visitTimeEnd:
+        type: string
+        description: 拜访结束时间
+      visitName:
+        type: string
+        description: 拜访人
+      visitPhone:
+        type: string
+        description: 联系电话
+      visitOpinion:
+        type: string
+        description: 反馈意见
+
+  NotesPage:
+    type: object
+    description: 批注列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/NoteResp'
+
+  NoteResp:
+    type: object
+    description: 批注响应实体
+    allOf:
+    - $ref: '#/definitions/Note'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      noteId:
+        type: integer
+        description: 批注ID
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+
+  NoteReq:
+    type: object
+    description: 批注添加实体
+    required:
+    - saleType
+    - saleId
+    - noteContent
+    allOf:
+    - $ref: '#/definitions/Note'
+
+  Note:
+    type: object
+    description: 批注实体
+    properties:
+      saleType:
+        type: integer
+        enum:
+          - 1
+          - 2
+        description: 业务类型，1：线索；2：客户
+      saleId:
+        type: integer
+        description: 业务id（线索/客户id）
+      saleSubType:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+        description: 子业务类型，1：每日任务；2：客保客户；3：商机；4：老客户
+      saleSubId:
+        type: integer
+        description: 子业务id（每日任务/客保/商机/老客户id）
+      noteContent:
+        type: string
+        description: 批注内容
+
+  SaleProcessesPage:
+    type: object
+    description: 销售流程列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SaleProcessBaseResp'
+
+  SaleProcessResp:
+    type: object
+    description: 销售流程响应实体
+    allOf:
+    - $ref: '#/definitions/SaleProcess'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      processId:
+        type: integer
+        description: 流程ID
+      partnerId:
+        type: integer
+        description: 企业id
+      status:
+        type: integer
+        description: 流程状态，0：停用；1：启用
+
+  SaleProcessReq:
+    type: object
+    description: 销售流程添加实体
+    required:
+    - processName
+    allOf:
+    - $ref: '#/definitions/SaleProcess'
+
+  SaleProcess:
+    type: object
+    description: 销售流程实体
+    allOf:
+    - $ref: '#/definitions/SaleProcessBase'
+    properties:
+      endType:
+        type: string
+        description: 结束类型，1：赢单；2：输单；3：无效；多个类型以逗号分隔
+      stages:
+        type: array
+        items:
+          type: object
+          description: 流程阶段
+          properties:
+            stageOrder:
+              type: integer
+              description: 排序号
+            stageName:
+              type: string
+              description: 阶段名称
+            winRate:
+              type: integer
+              description: 赢率
+            remindDay:
+              type: integer
+              description: 提醒停留天数
+            remindType:
+              type: string
+              description: 提醒类型，两位字符串，1为提醒、0为不提醒，第一位：短信，第二位：站内信
+            remindContent:
+              type: string
+              description: 提醒内容
+            forms:
+              type: array
+              items:
+                type: object
+                description: 流程表单
+                properties:
+                  formName:
+                    type: string
+                    description: 表单名称
+
+  SaleProcessBaseResp:
+    type: object
+    description: 销售流程基础响应实体
+    allOf:
+    - $ref: '#/definitions/SaleProcessBase'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      processId:
+        type: integer
+        description: 流程ID
+      partnerId:
+        type: integer
+        description: 企业id
+      status:
+        type: integer
+        description: 流程状态，0：停用；1：启用
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+      empModifiedName:
+        type: string
+        description: 最后修改员工姓名
+
+  SaleProcessBase:
+    type: object
+    description: 销售流程基础实体
+    properties:
+      processName:
+        type: string
+        description: 流程名称
+
+  SaleTargetResp:
+    type: object
+    description: 销售目标响应实体
+    allOf:
+    - $ref: '#/definitions/SaleTarget'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      recordId:
+        type: integer
+        description: 记录ID
+      partnerId:
+        type: integer
+        description: 企业id
+
+  SaleTargetReqPost:
+    type: object
+    description: 销售目标添加实体
+    required:
+    - targetType
+    - targetYear
+    - targetMonth
+    - targetVal
+    allOf:
+    - $ref: '#/definitions/SaleTarget'
+
+  SaleTargetReqPut:
+    type: object
+    description: 销售目标修改实体
+    required:
+    - targetVal
+    properties:
+      targetVal:
+        type: number
+        format: double
+        description: 销售目标值
+
+  SaleTarget:
+    type: object
+    description: 销售目标实体
+    properties:
+      targetType:
+        type: integer
+        description: 目标类型，1：公司；2：部门；3：员工
+      targetId:
+        type: integer
+        description: 公司/部门/员工id
+      targetYear:
+        type: integer
+        description: 目标年度
+      targetMonth:
+        type: integer
+        description: 目标月份
+      targetVal:
+        type: number
+        format: double
+        description: 销售目标值
+
+  ProjectTypeResp:
+    type: object
+    description: 活动类型响应实体
+    allOf:
+    - $ref: '#/definitions/ProjectType'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      typeId:
+        type: integer
+        description: 类型ID
+      partnerId:
+        type: integer
+        description: 企业id
+
+  ProjectTypeReq:
+    type: object
+    description: 活动类型添加实体
+    required:
+    - typeName
+    allOf:
+    - $ref: '#/definitions/ProjectType'
+    properties:
+      typeId:
+        type: integer
+        description: 类型ID
+
+  ProjectType:
+    type: object
+    description: 活动类型实体
+    properties:
+      typeName:
+        type: string
+        description: 类型名称
+      isDefault:
+        type: integer
+        description: 系统默认；0：否；1：是
+
+  CustomerTypeResp:
+    type: object
+    description: 客户类型响应实体
+    allOf:
+    - $ref: '#/definitions/CustomerType'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      recordId:
+        type: integer
+        description: 记录ID
+      partnerId:
+        type: integer
+        description: 企业id
+
+  CustomerTypeReq:
+    type: object
+    description: 客户类型添加实体
+    required:
+    - typeId
+    - typeName
+    allOf:
+    - $ref: '#/definitions/CustomerType'
+
+  CustomerType:
+    type: object
+    description: 客户类型实体
+    properties:
+      typeId:
+        type: integer
+        description: 客户类型，1：私海客户；2：每日任务；3：客保客户；4：商机；5：订单；6：已成交
+      typeName:
+        type: string
+        description: 类型名称
+
+  CustomerLevelResp:
+    type: object
+    description: 客户级别响应实体
+    allOf:
+    - $ref: '#/definitions/CustomerLevel'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      levelId:
+        type: integer
+        description: 级别ID
+      partnerId:
+        type: integer
+        description: 企业id
+
+  CustomerLevelReq:
+    type: object
+    description: 客户级别添加实体
+    required:
+    - levelName
+    allOf:
+    - $ref: '#/definitions/CustomerLevel'
+    properties:
+      levelId:
+        type: integer
+        description: 级别ID
+
+  CustomerLevel:
+    type: object
+    description: 客户级别实体
+    properties:
+      levelName:
+        type: string
+        description: 级别名称
+      isDefault:
+        type: integer
+        description: 系统默认；0：否；1：是
+
+  RulesPage:
+    type: object
+    description: 销售规则列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/RuleResp'
+
+  RuleResp:
+    type: object
+    description: 销售规则响应实体
+    allOf:
+    - $ref: '#/definitions/Rule'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      ruleId:
+        type: integer
+        description: 规则ID
+      partnerId:
+        type: integer
+        description: 企业id
+
+  RuleReqPost:
+    type: object
+    description: 销售规则添加实体
+    required:
+    - ruleName
+    allOf:
+    - $ref: '#/definitions/Rule'
+
+  RuleReqPut:
+    type: object
+    description: 销售规则添加实体
+    allOf:
+    - $ref: '#/definitions/Rule'
+
+  Rule:
+    type: object
+    description: 销售规则实体
+    properties:
+      ruleName:
+        type: string
+        description: 规则名称
+
+  RuleValResp:
+    type: object
+    description: 销售规则数据响应实体
+    allOf:
+    - $ref: '#/definitions/RuleVal'
+    properties:
+      valRecordId:
+        type: integer
+        description: 记录ID
+      ruleId:
+        type: integer
+        description: 销售规则id
+
+  RuleValReq:
+    type: object
+    description: 销售规则数据添加实体
+    required:
+    - ruleKey
+    - ruleVal
+    allOf:
+    - $ref: '#/definitions/RuleVal'
+
+  RuleVal:
+    type: object
+    description: 销售规则数据实体
+    properties:
+      ruleKey:
+        type: string
+        description: 规则关键字
+      ruleVal:
+        type: integer
+        description: 规则值
+
+  RolesPage:
+    type: object
+    description: 角色列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Role'
+
+  Role:
+    type: object
+    description: 角色信息
+    properties:
+      roleKey:
+        type: string
+        description: 角色关键字
+      roleName:
+        type: string
+        description: 角色名称
+      empMax:
+        type: integer
+        description: 最大员工数
+
+  File:
+    type: object
+    description: 文件信息
+    properties:
+      fileName:
+        type: string
+        description: 文件名
+        maxLength: 50
+      fileUrl:
+        type: string
+        description: 文件地址
+        maxLength: 100
+
+  RowsResp:
+    type: object
+    description: 修改/删除成功响应实体
+    properties:
+      rows:
+        type: integer
+        description: 影响行数
+
+  YesNo:
+    type: object
+    description: 是否信息
+    properties:
+      val:
+        type: integer
+        description: 是否，1：是；0：否
+
+  Page:
+    type: object
+    description: 分页信息
+    properties:
+      page:
+        type: integer
+        description: 当前页码
+      nextPage:
+        type: integer
+        description: 下一页页码
+      prePage:
+        type: integer
+        description: 上一页页码
+      totalPages:
+        type: integer
+        description: 总页数
+      totalCount:
+        type: integer
+        description: 总记录数
+      firstPage:
+        type: boolean
+        description: 是否为首页
+      lastPage:
+        type: boolean
+        description: 是否为尾页
+      hasPrePage:
+        type: boolean
+        description: 是否有上一页
+      hasNextPage:
+        type: boolean
+        description: 是否有下一页
+      startRow:
+        type: integer
+        description: 当前页起始行
+      endRow:
+        type: integer
+        description: 当前页结束行
+
+  Error:
+    type: object
+    description: 错误Bean
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: string
+        description: 错误码
+      message:
+        type: string
+        description: 错误描述
+      errors:
+        type: array
+        description: 具体错误
+        items:
+          $ref: '#/definitions/ErrorMsg'
+
+  ErrorMsg:
+    type: object
+    description: 错误消息详细信息
+    properties:
+      field:
+        type: string
+        description: 错误字段
+      message:
+        type: string
+        description: 错误原因

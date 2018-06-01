@@ -1,0 +1,43 @@
+[2018-05-22 16:55:49.662000] INFO: jiekou: 当前模块 requests封装
+[2018-05-22 16:55:49.663000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-22 16:55:49.664000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-22 16:55:49.684000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-22 16:55:49.685000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case.xlsx',)
+[2018-05-22 16:55:49.686000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-22 16:55:49.705000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-22 16:55:49.706000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case.xlsx',)
+[2018-05-22 16:55:49.707000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-22 16:55:49.713000] INFO: jiekou: 当前模块 测试
+[2018-05-22 16:55:49.714000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-22 16:55:49.714000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-22 16:55:49.740000] INFO: jiekou: inputdata> 参数:{"mobilePhone": "15000000000","password": "123456","remember": true,"siteName": "main"}, url:http://www1.ejw.cn/api/login ,返回:{'result_act': {'msg': '请求参数异常', 'code': 400, 'errors': '参数转换异常'}, 'code': 0, 'result': 400},预期:a=1
+[2018-05-22 16:55:49.741000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-22 16:55:49.742000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-22 16:55:49.742000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result_act': {'msg': '请求参数异常', 'code': 400, 'errors': '参数转换异常'}, 'code': 0, 'result': 400}, 'asserqiwang': 'a=1'}
+[2018-05-22 16:55:49.830000] INFO: jiekou: inputdata> 参数:{'password':'1222'}, url:http://www.tuling123.com/openapi/api ,返回:{'result_act': {'text': '亲爱的，参数异常。', 'code': 40007}, 'code': 0, 'result': 200},预期:code=200
+[2018-05-22 16:55:49.831000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-22 16:55:49.832000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-22 16:55:49.833000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result_act': {'text': '亲爱的，参数异常。', 'code': 40007}, 'code': 0, 'result': 200}, 'asserqiwang': 'code=200'}
+[2018-05-22 16:55:49.880000] INFO: jiekou: inputdata> 参数:{'password':'1222'}, url:http://www.tuling123.com/openapi/api
+ ,返回:{'result_act': {'text': '亲爱的，参数异常。', 'code': 40007}, 'code': 0, 'result': 200},预期:code=200
+[2018-05-22 16:55:49.881000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-22 16:55:49.882000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-22 16:55:49.882000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result_act': {'text': '亲爱的，参数异常。', 'code': 40007}, 'code': 0, 'result': 200}, 'asserqiwang': 'code=200'}
+[2018-05-22 16:55:49.909000] INFO: jiekou: inputdata> 参数:{"partnerId": 2,"partnerType": "111","partnerNo": "<2>","partnerName": "武汉天策时代网络文化传媒有限公司0557","area": "武汉","address": "关山大道光谷软件园F2栋801","phone":"13467318480","fax": "0755-61672214","status": 1,"detail": "合作伙伴信息的描述测试","longitude": 53.5,"latitude": -28,"organizType": 1}, url:http://192.168.150.20:8085/ps/v1/partner ,返回:{'result_act': {'code': '404', 'message': '资源不存在', 'errors': []}, 'code': 0, 'result': 404},预期:code=200
+[2018-05-22 16:55:49.909000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-22 16:55:49.910000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-22 16:55:49.910000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result_act': {'code': '404', 'message': '资源不存在', 'errors': []}, 'code': 0, 'result': 404}, 'asserqiwang': 'code=200'}
+[2018-05-22 16:55:49.938000] INFO: jiekou: inputdata> 参数:, url:http://admin.ejw.cn/platform/v1/productverifies?pageNo=1&pageSize=10&sort=%7B%22gmtCreate%22%3A%22desc%22%7D&productName=xxx&curEmpId=5  ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=200
+[2018-05-22 16:55:49.939000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-22 16:55:49.940000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-22 16:55:49.940000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}, 'asserqiwang': 'code=200'}
+[2018-05-22 16:55:49.957000] INFO: jiekou: inputdata> 参数:{}, url:http://admin.ejw.cn/portal/v1/partners?sort=%7B%22gmtCreate%22%3A%22desc%22%7D&status=0&partnerName=xxxx&pageNo=1&pageSize=10 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-22 16:55:49.958000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-22 16:55:49.958000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-22 16:55:49.959000] INFO: jiekou: 全部kwargs参数信息 , {'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}, 'asserqiwang': 'code=403'}
+[2018-05-22 16:55:49.974000] INFO: jiekou: post请求出错，出错原因:No JSON object could be decoded
+[2018-05-22 16:55:49.990000] INFO: jiekou: post请求出错，出错原因:No JSON object could be decoded
+[2018-05-22 16:55:50.001000] INFO: jiekou: put请求出错，出错原因:No JSON object could be decoded
+[2018-05-22 16:55:50.013000] INFO: jiekou: get请求出错，出错原因:No JSON object could be decoded
+[2018-05-22 16:55:50.026000] INFO: jiekou: get请求出错，出错原因:No JSON object could be decoded
+[2018-05-22 16:55:50.040000] INFO: jiekou: get请求出错，出错原因:No JSON object could be decoded

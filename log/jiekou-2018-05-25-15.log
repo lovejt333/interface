@@ -1,0 +1,188 @@
+[2018-05-25 15:40:52.419000] INFO: jiekou: 当前模块 requests封装
+[2018-05-25 15:40:52.421000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:40:52.422000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-25 15:40:52.446000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-25 15:40:52.446000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case1.xlsx',)
+[2018-05-25 15:40:52.447000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-25 15:40:52.468000] INFO: jiekou: 当前模块 解析测试用例文件
+[2018-05-25 15:40:52.469000] INFO: jiekou: 全部args参数参数信息 , ('E:\\接口测试\\jiekou-python3-master\\test_case_data\\case1.xlsx',)
+[2018-05-25 15:40:52.469000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-25 15:40:52.481000] INFO: jiekou: 当前模块 测试
+[2018-05-25 15:40:52.482000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:40:52.482000] INFO: jiekou: 全部kwargs参数信息 , {}
+[2018-05-25 15:40:52.506000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:40:52.507000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:40:52.508000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:40:52.508000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:40:57.202000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productsales/1productUuids1 ,返回:{'result_act': {'errors': [], 'message': '请求参数异常', 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:40:57.205000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:40:57.206000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:40:57.208000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '请求参数异常', 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-25 15:40:58.226000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/authproduct ,返回:{'result_act': {'errors': [], 'message': '参数转换异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:40:58.228000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:40:58.230000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:40:58.232000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '参数转换异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:07.004000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/authproduct ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [array])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:07.006000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:07.008000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:07.010000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [array])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:07.944000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/attrtemprepeat ,返回:{'result_act': {'errors': [{'field': 'typeId', 'message': '分类id不能为空'}, {'field': 'attrName', 'message': '属性名称不能为空'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:07.947000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:07.949000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:07.950000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [{'field': 'typeId', 'message': '分类id不能为空'}, {'field': 'attrName', 'message': '属性名称不能为空'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:07.982000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productgroup/1uuid1 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:07.984000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:07.984000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:07.985000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:08.309000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productgroup/1uuid1 ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [object])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:08.311000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:08.313000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:08.315000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [object])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:09.618000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productgroup/1uuid1 ,返回:{'result_act': {'errors': [], 'message': 'spProductGroupRespVo属性拷贝有异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:09.620000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:09.622000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:09.624000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': 'spProductGroupRespVo属性拷贝有异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:09.656000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productgroup ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:09.658000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:09.659000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:09.661000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:09.686000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1/typeId/1pTypeId1 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:09.687000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:09.687000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:09.688000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:10.922000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1 ,返回:{'result_act': {'errors': [], 'message': '此产品id找不到有效记录', 'code': 404}, 'code': 0, 'result': 404},预期:code=403
+[2018-05-25 15:41:10.924000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:10.926000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:10.928000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '此产品id找不到有效记录', 'code': 404}, 'code': 0, 'result': 404}}
+[2018-05-25 15:41:11.118000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1 ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [object])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:11.119000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:11.120000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:11.120000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [object])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:12.511000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1 ,返回:{'result_act': {'errors': [], 'message': '服务器异常', 'code': '500'}, 'code': 0, 'result': 500},预期:code=403
+[2018-05-25 15:41:12.513000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:12.515000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:12.517000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '服务器异常', 'code': '500'}, 'code': 0, 'result': 500}}
+[2018-05-25 15:41:14.451000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productstock/1productSpecUuid1 ,返回:{'result_act': {'errors': [], 'message': '服务器异常', 'code': '500'}, 'code': 0, 'result': 500},预期:code=403
+[2018-05-25 15:41:14.453000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:14.455000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:14.457000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '服务器异常', 'code': '500'}, 'code': 0, 'result': 500}}
+[2018-05-25 15:41:14.481000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemporder ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:14.483000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:14.484000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:14.485000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:14.946000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productnum ,返回:{'result_act': {'errors': [{'field': 'partnerId', 'message': 'partnerId不是整数'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:14.948000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:14.950000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:14.952000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [{'field': 'partnerId', 'message': 'partnerId不是整数'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:15.136000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/products-stock ,返回:{'result_act': {'errors': [{'field': 'uuids', 'message': '产品id数组不能为空'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:15.137000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:15.137000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:15.138000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [{'field': 'uuids', 'message': '产品id数组不能为空'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:15.457000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/products-stock ,返回:{'result_act': {'errors': [], 'message': '不支持当前请求方法', 'code': 405}, 'code': 0, 'result': 405},预期:code=403
+[2018-05-25 15:41:15.459000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:15.461000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:15.463000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '不支持当前请求方法', 'code': 405}, 'code': 0, 'result': 405}}
+[2018-05-25 15:41:15.493000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/products ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:15.494000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:15.496000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:15.497000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:15.522000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productname ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:15.523000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:15.523000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:15.524000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:15.549000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemp ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:15.549000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:15.550000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:15.551000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:16.260000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttyperepeat ,返回:{'result_act': {'errors': [{'field': 'typeName', 'message': 'typeName不能为空'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:16.262000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:16.263000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:16.265000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [{'field': 'typeName', 'message': 'typeName不能为空'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:16.293000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productnew/1uuid1 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:16.294000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:16.295000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:16.295000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:16.340000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/saleflag ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [object])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:16.341000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:16.341000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:16.342000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [object])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:16.365000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1/productattrtemps ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:16.366000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:16.367000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:16.367000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:16.547000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/sellattrs ,返回:{'result_act': {'errors': [], 'message': '请求参数异常', 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:16.548000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:16.548000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:16.549000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '请求参数异常', 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:16.713000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1/auth ,返回:{'result_act': {'errors': [], 'message': '服务器异常', 'code': '500'}, 'code': 0, 'result': 500},预期:code=403
+[2018-05-25 15:41:16.714000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:16.714000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:16.715000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '服务器异常', 'code': '500'}, 'code': 0, 'result': 500}}
+[2018-05-25 15:41:16.808000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [object])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:16.809000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:16.811000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:16.813000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [object])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:16.952000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemp/1attrId1 ,返回:{'result_act': {'errors': [{'field': 'attrId', 'message': '属性id不是整数'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:16.953000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:16.954000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:16.955000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [{'field': 'attrId', 'message': '属性id不是整数'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:17.031000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemp/1attrId1 ,返回:{'result_act': {'errors': [], 'message': '不支持当前请求方法', 'code': 405}, 'code': 0, 'result': 405},预期:code=403
+[2018-05-25 15:41:17.031000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:17.032000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:17.032000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '不支持当前请求方法', 'code': 405}, 'code': 0, 'result': 405}}
+[2018-05-25 15:41:17.054000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productattrtemp/1attrId1 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:17.055000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:17.055000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:17.056000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:17.134000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/cpProduct/sp/1productSpecUuid1 ,返回:{'result_act': [], 'code': 0, 'result': 200},预期:code=403
+[2018-05-25 15:41:17.135000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:17.135000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:17.136000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': [], 'code': 0, 'result': 200}}
+[2018-05-25 15:41:17.249000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/product/1uuid1/abspath ,返回:{'result_act': {'errors': [], 'message': '服务器异常', 'code': '500'}, 'code': 0, 'result': 500},预期:code=403
+[2018-05-25 15:41:17.251000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:17.252000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:17.253000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '服务器异常', 'code': '500'}, 'code': 0, 'result': 500}}
+[2018-05-25 15:41:18.332000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/productsaleflag ,返回:{'result_act': {'errors': [], 'message': '参数转换异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:18.334000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:18.336000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:18.338000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '参数转换异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:18.479000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/authpartner ,返回:{'result_act': {'errors': [], 'message': '参数转换异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:18.481000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:18.482000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:18.483000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '参数转换异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:18.538000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/authpartner ,返回:{'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [array])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:18.540000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:18.541000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:18.542000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'msg': '参数错误', 'errors': [{'msg': '实例类型 (string) 不匹配定义的类型 (允许类型: [array])', 'field': '""', 'description': ''}], 'code': '400'}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:18.566000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttypes ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:18.566000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:18.567000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:18.568000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:18.662000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/sproductauth ,返回:{'result_act': {'errors': [{'field': 'partnerId', 'message': '服务商id不能为空'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:18.663000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:18.663000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:18.664000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [{'field': 'partnerId', 'message': '服务商id不能为空'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:19.345000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/spauth ,返回:{'result_act': {'errors': [], 'message': '资源不存在', 'code': '404'}, 'code': 0, 'result': 404},预期:code=403
+[2018-05-25 15:41:19.347000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:19.349000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:19.351000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [], 'message': '资源不存在', 'code': '404'}, 'code': 0, 'result': 404}}
+[2018-05-25 15:41:19.380000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/verify-saleflag ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:19.381000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:19.382000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:19.383000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:19.406000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/products-detail ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:19.406000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:19.407000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:19.408000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:20.146000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1 ,返回:{'result_act': {'errors': [{'field': 'typeId', 'message': 'typeId不是整数'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:20.148000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:20.149000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:20.150000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [{'field': 'typeId', 'message': 'typeId不是整数'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400}}
+[2018-05-25 15:41:20.175000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1 ,返回:{'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403},预期:code=403
+[2018-05-25 15:41:20.175000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:20.176000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:20.177000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'message': '没有权限访问此接口', 'error_code': 99999}, 'code': 0, 'result': 403}}
+[2018-05-25 15:41:20.246000] INFO: jiekou: inputdata> 参数:, url:http://sp.ejw.cn/ps/v1/producttype/1typeId1 ,返回:{'result_act': {'errors': [{'field': 'typeId', 'message': 'typeId不是整数'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400},预期:code=403
+[2018-05-25 15:41:20.248000] INFO: jiekou: 当前模块 断言测试结果
+[2018-05-25 15:41:20.250000] INFO: jiekou: 全部args参数参数信息 , ()
+[2018-05-25 15:41:20.252000] INFO: jiekou: 全部kwargs参数信息 , {'asserqiwang': 'code=403', 'fanhuijson': {'result_act': {'errors': [{'field': 'typeId', 'message': 'typeId不是整数'}], 'message': '参数异常', 'code': 400}, 'code': 0, 'result': 400}}

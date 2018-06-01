@@ -1,0 +1,1986 @@
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+info:
+  version: "1.0.7"
+  title: WO Service API
+  description: 业务服务--工单服务接口说明
+
+host: wo
+
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+
+#数据返回的约定
+#1.响应码只有200、400、403、404、405、500。
+#2.获取列表接口无数据时响应码200，返回空列表和page信息。
+#3.获取单个资源接口无数据时响应码404，返回404错误信息。
+#4.路径中的参数错误导致资源不存在，响应码404，返回404错误信息。
+#5.没有权限读取、修改、删除资源响应码403，返回403错误信息。
+#6.输入参数校验失败响应码400，返回400错误信息。
+#7.资源没有对应的方法响应码405，返回405错误信息。
+#8.删除资源时同时删除其相关关联关系，不要产生500错误。
+
+#必填字段约定
+#1.必填是指添加或修改信息时，该字段必须传值。
+#2.修改信息时必填字段可以不传，即为不修改。
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+paths:
+
+  /partner/{partnerId}/woprocesses:
+    get:
+      summary: 工单流程列表
+      description: 获取工单流程列表
+      tags:
+        - 设置-工单流程
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: processName
+          in: query
+          type: string
+          description: 流程名称，模糊匹配
+        - name: status
+          in: query
+          type: integer
+          description: 流程状态，0：停用；1：启用
+        - name: processType
+          in: query
+          type: integer
+          description: 流程类型，1：服务工单流程；2：实施工单流程
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 流程列表
+          schema:
+            $ref: '#/definitions/WorkProcessesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/woprocess:
+    post:
+      summary: 添加工单流程
+      description: 添加工单流程
+      tags:
+        - 设置-工单流程
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/WorkProcessReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/WorkProcessResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/woprocess/{processId}:
+    get:
+      summary: 获取工单流程基本信息
+      description: 获取工单流程基本信息
+      tags:
+        - 设置-工单流程
+      parameters:
+        - name: processId
+          in: path
+          description: 工单流程id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+
+      responses:
+        200:
+          description: 工单流程信息
+          schema:
+            $ref: '#/definitions/WorkProcessResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改工单流程
+      description: 修改工单流程
+      tags:
+        - 设置-工单流程
+      parameters:
+        - name: processId
+          in: path
+          description: 工单流程id
+          required: true
+          type: integer
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        -
+          name: body
+          in: body
+          description: 工单流程信息
+          schema:
+            $ref: '#/definitions/WorkProcessReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /partner/{partnerId}/woprocess/{processId}/status:
+    put:
+      summary: 工单流程启用停用
+      description: 工单流程启用停用
+      tags:
+        - 设置-工单流程
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - $ref: '#/parameters/PartnerId'
+        - name: processId
+          in: path
+          description: 工单流程id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            description: 状态
+            required:
+              - status
+            properties:
+              status:
+                type: integer
+                enum:
+                  - 0
+                  - 1
+                description: 状态，0，停用；1：启用
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /woprocesses:
+    get:
+      summary: 批量获取工单流程详情
+      description: 批量获取工单流程详情
+      tags:
+        - 设置-工单流程
+      parameters:
+        - name: processIds
+          in: query
+          type: string
+          description: 流程id，多个id以英文逗号分隔，全匹配
+
+      responses:
+        200:
+          description: 流程列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorkProcessResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /sp-workorders:
+    get:
+      summary: 服务商工单列表
+      description: 获取服务商工单列表
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: woId
+          in: query
+          type: string
+          description: 工单编号，全匹配
+        - name: cpId
+          in: query
+          type: integer
+          description: 供应商企业id，全匹配
+        - name: spOrderId
+          in: query
+          type: string
+          description: 订单编号（服务商），全匹配
+        - name: cpOrderId
+          in: query
+          type: string
+          description: 子订单号编号（供应商），全匹配
+        - name: srvId
+          in: query
+          type: string
+          description: 服务编号，全匹配
+        - name: productName
+          in: query
+          type: string
+          description: 产品名称，模糊匹配
+        - name: woType
+          in: query
+          type: integer
+          description: 工单类型，全匹配，1：实施工单；2：服务工单
+        - name: woFrom
+          in: query
+          type: integer
+          description: 工单来源，全匹配，0：CRM；1：CC；2：订单
+        - name: empCreate
+          in: query
+          type: integer
+          description: 创建人，全匹配
+        - name: status
+          in: query
+          type: string
+          description: 工单状态，多个状态以英文逗号分隔，0：待分配；1：未启动；2：实施中；3：待验收；4：已完成；5：已废止
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 工单列表
+          schema:
+            $ref: '#/definitions/WorkOrdersPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /cp-workorders:
+    get:
+      summary: 供应商工单列表
+      description: 获取供应商工单列表
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: woId
+          in: query
+          type: string
+          description: 工单编号，全匹配
+        - name: spId
+          in: query
+          type: integer
+          description: 服务商企业id，全匹配
+        - name: spOrderId
+          in: query
+          type: string
+          description: 订单编号（服务商），全匹配
+        - name: cpOrderId
+          in: query
+          type: string
+          description: 子订单号编号（供应商），全匹配
+        - name: productName
+          in: query
+          type: string
+          description: 产品名称，模糊匹配
+        - name: woType
+          in: query
+          type: integer
+          description: 工单类型，全匹配，1：实施工单；2：服务工单
+        - name: woFrom
+          in: query
+          type: integer
+          description: 工单来源，全匹配，0：CRM；1：CC；2：订单
+        - name: empCreate
+          in: query
+          type: integer
+          description: 创建人，全匹配
+        - name: status
+          in: query
+          type: string
+          description: 工单状态，多个状态以英文逗号分隔，0：待分配；1：未启动；2：实施中；3：待验收；4：已完成；5：已废止
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 工单列表
+          schema:
+            $ref: '#/definitions/WorkOrdersPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /my-workorders:
+    get:
+      summary: 我的工单列表
+      description: 获取我的工单列表
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: woId
+          in: query
+          type: string
+          description: 工单编号，全匹配
+        - name: spId
+          in: query
+          type: integer
+          description: 服务商企业id，全匹配
+        - name: spOrderId
+          in: query
+          type: string
+          description: 订单编号（服务商），全匹配
+        - name: cpOrderId
+          in: query
+          type: string
+          description: 子订单号编号（供应商），全匹配
+        - name: productName
+          in: query
+          type: string
+          description: 产品名称，模糊匹配
+        - name: woType
+          in: query
+          type: integer
+          description: 工单类型，全匹配，1：实施工单；2：服务工单
+        - name: woFrom
+          in: query
+          type: integer
+          description: 工单来源，全匹配，0：CRM；1：CC；2：订单
+        - name: empCreate
+          in: query
+          type: integer
+          description: 创建人，全匹配
+        - name: status
+          in: query
+          type: string
+          description: 工单状态，多个状态以英文逗号分隔，0：待分配；1：未启动；2：实施中；3：待验收；4：已完成；5：已废止
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 工单列表
+          schema:
+            $ref: '#/definitions/WorkOrdersPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /cry-workorders:
+    post:
+      summary: 批量添加实施工单
+      description: 批量添加实施工单
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorkOrderReqCry'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/WorkOrderResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /srv-workorder:
+    post:
+      summary: 添加服务工单
+      description: 添加服务工单
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/WorkOrderReqSrv'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/WorkOrderResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}:
+    get:
+      summary: 获取工单基本信息
+      description: 获取工单基本信息
+      tags:
+        - 工单
+      parameters:
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 工单信息
+          schema:
+            $ref: '#/definitions/WorkOrderResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorders/distrib:
+    put:
+      summary: 工单分配
+      description: 工单分配
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 分配信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 负责人员工id
+              woIds:
+                type: array
+                description: 工单编号数组
+                items:
+                  type: string
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}/start:
+    put:
+      summary: 工单启动
+      description: 工单启动
+      tags:
+        - 工单
+      parameters:
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 启动信息
+          schema:
+            type: object
+            properties:
+              processId:
+                type: integer
+                description: 流程ID
+          required: false
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}/check:
+    put:
+      summary: 工单提交验收
+      description: 工单提交验收
+      tags:
+        - 工单
+      parameters:
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorders/{woId}/complete:
+    put:
+      summary: 工单验收通过
+      description: 工单验收通过
+      tags:
+        - 工单
+      parameters:
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorders/{woId}/abolish:
+    put:
+      summary: 工单废止
+      description: 工单废止
+      tags:
+        - 工单
+      parameters:
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}/principal:
+    put:
+      summary: 工单转移负责人
+      description: 工单转移负责人
+      tags:
+        - 工单
+      parameters:
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 负责人员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}/stages:
+    get:
+      summary: 工单阶段列表
+      description: 获取工单阶段列表
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+
+      responses:
+        200:
+          description: 工单阶段列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WoStage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}/attachments:
+    get:
+      summary: 工单附件列表
+      description: 获取工单附件列表
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+
+      responses:
+        200:
+          description: 工单附件列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WoAttachmentResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}/attachment:
+    post:
+      summary: 添加工单附件
+      description: 添加工单附件
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/WoAttachmentReq'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/WoAttachmentResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}/stage/{recordId}/attachments:
+    get:
+      summary: 工单阶段附件列表
+      description: 获取工单阶段附件列表
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - name: recordId
+          in: path
+          description: 阶段记录id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 阶段附件列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WoStageAttachmentResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}/stage/{recordId}/attachment:
+    post:
+      summary: 添加工单阶段附件
+      description: 添加工单阶段附件
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - name: recordId
+          in: path
+          description: 阶段记录id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/WoStageAttachment'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/WoStageAttachmentResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /workorder/{woId}/stage/{recordId}/next:
+    put:
+      summary: 工单进入下一阶段
+      description: 工单进入下一阶段
+      tags:
+        - 工单
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: woId
+          in: path
+          description: 工单编号
+          required: true
+          type: string
+        - name: recordId
+          in: path
+          description: 阶段记录id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /woservices:
+    get:
+      summary: 服务（反馈）列表
+      description: 获取服务（反馈）列表
+      tags:
+        - 服务
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: beginDate
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间-起始
+        - name: endDate
+          in: query
+          type: string
+          format: date-time
+          description: 创建时间-结束
+        - name: empCreate
+          in: query
+          type: integer
+          description: 创建人，全匹配
+        - name: empPrincipal
+          in: query
+          type: integer
+          description: 负责人，全匹配
+        - name: customerName
+          in: query
+          type: string
+          description: 客户名称，模糊匹配
+        - name: srvId
+          in: query
+          type: string
+          description: 服务编号，模糊匹配
+        - name: spOrderId
+          in: query
+          type: string
+          description: 订单编号，模糊匹配
+        - name: srvLevel
+          in: query
+          type: integer
+          description: 优先级，全匹配，0：标准；1：紧急；2：高
+        - name: isTransfer
+          in: query
+          type: integer
+          description: 是否流转，全匹配，0：否；1：是
+        - name: status
+          in: query
+          type: string
+          description: 服务状态，多个状态以英文逗号分隔，0：待处理；1：处理中；2：已结单
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 服务（反馈）列表
+          schema:
+            $ref: '#/definitions/WoServicesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /woservice:
+    post:
+      summary: 添加服务（反馈）
+      description: 添加服务（反馈）
+      tags:
+        - 服务
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/WoServiceReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/WoServiceResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /woservice/{srvId}:
+    get:
+      summary: 获取服务（反馈）基本信息
+      description: 获取服务（反馈）基本信息
+      tags:
+        - 服务
+      parameters:
+        - name: srvId
+          in: path
+          description: 服务编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          description: 服务（反馈）基本信息
+          schema:
+            $ref: '#/definitions/WoServiceResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+    put:
+      summary: 修改服务（反馈）信息
+      description: 修改服务（反馈）信息
+      tags:
+        - 服务
+      parameters:
+        - name: srvId
+          in: path
+          description: 服务编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 服务（反馈）基本信息
+          schema:
+            $ref: '#/definitions/WoServiceReqPut'
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /woservices/distrib:
+    put:
+      summary: 分配服务（反馈）
+      description: 分配服务（反馈）
+      tags:
+        - 服务
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 分配信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 负责人员工id
+              srvIds:
+                type: array
+                description: 服务编号数组
+                items:
+                  type: string
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /woservice/{srvId}/complete:
+    put:
+      summary: 服务（反馈）结单
+      description: 服务（反馈）结单
+      tags:
+        - 服务
+      parameters:
+        - name: srvId
+          in: path
+          description: 服务编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /woservice/{srvId}/back:
+    put:
+      summary: 服务（反馈）退签
+      description: 服务（反馈）退签
+      tags:
+        - 服务
+      parameters:
+        - name: srvId
+          in: path
+          description: 服务编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /woservice/{srvId}/principal:
+    put:
+      summary: 服务（反馈）转移负责人
+      description: 服务（反馈）转移负责人
+      tags:
+        - 服务
+      parameters:
+        - name: srvId
+          in: path
+          description: 服务编号
+          required: true
+          type: string
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要修改的信息
+          schema:
+            type: object
+            properties:
+              empPrincipal:
+                type: integer
+                description: 客户负责人员工id
+          required: true
+
+      responses:
+        200:
+          $ref: '#/responses/PutResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /wonotes:
+    get:
+      summary: 批注列表
+      description: 获取批注列表，默认按创建时间倒序
+      tags:
+        - 服务
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: srvId
+          in: query
+          type: string
+          description: 服务编号，全匹配
+          required: true
+        - $ref: '#/parameters/PageNo'
+        - $ref: '#/parameters/PageSize'
+        - $ref: '#/parameters/Sort'
+
+      responses:
+        200:
+          description: 批注列表
+          schema:
+            $ref: '#/definitions/WoNotesPage'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /wonote:
+    post:
+      summary: 添加批注
+      description: 添加批注
+      tags:
+        - 服务
+      parameters:
+        - $ref: '#/parameters/EmpIds'
+        - $ref: '#/parameters/CurEmpId'
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/WoNoteReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/WoNoteResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+  /ptservice:
+    post:
+      summary: 添加服务（反馈）
+      description: 添加服务（反馈）
+      tags:
+        - 平台
+      parameters:
+        - name: body
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/WoServiceReqPost'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+          schema:
+            $ref: '#/definitions/WoServiceResp'
+        400:
+          $ref: '#/responses/ParametersErr'
+        404:
+          $ref: '#/responses/NotFoundErr'
+        500:
+          $ref: '#/responses/InnerErr'
+
+################################################################################
+#                                 Parameters                                  #
+################################################################################
+parameters:
+  PageNo:
+    name: pageNo
+    in: query
+    description: 当前页码，默认第1页
+    required: false
+    type: integer
+    format: int32
+    minimum: 1
+    default: 1
+
+  PageSize:
+    name: pageSize
+    in: query
+    description: 每页记录数，默认10条
+    required: false
+    type: integer
+    format: int32
+    minimum: 1
+    maximum: 99999
+    default: 10
+
+  Sort:
+    name: sort
+    in: query
+    description: 排序方式，json格式：{"id":"asc","name":"desc"} ，必须Url编码
+    required: false
+    type: string
+    format: json
+
+  EmpIds:
+    name: emp-ids
+    in: header
+    description: 当前操作员工id列表
+    required: true
+    type: string
+
+  CurEmpId:
+    name: curEmpId
+    in: query
+    description: 当前操作员工id
+    required: true
+    type: integer
+    format: int32
+
+  PartnerId:
+    name: partnerId
+    in: path
+    description: 合作伙伴id
+    required: true
+    type: integer
+    format: int32
+
+################################################################################
+#                                 Responses                                  #
+################################################################################
+responses:
+  PutResp:
+    description: 修改成功
+    schema:
+      $ref: '#/definitions/RowsResp'
+
+  DeleteResp:
+    description: 删除成功
+    schema:
+      $ref: '#/definitions/RowsResp'
+
+  ParametersErr:
+    description: 参数异常
+    schema:
+      $ref: '#/definitions/Error'
+
+  NotFoundErr:
+    description: 资源不存在
+    schema:
+      $ref: '#/definitions/Error'
+
+  InnerErr:
+    description: 内部错误
+    schema:
+      $ref: '#/definitions/Error'
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  Gmt:
+    type: object
+    description: 时间信息
+    properties:
+      gmtCreate:
+        type: string
+        format: date-time
+        description: 创建时间
+      gmtModified:
+        type: string
+        format: date-time
+        description: 修改时间
+
+  Emp:
+    type: object
+    description: 数据员工信息
+    properties:
+      empCreate:
+        type: integer
+        description: 创建人员工id
+      empModified:
+        type: integer
+        description: 修改人员工id
+
+  WorkProcessesPage:
+    type: object
+    description: 工单流程列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/WorkProcessBaseResp'
+
+  WorkProcessBaseResp:
+    type: object
+    description: 工单流程基础响应实体
+    allOf:
+    - $ref: '#/definitions/WorkProcess'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      processId:
+        type: integer
+        description: 流程ID
+      partnerId:
+        type: integer
+        description: 企业id
+      status:
+        type: integer
+        description: 流程状态，0：停用；1：启用
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+
+  WorkProcessResp:
+    type: object
+    description: 工单流程响应实体
+    allOf:
+    - $ref: '#/definitions/WorkProcess'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      processId:
+        type: integer
+        description: 流程ID
+      partnerId:
+        type: integer
+        description: 企业id
+      status:
+        type: integer
+        description: 流程状态，0：停用；1：启用
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+      stages:
+        type: array
+        items:
+          type: object
+          description: 流程阶段
+          properties:
+            stageId:
+              type: integer
+              description: 阶段ID
+            stageOrder:
+              type: integer
+              description: 排序号
+            stageName:
+              type: string
+              description: 阶段名称
+
+  WorkProcessReqPost:
+    type: object
+    description: 工单流程添加实体
+    required:
+    - processName
+    allOf:
+    - $ref: '#/definitions/WorkProcess'
+    properties:
+      stages:
+        type: array
+        items:
+          type: object
+          description: 流程阶段
+          properties:
+            stageOrder:
+              type: integer
+              description: 排序号
+            stageName:
+              type: string
+              description: 阶段名称
+
+  WorkProcessReqPut:
+    type: object
+    description: 工单流程修改实体
+    allOf:
+    - $ref: '#/definitions/WorkProcess'
+    properties:
+      stages:
+        type: array
+        items:
+          type: object
+          description: 流程阶段
+          properties:
+            stageId:
+              type: integer
+              description: 阶段ID
+            stageOrder:
+              type: integer
+              description: 排序号
+            stageName:
+              type: string
+              description: 阶段名称
+
+  WorkProcess:
+    type: object
+    description: 工单流程实体
+    properties:
+      processName:
+        type: string
+        description: 流程名称
+      processType:
+        type: integer
+        description: 流程类型，1：服务工单流程；2：实施工单流程
+
+  WorkOrdersPage:
+    type: object
+    description: 工单信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/WorkOrderResp'
+
+  WorkOrderResp:
+    type: object
+    description: 工单信息响应实体
+    allOf:
+    - $ref: '#/definitions/WorkOrder'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      woId:
+        type: string
+        description: 工单编号，14位：I+13位时间戳， 如I1503220921070
+      gmtDistrib:
+        type: string
+        format: date-time
+        description: 分配时间
+      gmtStart:
+        type: string
+        format: date-time
+        description: 启动时间
+      gmtWork:
+        type: string
+        format: date-time
+        description: 实施时间
+      gmtCheck:
+        type: string
+        format: date-time
+        description: 验收时间
+      gmtComplete:
+        type: string
+        format: date-time
+        description: 完成时间
+      gmtAbolish:
+        type: string
+        format: date-time
+        description: 废止时间
+      empDistrib:
+        type: integer
+        description: 分配人员工id
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+      empCheck:
+        type: integer
+        description: 验收人员工id
+      status:
+        type: integer
+        description: 工单状态，0：待分配；1：未启动；2：实施中；3：待验收；4：已完成；5：已废止
+      curStage:
+        type: integer
+        description: 当前阶段，对应阶段记录id
+      empDistribName:
+        type: string
+        description: 分配人员工姓名
+      empPrincipalName:
+        type: string
+        description: 负责人姓名
+      cpName:
+        type: string
+        description: 供应商企业名称
+      spName:
+        type: string
+        description: 服务商企业名称
+      curStageName:
+        type: string
+        description: 当前阶段名称
+      cpOrder:
+        $ref: '#/definitions/WoCpOrder'
+
+  WorkOrderReqCry:
+    type: object
+    description: 实施工单信息添加实体
+    required:
+    - spId
+    - cpId
+    - woType
+    - woFrom
+    - processName
+    - cpOrder
+    - stages
+    allOf:
+    - $ref: '#/definitions/WorkOrder'
+    properties:
+      cpOrder:
+        $ref: '#/definitions/WoCpOrder'
+      stages:
+        type: array
+        items:
+          type: object
+          description: 工单流程阶段
+          required:
+          - stageName
+          - stageOrder
+          properties:
+            stageName:
+              type: string
+              description: 阶段名称
+            stageOrder:
+              type: integer
+              description: 阶段排序号
+
+  WorkOrderReqSrv:
+    type: object
+    description: 服务工单信息添加实体
+    required:
+    - cpOrders
+    properties:
+      srvId:
+        type: string
+        description: 服务编号，14位：F+13位时间戳， 如F1503220921070
+      woFrom:
+        type: integer
+        description: 工单来源，0：CRM；1：CC；2：订单
+      spId:
+        type: integer
+        description: 服务商企业id
+      cpOrders:
+        type: array
+        items:
+          type: object
+          description: 子订单信息实体
+          properties:
+            cpId:
+              type: integer
+              description: 供应商企业id
+            cpOrder:
+              $ref: '#/definitions/WoCpOrder'
+            attachment:
+              $ref: '#/definitions/WoAttachment'
+
+  WorkOrder:
+    type: object
+    description: 工单信息实体
+    properties:
+      spId:
+        type: integer
+        description: 服务商企业id
+      cpId:
+        type: integer
+        description: 供应商企业id
+      srvId:
+        type: string
+        description: 服务编号，14位：F+13位时间戳， 如F1503220921070
+      woName:
+        type: string
+        description: 工单名称（主题）
+      woLevel:
+        type: integer
+        description: 优先级，0：标准；1：紧急；2：高
+      woDesc:
+        type: string
+        description: 需求描述
+      woType:
+        type: integer
+        description: 工单类型，1：实施工单；2：服务工单
+      woFrom:
+        type: integer
+        description: 工单来源，0：CRM；1：CC；2：订单
+      processName:
+        type: string
+        description: 流程名称
+
+  WoCpOrder:
+    type: object
+    description: 供应商订单产品信息
+    properties:
+      spOrderId:
+        type: string
+        description: 订单编号（服务商）
+      cpOrderId:
+        type: string
+        description: 子订单号编号（供应商）
+      specId:
+        type: string
+        description: 产品实例id（SKU）
+      specSkuAttr:
+        type: string
+        description: 产品SKU属性字符串‘，’分隔
+      productSpecName:
+        type: string
+        description: 产品实例名称
+      typeId:
+        type: integer
+        description: 产品分类
+      productCode:
+        type: string
+        description: 产品编码
+      productName:
+        type: string
+        description: 产品名称
+      typeName:
+        type: string
+        description: 产品类型(单品、捆绑产品)
+      amount:
+        type: integer
+        description: 购买数量
+
+  WoStage:
+    type: object
+    description: 工单阶段信息实体
+    properties:
+      recordId:
+        type: integer
+        description: 记录ID，自增
+      gmtComplete:
+        type: string
+        format: date-time
+        description: 完成时间
+      woId:
+        type: string
+        description: 工单编号
+      stageName:
+        type: string
+        description: 阶段名称
+      stageOrder:
+        type: integer
+        description: 阶段排序号
+      status:
+        type: integer
+        description: 阶段状态，0：未开始；1：进行中；2：已完成
+      attachments:
+        type: array
+        items:
+          $ref: '#/definitions/WoStageAttachmentResp'
+
+  WoStageAttachmentResp:
+    type: object
+    description: 工单阶段附件信息响应实体
+    allOf:
+    - $ref: '#/definitions/WoStageAttachment'
+    properties:
+      gmtCreate:
+        type: string
+        format: date-time
+        description: 创建时间
+
+  WoStageAttachment:
+    type: object
+    description: 工单阶段附件信息实体
+    properties:
+      fileName:
+        type: string
+        description: 附件文件名
+      fileUrl:
+        type: string
+        description: 附件文件地址
+
+  WoAttachmentResp:
+    type: object
+    description: 工单附件信息响应实体
+    allOf:
+    - $ref: '#/definitions/WoAttachment'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      attaId:
+        type: integer
+        description: 附件ID，自增
+      woId:
+        type: string
+        description: 工单编号
+
+  WoAttachmentReq:
+    type: object
+    description: 工单附件信息添加实体
+    required:
+    - fileName
+    - fileUrl
+    allOf:
+    - $ref: '#/definitions/WoAttachment'
+
+  WoAttachment:
+    type: object
+    description: 工单附件信息实体
+    properties:
+      fileName:
+        type: string
+        description: 附件文件名
+      fileUrl:
+        type: string
+        description: 附件文件地址
+      attaDesc:
+        type: string
+        description: 附件备注
+
+  WoServicesPage:
+    type: object
+    description: 服务信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/WoServiceResp'
+
+  WoServiceResp:
+    type: object
+    description: 服务信息响应实体
+    allOf:
+    - $ref: '#/definitions/WoService'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      srvId:
+        type: string
+        description: 服务编号，14位：F+13位时间戳， 如F1503220921070
+      status:
+        type: integer
+        description: 服务状态，0：待处理；1：处理中；2：已结单
+      isTransfer:
+        type: integer
+        description: 是否流转，0：否；1：是
+      gmtDistrib:
+        type: string
+        format: date-time
+        description: 分配时间
+      empDistrib:
+        type: integer
+        description: 分配人员工id
+      empPrincipal:
+        type: integer
+        description: 负责人员工id
+      empDistribName:
+        type: string
+        description: 分配人员工姓名
+      empPrincipalName:
+        type: string
+        description: 负责人姓名
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+
+  WoServiceReqPost:
+    type: object
+    description: 服务信息添加实体
+    required:
+    - srvName
+    allOf:
+    - $ref: '#/definitions/WoService'
+
+  WoServiceReqPut:
+    type: object
+    description: 服务信息修改实体
+    allOf:
+    - $ref: '#/definitions/WoService'
+
+  WoService:
+    type: object
+    description: 服务信息实体
+    properties:
+      spId:
+        type: integer
+        description: 服务商企业id
+      cpId:
+        type: integer
+        description: 供应商企业id
+      spOrderId:
+        type: string
+        description: 关联订单id
+      srvName:
+        type: string
+        description: 服务名称（主题）
+      srvLevel:
+        type: integer
+        description: 优先级，0：标准；1：紧急；2：高
+      customerName:
+        type: string
+        description: 客户名称
+      contactName:
+        type: string
+        description: 联系人
+      phone:
+        type: string
+        description: 联系电话
+      srvDesc:
+        type: string
+        description: 需求描述
+      srvFileName:
+        type: string
+        description: 需求描述附件名
+      srvFileUrl:
+        type: string
+        description: 需求描述附件地址
+      srvFrom:
+        type: integer
+        description: 服务来源，0：CRM；1：CC；2：订单
+
+  WoNotesPage:
+    type: object
+    description: 服务批注信息列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/WoNoteResp'
+
+  WoNoteResp:
+    type: object
+    description: 服务批注信息响应实体
+    allOf:
+    - $ref: '#/definitions/WoNote'
+    - $ref: '#/definitions/Gmt'
+    - $ref: '#/definitions/Emp'
+    properties:
+      noteId:
+        type: integer
+        description: 批注ID，自增
+      empCreateName:
+        type: string
+        description: 创建员工姓名
+
+  WoNoteReqPost:
+    type: object
+    description: 服务批注信息添加实体
+    required:
+    - srvId
+    - noteContent
+    allOf:
+    - $ref: '#/definitions/WoNote'
+
+  WoNote:
+    type: object
+    description: 服务批注信息实体
+    properties:
+      srvId:
+        type: string
+        description: 服务编号
+      noteContent:
+        type: string
+        description: 批注内容
+
+  RowsResp:
+    type: object
+    description: 修改/删除成功响应实体
+    properties:
+      rows:
+        type: integer
+        description: 影响行数
+
+  Page:
+    type: object
+    description: 分页信息
+    properties:
+      page:
+        type: integer
+        description: 当前页码
+      nextPage:
+        type: integer
+        description: 下一页页码
+      prePage:
+        type: integer
+        description: 上一页页码
+      totalPages:
+        type: integer
+        description: 总页数
+      totalCount:
+        type: integer
+        description: 总记录数
+      firstPage:
+        type: boolean
+        description: 是否为首页
+      lastPage:
+        type: boolean
+        description: 是否为尾页
+      hasPrePage:
+        type: boolean
+        description: 是否有上一页
+      hasNextPage:
+        type: boolean
+        description: 是否有下一页
+      startRow:
+        type: integer
+        description: 当前页起始行
+      endRow:
+        type: integer
+        description: 当前页结束行
+
+  Error:
+    type: object
+    description: 错误Bean
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: string
+        description: 错误码
+      message:
+        type: string
+        description: 错误描述
+      errors:
+        type: array
+        description: 具体错误
+        items:
+          $ref: '#/definitions/ErrorMsg'
+
+  ErrorMsg:
+    type: object
+    description: 错误消息详细信息
+    properties:
+      field:
+        type: string
+        description: 错误字段
+      message:
+        type: string
+        description: 错误原因
