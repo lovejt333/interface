@@ -15,7 +15,7 @@ if not os.path.exists(LOG_DIR):
     file_stream = True
 
 
-def get_logger(name='jiekou', file_log=file_stream, level=''):
+def get_logger(name='智平台测试', file_log=file_stream, level=''):
     """ get logger Factory function """
     logbook.set_datetime_format('local')
     ColorizedStderrHandler(bubble=False, level=level).push_thread()
